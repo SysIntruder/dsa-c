@@ -25,11 +25,11 @@ struct singly_ll
 
     void (*push_front)(singly_ll_t**, int);
     void (*push_back)(singly_ll_t**, int);
-    void (*push_after)(singly_ll_t**, singly_node_t**, int);
+    void (*push_after)(singly_ll_t**, int, int);
 
     void (*pop_front)(singly_ll_t**);
     void (*pop_back)(singly_ll_t**);
-    void (*pop_after)(singly_ll_t**, singly_node_t**);
+    void (*pop_after)(singly_ll_t**, int);
 
     void (*reverse)(singly_ll_t**);
     void (*sort)(singly_ll_t**);
@@ -46,11 +46,11 @@ singly_node_t* search_node(singly_ll_t*, int, int*);
 
 void push_front(singly_ll_t**, int);
 void push_back(singly_ll_t**, int);
-void push_after(singly_ll_t**, singly_node_t**, int);
+void push_after(singly_ll_t**, int, int);
 
 void pop_front(singly_ll_t**);
 void pop_back(singly_ll_t**);
-void pop_after(singly_ll_t**, singly_node_t**);
+void pop_after(singly_ll_t**, int);
 
 void reverse(singly_ll_t**);
 void sort(singly_ll_t**);

@@ -87,14 +87,14 @@ void demo()
     printf("Node at Position %d: %d\n", pos, p_node->data);
     printf("\n");
 
-    printf("Push After %d: 5\n", p_node->data);
-    p_ll->push_after(&p_ll, &p_node, 5);
+    printf("Push After Position %d: 5\n", pos);
+    p_ll->push_after(&p_ll, pos, 5);
     p_ll->display(p_ll);
     printf("Length: %d\n", p_ll->get_length(p_ll));
     printf("\n");
 
-    printf("Push After %d: 6\n", p_node->data);
-    p_ll->push_after(&p_ll, &p_node, 6);
+    printf("Push After Position %d: 6\n", p_node->data);
+    p_ll->push_after(&p_ll, pos, 6);
     p_ll->display(p_ll);
     printf("Length: %d\n", p_ll->get_length(p_ll));
     printf("\n");
@@ -138,8 +138,8 @@ void demo()
     }
     printf("\n");
 
-    printf("Pop After %d\n", p_node->data);
-    p_ll->pop_after(&p_ll, &p_node);
+    printf("Pop After Position %d\n", pos);
+    p_ll->pop_after(&p_ll, pos);
     p_ll->display(p_ll);
     printf("Length: %d\n", p_ll->get_length(p_ll));
     printf("\n");
@@ -223,8 +223,7 @@ void singly_ll()
             scanf("%d", &pos);
             printf("Input Data:\n");
             scanf("%d", &data);
-            p_node = p_ll->get_node(p_ll, pos);
-            p_ll->push_after(&p_ll, &p_node, data);
+            p_ll->push_after(&p_ll, pos, data);
             printf("Data Pushed\n");
             p_ll->display(p_ll);
 
@@ -247,8 +246,7 @@ void singly_ll()
             printf("Pop After\n\n");
             printf("Choose Node Position:\n");
             scanf("%d", &pos);
-            p_node = p_ll->get_node(p_ll, pos);
-            p_ll->pop_after(&p_ll, &p_node);
+            p_ll->pop_after(&p_ll, pos);
             printf("Data Popped\n");
             p_ll->display(p_ll);
 

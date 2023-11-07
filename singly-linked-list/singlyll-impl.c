@@ -37,7 +37,6 @@ int count(singly_node_t* p_node)
     {
         return 1 + count(p_node->p_next);
     }
-    
 }
 
 singly_node_t* get_node(singly_ll_t* p_ll, int pos)
@@ -68,7 +67,7 @@ singly_node_t* search_node(singly_ll_t* p_ll, int data, int* pos)
 
             return p_node;
         }
-        
+
         p_node = p_node->p_next;
         count++;
     }
@@ -103,7 +102,7 @@ void push_back(singly_ll_t** pp_ll, int data)
 
         return;
     }
-    
+
     singly_node_t* p_node = (*pp_ll)->head;
 
     while (p_node->p_next != NULL)
@@ -117,15 +116,33 @@ void push_back(singly_ll_t** pp_ll, int data)
     return;
 }
 
-void push_after(singly_ll_t** pp_ll, singly_node_t** pp_node, int data)
+void push_after(singly_ll_t** pp_ll, int pos, int data)
 {
-    if (!*pp_node) return;
+    if (pos < 0 || pos > (*pp_ll)->_len) return;
+
+    if (pos == 0)
+    {
+        push_front(pp_ll, data);
+
+        return;
+    }
+
+    if (pos == (*pp_ll)->_len)
+    {
+        push_back(pp_ll, data);
+
+        return;
+    }
+
+    singly_node_t* p_node = get_node(*pp_ll, pos);
+
+    if (!p_node) return;
 
     singly_node_t* p_new_node = (singly_node_t*)malloc(sizeof(singly_node_t));
 
     p_new_node->data = data;
-    p_new_node->p_next = (*pp_node)->p_next;
-    (*pp_node)->p_next = p_new_node;
+    p_new_node->p_next = p_node->p_next;
+    p_node->p_next = p_new_node;
     (*pp_ll)->_len += 1;
 
     return;
@@ -173,14 +190,34 @@ void pop_back(singly_ll_t** pp_ll)
     return;
 }
 
-void pop_after(singly_ll_t** pp_ll, singly_node_t** pp_node)
+void pop_after(singly_ll_t** pp_ll, int pos)
 {
-    if (!*pp_node) return;
-    if (!(*pp_node)->p_next) return;
+    int next_pos = pos + 1;
 
-    singly_node_t* p_tmp = (*pp_node)->p_next;
+    if (pos < 0 || next_pos > (*pp_ll)->_len) return;
 
-    (*pp_node)->p_next = p_tmp->p_next;
+    if (pos == 0)
+    {
+        pop_front(pp_ll);
+
+        return;
+    }
+
+    if (next_pos == (*pp_ll)->_len)
+    {
+        pop_back(pp_ll);
+
+        return;
+    }
+
+    singly_node_t* p_node = get_node(*pp_ll, pos);
+
+    if (!p_node) return;
+    if (!p_node->p_next) return;
+
+    singly_node_t* p_tmp = p_node->p_next;
+
+    p_node->p_next = p_tmp->p_next;
     free(p_tmp);
     (*pp_ll)->_len -= 1;
 

@@ -12,7 +12,7 @@ int get_length(singly_ll_t* p_ll)
     return p_ll->_len;
 }
 
-void display(singly_ll_t* p_ll)
+void traverse(singly_ll_t* p_ll)
 {
     singly_node_t* p_node = p_ll->head;
 
@@ -367,7 +367,7 @@ singly_ll_t* create_singly_ll()
     p_self->check_empty = &check_empty;
     p_self->get_length = &get_length;
 
-    p_self->display = &display;
+    p_self->display = &traverse;
     p_self->count = &count;
 
     p_self->get_node = &get_node;

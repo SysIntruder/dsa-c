@@ -42,7 +42,7 @@ struct singly_ll
 int check_empty(singly_ll_t*);
 int get_length(singly_ll_t*);
 
-void display(singly_ll_t*);
+void traverse(singly_ll_t*);
 int count(singly_node_t*);
 
 int search(singly_ll_t*, int);

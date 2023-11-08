@@ -54,26 +54,20 @@ singly_node_t* get_node(singly_ll_t* p_ll, int pos)
     return p_node;
 }
 
-singly_node_t* search_node(singly_ll_t* p_ll, int data, int* pos)
+int search_node(singly_ll_t* p_ll, int data)
 {
     int count = 1;
     singly_node_t* p_node = p_ll->head;
 
     while (p_node)
     {
-        if (p_node->data == data)
-        {
-            *pos = count;
-
-            return p_node;
-        }
+        if (p_node->data == data) return count;
 
         p_node = p_node->p_next;
         count++;
     }
 
-    *pos = 0;
-    return p_node;
+    return count;
 }
 
 void push_front(singly_ll_t** pp_ll, int data)

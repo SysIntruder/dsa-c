@@ -21,7 +21,7 @@ struct singly_ll
     int (*count)(singly_node_t*);
 
     singly_node_t* (*get_node)(singly_ll_t*, int);
-    singly_node_t* (*search_node)(singly_ll_t*, int, int*);
+    int (*search_node)(singly_ll_t*, int);
 
     void (*push_front)(singly_ll_t**, int);
     void (*push_back)(singly_ll_t**, int);
@@ -44,7 +44,7 @@ void display(singly_ll_t*);
 int count(singly_node_t*);
 
 singly_node_t* get_node(singly_ll_t*, int);
-singly_node_t* search_node(singly_ll_t*, int, int*);
+int search_node(singly_ll_t*, int);
 
 void push_front(singly_ll_t**, int);
 void push_back(singly_ll_t**, int);

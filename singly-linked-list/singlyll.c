@@ -127,7 +127,7 @@ void demo()
 
     int data = 3;
     printf("Search Data: %d\n", data);
-    p_node = p_ll->search_node(p_ll, data, &pos);
+    pos = p_ll->search_node(p_ll, data);
     if (pos)
     {
         printf("Data Found at Position: %d\n", pos);
@@ -170,7 +170,8 @@ void singly_ll()
     printf("10)\tReverse\n");
     printf("11)\tSort\n");
     printf("12)\tSearch Node\n");
-    printf("13)\tExit\n");
+    printf("13)\tReset\n");
+    printf("14)\tExit\n");
 
     while (1)
     {
@@ -192,8 +193,8 @@ void singly_ll()
             printf("9)\tPop After Node\n");
             printf("10)\tReverse\n");
             printf("11)\tSort\n");
-            printf("12)\tSearch Node\n");
-            printf("13)\tExit\n");
+            printf("13)\tReset\n");
+            printf("14)\tExit\n");
 
             break;
         case 1:
@@ -295,7 +296,7 @@ void singly_ll()
             printf("Search Data\n\n");
             printf("Input Search Data\n");
             scanf("%d", &search);
-            p_ll->search_node(p_ll, search, &pos);
+            pos = p_ll->search_node(p_ll, search);
 
             if (pos)
             {
@@ -309,6 +310,13 @@ void singly_ll()
 
             break;
         case 13:
+            printf("Resetting\n");
+            destroy_singly_ll(p_ll);
+            p_ll = create_singly_ll();
+            system("clear");
+
+            break;
+        case 14:
             printf("Exiting\n");
             destroy_singly_ll(p_ll);
             exit(0);

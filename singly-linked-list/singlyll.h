@@ -45,8 +45,8 @@ int get_length(singly_ll_t*);
 void display(singly_ll_t*);
 int count(singly_node_t*);
 
+int search(singly_ll_t*, int);
 singly_node_t* get_node(singly_ll_t*, int);
-int search_node(singly_ll_t*, int);
 
 void push_front(singly_ll_t**, int);
 void push_back(singly_ll_t**, int);

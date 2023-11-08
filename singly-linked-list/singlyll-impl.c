@@ -54,7 +54,7 @@ singly_node_t* get_node(singly_ll_t* p_ll, int pos)
     return p_node;
 }
 
-int search_node(singly_ll_t* p_ll, int data)
+int search(singly_ll_t* p_ll, int data)
 {
     int count = 1;
     singly_node_t* p_node = p_ll->head;
@@ -371,7 +371,7 @@ singly_ll_t* create_singly_ll()
     p_self->count = &count;
 
     p_self->get_node = &get_node;
-    p_self->search_node = &search_node;
+    p_self->search_node = &search;
 
     p_self->push_front = &push_front;
     p_self->push_back = &push_back;

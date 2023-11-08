@@ -158,7 +158,7 @@ void singly_ll()
     printf("Interactive Singly Linked List\n");
     printf("choose operation:\n\n");
     printf("0)\tShow Operation\n");
-    printf("1)\ttraverse Status\n");
+    printf("1)\tDisplay Status\n");
     printf("2)\tPush Front\n");
     printf("3)\tPush Back\n");
     printf("4)\tPush After Position\n");
@@ -185,7 +185,7 @@ void singly_ll()
         {
         case 0:
             printf("0)\tShow Operation\n");
-            printf("1)\ttraverse Status\n");
+            printf("1)\tDisplay Status\n");
             printf("2)\tPush Front\n");
             printf("3)\tPush Back\n");
             printf("4)\tPush After Position\n");

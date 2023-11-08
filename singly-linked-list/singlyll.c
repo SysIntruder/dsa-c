@@ -166,12 +166,15 @@ void singly_ll()
     printf("6)\tPush At Position\n");
     printf("7)\tPop Front\n");
     printf("8)\tPop Back\n");
-    printf("9)\tPop After Node\n");
-    printf("10)\tReverse\n");
-    printf("11)\tSort\n");
-    printf("12)\tSearch Node\n");
-    printf("13)\tReset\n");
-    printf("14)\tExit\n");
+    printf("9)\tPop After Position\n");
+    printf("10)\tPop Before Position\n");
+    printf("11)\tPop At Position\n");
+    printf("12)\tReverse\n");
+    printf("13)\tSort\n");
+    printf("14)\tSearch Node\n");
+    printf("15)\tClear Screen\n");
+    printf("16)\tReset\n");
+    printf("17)\tExit\n");
 
     while (1)
     {
@@ -190,14 +193,19 @@ void singly_ll()
             printf("6)\tPush At Position\n");
             printf("7)\tPop Front\n");
             printf("8)\tPop Back\n");
-            printf("9)\tPop After Node\n");
-            printf("10)\tReverse\n");
-            printf("11)\tSort\n");
-            printf("13)\tReset\n");
-            printf("14)\tExit\n");
+            printf("9)\tPop After Position\n");
+            printf("10)\tPop Before Position\n");
+            printf("11)\tPop At Position\n");
+            printf("12)\tReverse\n");
+            printf("13)\tSort\n");
+            printf("14)\tSearch Node\n");
+            printf("15)\tClear Screen\n");
+            printf("16)\tReset\n");
+            printf("17)\tExit\n");
 
             break;
         case 1:
+            printf("== Information ==\n\n");
             printf("Current Position: %d\n", pos);
             printf("Current Node: %d\n", p_node ? p_node->data : 0);
             printf("Current Length: %d\n", p_ll->get_length(p_ll));
@@ -205,7 +213,7 @@ void singly_ll()
 
             break;
         case 2:
-            printf("Push Front\n\n");
+            printf("== Push Front ==\n\n");
             printf("Input Data:\n");
             scanf("%d", &data);
             p_ll->push_front(&p_ll, data);
@@ -214,7 +222,7 @@ void singly_ll()
 
             break;
         case 3:
-            printf("Push Back\n\n");
+            printf("== Push Back ==\n\n");
             printf("Input Data:\n");
             scanf("%d", &data);
             p_ll->push_back(&p_ll, data);
@@ -223,7 +231,7 @@ void singly_ll()
 
             break;
         case 4:
-            printf("Push After\n\n");
+            printf("== Push After ==\n\n");
             printf("Choose Node Position:\n");
             scanf("%d", &pos);
             printf("Input Data:\n");
@@ -234,7 +242,7 @@ void singly_ll()
 
             break;
         case 5:
-            printf("Push Before\n\n");
+            printf("== Push Before ==\n\n");
             printf("Choose Node Position:\n");
             scanf("%d", &pos);
             printf("Input Data:\n");
@@ -245,7 +253,7 @@ void singly_ll()
 
             break;
         case 6:
-            printf("Push At\n\n");
+            printf("== Push At ==\n\n");
             printf("Choose Node Position:\n");
             scanf("%d", &pos);
             printf("Input Data:\n");
@@ -256,21 +264,21 @@ void singly_ll()
 
             break;
         case 7:
-            printf("Pop Front\n\n");
+            printf("== Pop Front ==\n\n");
             p_ll->pop_front(&p_ll);
             printf("Data Popped\n");
             p_ll->display(p_ll);
 
             break;
         case 8:
-            printf("Pop Back\n\n");
+            printf("== Pop Back ==\n\n");
             p_ll->pop_back(&p_ll);
             printf("Data Popped\n");
             p_ll->display(p_ll);
 
             break;
         case 9:
-            printf("Pop After\n\n");
+            printf("== Pop After ==\n\n");
             printf("Choose Node Position:\n");
             scanf("%d", &pos);
             p_ll->pop_after(&p_ll, pos);
@@ -279,21 +287,39 @@ void singly_ll()
 
             break;
         case 10:
-            printf("Reverse\n\n");
+            printf("== Pop Before ==\n\n");
+            printf("Choose Node Position:\n");
+            scanf("%d", &pos);
+            p_ll->pop_before(&p_ll, pos);
+            printf("Data Popped\n");
+            p_ll->display(p_ll);
+
+            break;
+        case 11:
+            printf("== Pop At ==\n\n");
+            printf("Choose Node Position:\n");
+            scanf("%d", &pos);
+            p_ll->pop_at(&p_ll, pos);
+            printf("Data Popped\n");
+            p_ll->display(p_ll);
+
+            break;
+        case 12:
+            printf("== Reverse ==\n\n");
             p_ll->reverse(&p_ll);
             printf("Data Reversed\n");
             p_ll->display(p_ll);
 
             break;
-        case 11:
-            printf("Sort\n\n");
+        case 13:
+            printf("== Sort ==\n\n");
             p_ll->sort(&p_ll);
             printf("Data Sorted\n");
             p_ll->display(p_ll);
 
             break;
-        case 12:
-            printf("Search Data\n\n");
+        case 14:
+            printf("== Search Data ==\n\n");
             printf("Input Search Data\n");
             scanf("%d", &search);
             pos = p_ll->search_node(p_ll, search);
@@ -309,15 +335,23 @@ void singly_ll()
             p_ll->display(p_ll);
 
             break;
-        case 13:
-            printf("Resetting\n");
+        case 15:
+            system("clear");
+
+            break;
+        case 16:
+            pos = 0;
+            data = 0;
+            search = 0;
+            free(p_node);
+            p_node = NULL;
             destroy_singly_ll(p_ll);
             p_ll = create_singly_ll();
             system("clear");
 
             break;
-        case 14:
-            printf("Exiting\n");
+        case 17:
+            printf("== Exiting ==\n");
             destroy_singly_ll(p_ll);
             exit(0);
         default:

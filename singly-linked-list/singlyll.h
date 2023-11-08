@@ -32,6 +32,8 @@ struct singly_ll
     void (*pop_front)(singly_ll_t**);
     void (*pop_back)(singly_ll_t**);
     void (*pop_after)(singly_ll_t**, int);
+    void (*pop_before)(singly_ll_t**, int);
+    void (*pop_at)(singly_ll_t**, int);
 
     void (*reverse)(singly_ll_t**);
     void (*sort)(singly_ll_t**);
@@ -55,6 +57,8 @@ void push_at(singly_ll_t**, int, int);
 void pop_front(singly_ll_t**);
 void pop_back(singly_ll_t**);
 void pop_after(singly_ll_t**, int);
+void pop_before(singly_ll_t**, int);
+void pop_at(singly_ll_t**, int);
 
 void reverse(singly_ll_t**);
 void sort(singly_ll_t**);

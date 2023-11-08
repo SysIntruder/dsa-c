@@ -250,6 +250,58 @@ void pop_after(singly_ll_t** pp_ll, int pos)
     return;
 }
 
+void pop_before(singly_ll_t** pp_ll, int pos)
+{
+    int max_pos = (*pp_ll)->_len + 1;
+
+    if (pos < 2 || pos > max_pos) return;
+
+    if (pos == 2)
+    {
+        pop_front(pp_ll);
+
+        return;
+    }
+
+    if (pos == max_pos)
+    {
+        pop_back(pp_ll);
+
+        return;
+    }
+
+    int dbl_prev_pos = pos - 2;
+
+    pop_after(pp_ll, dbl_prev_pos);
+
+    return;
+}
+
+void pop_at(singly_ll_t** pp_ll, int pos)
+{
+    if (pos < 1 || pos > (*pp_ll)->_len) return;
+
+    if (pos == 1)
+    {
+        pop_front(pp_ll);
+
+        return;
+    }
+
+    if (pos == (*pp_ll)->_len)
+    {
+        pop_back(pp_ll);
+
+        return;
+    }
+
+    int prev_pos = pos - 1;
+
+    pop_after(pp_ll, prev_pos);
+
+    return;
+}
+
 void reverse(singly_ll_t** pp_ll)
 {
     if (!(*pp_ll)->head) return;
@@ -330,6 +382,8 @@ singly_ll_t* create_singly_ll()
     p_self->pop_front = &pop_front;
     p_self->pop_back = &pop_back;
     p_self->pop_after = &pop_after;
+    p_self->pop_before = &pop_before;
+    p_self->pop_at = &pop_at;
 
     p_self->reverse = &reverse;
     p_self->sort = &sort;

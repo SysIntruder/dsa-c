@@ -367,11 +367,11 @@ singly_ll_t* create_singly_ll()
     p_self->check_empty = &check_empty;
     p_self->get_length = &get_length;
 
-    p_self->display = &traverse;
+    p_self->traverse = &traverse;
     p_self->count = &count;
 
     p_self->get_node = &get_node;
-    p_self->search_node = &search;
+    p_self->search = &search;
 
     p_self->push_front = &push_front;
     p_self->push_back = &push_back;

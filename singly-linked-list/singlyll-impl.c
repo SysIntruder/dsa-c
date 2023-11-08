@@ -67,7 +67,7 @@ int search_node(singly_ll_t* p_ll, int data)
         count++;
     }
 
-    return count;
+    return 0;
 }
 
 void push_front(singly_ll_t** pp_ll, int data)

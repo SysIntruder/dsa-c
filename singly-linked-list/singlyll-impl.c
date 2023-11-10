@@ -163,13 +163,6 @@ void push_before(singly_ll_t** pp_ll, int pos, int data)
     return;
 }
 
-void push_at(singly_ll_t** pp_ll, int pos, int data)
-{
-    push_before(pp_ll, pos, data);
-
-    return;
-}
-
 void pop_front(singly_ll_t** pp_ll)
 {
     if (!(*pp_ll)->head) return;
@@ -373,7 +366,7 @@ singly_ll_t* create_singly_ll()
     p_self->push_back = &push_back;
     p_self->push_after = &push_after;
     p_self->push_before = &push_before;
-    p_self->push_at = &push_at;
+    p_self->push_at = &push_before;
 
     p_self->pop_front = &pop_front;
     p_self->pop_back = &pop_back;

@@ -29,14 +29,9 @@ void traverse(singly_ll_t* p_ll)
 
 int count(singly_node_t* p_node)
 {
-    if (!p_node)
-    {
-        return 0;
-    }
-    else
-    {
-        return 1 + count(p_node->p_next);
-    }
+    if (!p_node) return 0;
+
+    return 1 + count(p_node->p_next);
 }
 
 singly_node_t* get_node(singly_ll_t* p_ll, int pos)
@@ -112,7 +107,7 @@ void push_back(singly_ll_t** pp_ll, int data)
 
 void push_after(singly_ll_t** pp_ll, int pos, int data)
 {
-    if (pos < 0 || pos > (*pp_ll)->_len) return;
+    if (pos < 0 || pos >(*pp_ll)->_len) return;
 
     if (pos == 0)
     {
@@ -146,7 +141,7 @@ void push_before(singly_ll_t** pp_ll, int pos, int data)
 {
     int prev_pos = pos - 1;
 
-    if (pos < 1 || prev_pos > (*pp_ll)->_len) return;
+    if (pos < 1 || prev_pos >(*pp_ll)->_len) return;
 
     if (pos == 1)
     {
@@ -220,7 +215,7 @@ void pop_after(singly_ll_t** pp_ll, int pos)
 {
     int next_pos = pos + 1;
 
-    if (pos < 0 || next_pos > (*pp_ll)->_len) return;
+    if (pos < 0 || next_pos >(*pp_ll)->_len) return;
 
     if (pos == 0)
     {
@@ -279,7 +274,7 @@ void pop_before(singly_ll_t** pp_ll, int pos)
 
 void pop_at(singly_ll_t** pp_ll, int pos)
 {
-    if (pos < 1 || pos > (*pp_ll)->_len) return;
+    if (pos < 1 || pos >(*pp_ll)->_len) return;
 
     if (pos == 1)
     {

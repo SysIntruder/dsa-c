@@ -39,30 +39,6 @@ struct singly_ll
     void (*sort)(singly_ll_t**);
 };
 
-int check_empty(singly_ll_t*);
-int get_length(singly_ll_t*);
-
-void traverse(singly_ll_t*);
-int count(singly_node_t*);
-
-int search(singly_ll_t*, int);
-singly_node_t* get_node(singly_ll_t*, int);
-
-void push_front(singly_ll_t**, int);
-void push_back(singly_ll_t**, int);
-void push_after(singly_ll_t**, int, int);
-void push_before(singly_ll_t**, int, int);
-void push_at(singly_ll_t**, int, int);
-
-void pop_front(singly_ll_t**);
-void pop_back(singly_ll_t**);
-void pop_after(singly_ll_t**, int);
-void pop_before(singly_ll_t**, int);
-void pop_at(singly_ll_t**, int);
-
-void reverse(singly_ll_t**);
-void sort(singly_ll_t**);
-
 singly_ll_t* create_singly_ll();
 void destroy_singly_ll(singly_ll_t*);
 

@@ -67,5 +67,17 @@ int main(int argc, char *argv[])
     printf("Length: %d\n", p_ll->get_length(p_ll));
     printf("\n");
 
+    printf("Pop Front\n");
+    p_ll->pop_front(&p_ll);
+    p_ll->traverse(p_ll);
+    printf("Length: %d\n", p_ll->get_length(p_ll));
+    printf("\n");
+
+    printf("Pop Back\n");
+    p_ll->pop_back(&p_ll);
+    p_ll->traverse(p_ll);
+    printf("Length: %d\n", p_ll->get_length(p_ll));
+    printf("\n");
+
     return 0;
 }

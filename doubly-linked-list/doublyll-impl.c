@@ -196,6 +196,49 @@ void push_before(doubly_ll_t** pp_ll, int pos, int data)
     return;
 }
 
+void pop_front(doubly_ll_t** pp_ll)
+{
+    if (!(*pp_ll)->head) return;
+
+    doubly_node_t* p_tmp = (*pp_ll)->head;
+
+    (*pp_ll)->head = p_tmp->p_next;
+    (*pp_ll)->head->p_prev = NULL;
+    free(p_tmp);
+    (*pp_ll)->_len -= 1;
+
+    return;
+}
+
+void pop_back(doubly_ll_t** pp_ll)
+{
+    if (!(*pp_ll)->head) return;
+
+    if (!(*pp_ll)->head->p_next)
+    {
+        free((*pp_ll)->head);
+        (*pp_ll)->head = NULL;
+        (*pp_ll)->_len -= 1;
+
+        return;
+    }
+
+    doubly_node_t* p_tmp = (*pp_ll)->head;
+
+    while (p_tmp->p_next->p_next != NULL)
+    {
+        p_tmp = p_tmp->p_next;
+    }
+
+    doubly_node_t* p_last = p_tmp->p_next;
+
+    p_tmp->p_next = NULL;
+    free(p_last);
+    (*pp_ll)->_len -= 1;
+
+    return;
+}
+
 doubly_ll_t* create_doubly_ll()
 {
     doubly_ll_t* p_self = (doubly_ll_t*)malloc(sizeof(doubly_ll_t));
@@ -217,6 +260,9 @@ doubly_ll_t* create_doubly_ll()
     p_self->push_after = &push_after;
     p_self->push_before = &push_before;
     p_self->push_at = &push_before;
+
+    p_self->pop_front = &pop_front;
+    p_self->pop_back = &pop_back;
 
     return p_self;
 }

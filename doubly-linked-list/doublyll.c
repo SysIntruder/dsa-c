@@ -55,5 +55,17 @@ int main(int argc, char *argv[])
     printf("Length: %d\n", p_ll->get_length(p_ll));
     printf("\n");
 
+    printf("Push Before Position %d: 7\n", pos);
+    p_ll->push_before(&p_ll, pos, 7);
+    p_ll->traverse(p_ll);
+    printf("Length: %d\n", p_ll->get_length(p_ll));
+    printf("\n");
+
+    printf("Push Before Position %d: 8\n", pos);
+    p_ll->push_before(&p_ll, pos, 8);
+    p_ll->traverse(p_ll);
+    printf("Length: %d\n", p_ll->get_length(p_ll));
+    printf("\n");
+
     return 0;
 }

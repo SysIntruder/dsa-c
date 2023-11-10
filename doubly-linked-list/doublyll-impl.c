@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "doublyll.h"
+#include "../color.h"
 
 int check_empty(doubly_ll_t* p_ll)
 {
@@ -17,18 +18,18 @@ void traverse(doubly_ll_t* p_ll)
     doubly_node_t* p_node = p_ll->head;
     doubly_node_t* p_prev = NULL;
 
-    printf("NULL<");
+    printf("NULL" RED "<");
 
     while (p_node)
     {
         if (p_prev == p_node->p_prev) printf("-");
 
-        printf(">%d<", p_node->data);
+        printf(">" RESET "%d" RED "<", p_node->data);
         p_prev = p_node;
         p_node = p_node->p_next;
     }
 
-    printf("->NULL\n");
+    printf("->" RESET "NULL\n");
 
     return;
 }
@@ -159,6 +160,42 @@ void push_after(doubly_ll_t** pp_ll, int pos, int data)
     return;
 }
 
+void push_before(doubly_ll_t** pp_ll, int pos, int data)
+{
+    int prev_pos = pos - 1;
+
+    if (pos < 1 || prev_pos >(*pp_ll)->_len) return;
+
+    if (pos == 1)
+    {
+        push_front(pp_ll, data);
+
+        return;
+    }
+
+    if (prev_pos == (*pp_ll)->_len)
+    {
+        push_back(pp_ll, data);
+
+        return;
+    }
+
+    doubly_node_t* p_node = get_node(*pp_ll, pos);
+
+    if (!p_node) return;
+
+    doubly_node_t* p_new_node = (doubly_node_t*)malloc(sizeof(doubly_node_t));
+
+    p_new_node->data = data;
+    p_new_node->p_next = p_node;
+    p_new_node->p_prev = p_node->p_prev;
+    p_node->p_prev->p_next = p_new_node;
+    p_node->p_prev = p_new_node;
+    (*pp_ll)->_len += 1;
+
+    return;
+}
+
 doubly_ll_t* create_doubly_ll()
 {
     doubly_ll_t* p_self = (doubly_ll_t*)malloc(sizeof(doubly_ll_t));
@@ -178,6 +215,8 @@ doubly_ll_t* create_doubly_ll()
     p_self->push_front = &push_front;
     p_self->push_back = &push_back;
     p_self->push_after = &push_after;
+    p_self->push_before = &push_before;
+    p_self->push_at = &push_before;
 
     return p_self;
 }

@@ -27,6 +27,8 @@ struct doubly_ll
     void (*push_front)(doubly_ll_t**, int);
     void (*push_back)(doubly_ll_t**, int);
     void (*push_after)(doubly_ll_t**, int, int);
+    void (*push_before)(doubly_ll_t**, int, int);
+    void (*push_at)(doubly_ll_t**, int, int);
 };
 
 doubly_ll_t* create_doubly_ll();

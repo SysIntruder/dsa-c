@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "singlyll.h"
+#include "../color.h"
 
 int check_empty(singly_ll_t* p_ll)
 {
@@ -18,7 +19,7 @@ void traverse(singly_ll_t* p_ll)
 
     while (p_node)
     {
-        printf("%d-->", p_node->data);
+        printf("%d" RED "-->" RESET, p_node->data);
         p_node = p_node->p_next;
     }
 

@@ -38,11 +38,11 @@ int main(int argc, char const* argv[])
 
 void init_coord(coord_t* coord)
 {
-    printf("x1:");
+    printf("x:");
     scanf("%lf", &(coord->x));
-    printf("y1:");
+    printf("y:");
     scanf("%lf", &(coord->y));
-    printf("z1:");
+    printf("z:");
     scanf("%lf", &(coord->z));
     printf("\n");
 

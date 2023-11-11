@@ -5,7 +5,7 @@
 
 int check_empty(doubly_ll_t* p_ll)
 {
-    return !p_ll->head ? 1 : 0;
+    return !p_ll->head;
 }
 
 int get_length(doubly_ll_t* p_ll)

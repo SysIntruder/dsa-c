@@ -5,7 +5,7 @@
 
 int check_empty(circular_ll_t* p_ll)
 {
-    return !p_ll->head ? 1 : 0;
+    return !p_ll->head;
 }
 
 int get_length(circular_ll_t* p_ll)

@@ -81,7 +81,7 @@ void demo()
     printf("Length: %d\n", p_ll->get_length(p_ll));
     printf("\n");
 
-    int pos = 2;
+    int pos = 3;
     printf("Get Node at Position: %d\n", pos);
     singly_node_t* p_node = p_ll->get_node(p_ll, pos);
     printf("Node at Position %d: %d\n", pos, p_node->data);
@@ -99,18 +99,28 @@ void demo()
     printf("Length: %d\n", p_ll->get_length(p_ll));
     printf("\n");
 
-    printf("Check Empty: %d\n", p_ll->check_empty(p_ll));
-    printf("Count Length: %d\n", p_ll->count(p_ll->head));
+    printf("Push Before Position %d: 7\n", pos);
+    p_ll->push_before(&p_ll, pos, 7);
+    p_ll->traverse(p_ll);
+    printf("Length: %d\n", p_ll->get_length(p_ll));
     printf("\n");
 
-    printf("Reverse:\n");
-    p_ll->reverse(&p_ll);
+    printf("Push Before Position %d: 8\n", pos);
+    p_ll->push_before(&p_ll, pos, 8);
     p_ll->traverse(p_ll);
+    printf("Length: %d\n", p_ll->get_length(p_ll));
     printf("\n");
 
-    printf("Sort:\n");
-    p_ll->sort(&p_ll);
+    printf("Push At Position %d: 9\n", pos);
+    p_ll->push_at(&p_ll, pos, 9);
     p_ll->traverse(p_ll);
+    printf("Length: %d\n", p_ll->get_length(p_ll));
+    printf("\n");
+
+    printf("Push At Position %d: 10\n", pos);
+    p_ll->push_at(&p_ll, pos, 10);
+    p_ll->traverse(p_ll);
+    printf("Length: %d\n", p_ll->get_length(p_ll));
     printf("\n");
 
     printf("Pop Front\n");
@@ -125,21 +135,38 @@ void demo()
     printf("Length: %d\n", p_ll->get_length(p_ll));
     printf("\n");
 
-    int data = 3;
-    printf("Search Data: %d\n", data);
+    int data = 8;
+    printf("Search Node: %d\n", data);
     pos = p_ll->search(p_ll, data);
-    if (pos)
-    {
-        printf("Data Found at Position: %d\n", pos);
-    }
-    else
-    {
-        printf("Data Not Found\n");
-    }
+    printf("Node found at Position %d: %d\n", pos);
     printf("\n");
 
     printf("Pop After Position %d\n", pos);
     p_ll->pop_after(&p_ll, pos);
+    p_ll->traverse(p_ll);
+    printf("Length: %d\n", p_ll->get_length(p_ll));
+    printf("\n");
+
+    printf("Pop Before Position %d\n", pos);
+    p_ll->pop_before(&p_ll, pos);
+    p_ll->traverse(p_ll);
+    printf("Length: %d\n", p_ll->get_length(p_ll));
+    printf("\n");
+
+    printf("Pop At Position %d\n", pos);
+    p_ll->pop_at(&p_ll, pos);
+    p_ll->traverse(p_ll);
+    printf("Length: %d\n", p_ll->get_length(p_ll));
+    printf("\n");
+
+    printf("Reverse:\n");
+    p_ll->reverse(&p_ll);
+    p_ll->traverse(p_ll);
+    printf("Length: %d\n", p_ll->get_length(p_ll));
+    printf("\n");
+
+    printf("Sort:\n");
+    p_ll->sort(&p_ll);
     p_ll->traverse(p_ll);
     printf("Length: %d\n", p_ll->get_length(p_ll));
     printf("\n");

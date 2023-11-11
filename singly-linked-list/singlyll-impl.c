@@ -88,9 +88,8 @@ void push_back(singly_ll_t** pp_ll, int data)
     if (!(*pp_ll)->head)
     {
         (*pp_ll)->head = p_new_node;
-        (*pp_ll)->_len += 1;
 
-        return;
+        goto finish;
     }
 
     singly_node_t* p_node = (*pp_ll)->head;
@@ -101,6 +100,8 @@ void push_back(singly_ll_t** pp_ll, int data)
     }
 
     p_node->p_next = p_new_node;
+
+finish:
     (*pp_ll)->_len += 1;
 
     return;
@@ -113,14 +114,12 @@ void push_after(singly_ll_t** pp_ll, int pos, int data)
     if (pos == 0)
     {
         push_front(pp_ll, data);
-
         return;
     }
 
     if (pos == (*pp_ll)->_len)
     {
         push_back(pp_ll, data);
-
         return;
     }
 
@@ -147,19 +146,16 @@ void push_before(singly_ll_t** pp_ll, int pos, int data)
     if (pos == 1)
     {
         push_front(pp_ll, data);
-
         return;
     }
 
     if (prev_pos == (*pp_ll)->_len)
     {
         push_back(pp_ll, data);
-
         return;
     }
 
     push_after(pp_ll, prev_pos, data);
-
     return;
 }
 
@@ -184,9 +180,8 @@ void pop_back(singly_ll_t** pp_ll)
     {
         free((*pp_ll)->head);
         (*pp_ll)->head = NULL;
-        (*pp_ll)->_len -= 1;
 
-        return;
+        goto finish;
     }
 
     singly_node_t* p_tmp = (*pp_ll)->head;
@@ -200,6 +195,8 @@ void pop_back(singly_ll_t** pp_ll)
 
     p_tmp->p_next = NULL;
     free(p_last);
+
+finish:
     (*pp_ll)->_len -= 1;
 
     return;
@@ -214,14 +211,12 @@ void pop_after(singly_ll_t** pp_ll, int pos)
     if (pos == 0)
     {
         pop_front(pp_ll);
-
         return;
     }
 
     if (next_pos == (*pp_ll)->_len)
     {
         pop_back(pp_ll);
-
         return;
     }
 
@@ -247,21 +242,18 @@ void pop_before(singly_ll_t** pp_ll, int pos)
     if (pos == 2)
     {
         pop_front(pp_ll);
-
         return;
     }
 
     if (pos == max_pos)
     {
         pop_back(pp_ll);
-
         return;
     }
 
     int dbl_prev_pos = pos - 2;
 
     pop_after(pp_ll, dbl_prev_pos);
-
     return;
 }
 
@@ -272,21 +264,18 @@ void pop_at(singly_ll_t** pp_ll, int pos)
     if (pos == 1)
     {
         pop_front(pp_ll);
-
         return;
     }
 
     if (pos == (*pp_ll)->_len)
     {
         pop_back(pp_ll);
-
         return;
     }
 
     int prev_pos = pos - 1;
 
     pop_after(pp_ll, prev_pos);
-
     return;
 }
 

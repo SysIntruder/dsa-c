@@ -16,10 +16,10 @@ struct doubly_ll
     int _len;
 
     int (*check_empty)(doubly_ll_t*);
-    int (*get_length)(doubly_ll_t*);
 
     void (*traverse)(doubly_ll_t*);
     int (*count)(doubly_node_t*);
+    int (*length)(doubly_ll_t*);
 
     doubly_node_t* (*get_node)(doubly_ll_t*, int);
     int (*search)(doubly_ll_t*, int);

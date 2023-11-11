@@ -82,7 +82,7 @@ int search(circular_ll_t* p_ll, int data)
     return 0;
 }
 
-void push_front(circular_ll_t** pp_ll, int data)
+void push_new(circular_ll_t** pp_ll, int data, circular_node_t** node)
 {
     circular_node_t* p_new_node = (circular_node_t*)malloc(sizeof(circular_node_t));
 
@@ -94,45 +94,31 @@ void push_front(circular_ll_t** pp_ll, int data)
         p_new_node->p_next = p_new_node;
         (*pp_ll)->head = p_new_node;
         (*pp_ll)->tail = p_new_node;
-        (*pp_ll)->_len += 1;
 
-        return;
+        goto finish;
     }
 
     p_new_node->p_next = (*pp_ll)->head;
     p_new_node->p_prev = (*pp_ll)->tail;
     (*pp_ll)->head->p_prev = p_new_node;
     (*pp_ll)->tail->p_next = p_new_node;
-    (*pp_ll)->head = p_new_node;
+    *node = p_new_node;
+
+finish:
     (*pp_ll)->_len += 1;
 
     return;
 }
 
+void push_front(circular_ll_t** pp_ll, int data)
+{
+    push_new(pp_ll, data, &(*pp_ll)->head);
+    return;
+}
+
 void push_back(circular_ll_t** pp_ll, int data)
 {
-    circular_node_t* p_new_node = (circular_node_t*)malloc(sizeof(circular_node_t));
-
-    p_new_node->data = data;
-
-    if (!(*pp_ll)->head || !(*pp_ll)->tail)
-    {
-        p_new_node->p_prev = p_new_node;
-        p_new_node->p_next = p_new_node;
-        (*pp_ll)->head = p_new_node;
-        (*pp_ll)->tail = p_new_node;
-        (*pp_ll)->_len += 1;
-
-        return;
-    }
-
-    p_new_node->p_next = (*pp_ll)->head;
-    p_new_node->p_prev = (*pp_ll)->tail;
-    (*pp_ll)->head->p_prev = p_new_node;
-    (*pp_ll)->tail->p_next = p_new_node;
-    (*pp_ll)->tail = p_new_node;
-    (*pp_ll)->_len += 1;
-
+    push_new(pp_ll, data, &(*pp_ll)->tail);
     return;
 }
 
@@ -143,14 +129,12 @@ void push_after(circular_ll_t** pp_ll, int pos, int data)
     if (pos == 0)
     {
         push_front(pp_ll, data);
-
         return;
     }
 
     if (pos == (*pp_ll)->_len)
     {
         push_back(pp_ll, data);
-
         return;
     }
 
@@ -179,14 +163,12 @@ void push_before(circular_ll_t** pp_ll, int pos, int data)
     if (pos == 1)
     {
         push_front(pp_ll, data);
-
         return;
     }
 
     if (prev_pos == (*pp_ll)->_len)
     {
         push_back(pp_ll, data);
-
         return;
     }
 
@@ -227,7 +209,7 @@ void pop_back(circular_ll_t** pp_ll)
     circular_node_t* p_tmp = (*pp_ll)->tail;
 
     (*pp_ll)->tail = p_tmp->p_prev;
-    (*pp_ll)->head->p_prev = (*pp_ll)->tail;
+    (*pp_ll)->tail->p_next = (*pp_ll)->head;
     free(p_tmp);
     (*pp_ll)->_len -= 1;
 
@@ -243,14 +225,12 @@ void pop_after(circular_ll_t** pp_ll, int pos)
     if (pos == 0)
     {
         pop_front(pp_ll);
-
         return;
     }
 
     if (next_pos == (*pp_ll)->_len)
     {
         pop_back(pp_ll);
-
         return;
     }
 
@@ -277,14 +257,12 @@ void pop_before(circular_ll_t** pp_ll, int pos)
     if (pos == 2)
     {
         pop_front(pp_ll);
-
         return;
     }
 
     if (pos == max_pos)
     {
         pop_back(pp_ll);
-
         return;
     }
 
@@ -309,14 +287,12 @@ void pop_at(circular_ll_t** pp_ll, int pos)
     if (pos == 1)
     {
         pop_front(pp_ll);
-
         return;
     }
 
     if (pos == (*pp_ll)->_len)
     {
         pop_back(pp_ll);
-
         return;
     }
 

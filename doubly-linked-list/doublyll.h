@@ -32,6 +32,9 @@ struct doubly_ll
 
     void (*pop_front)(doubly_ll_t**);
     void (*pop_back)(doubly_ll_t**);
+    void (*pop_after)(doubly_ll_t**, int);
+    void (*pop_before)(doubly_ll_t**, int);
+    void (*pop_at)(doubly_ll_t**, int);
 };
 
 doubly_ll_t* create_doubly_ll();

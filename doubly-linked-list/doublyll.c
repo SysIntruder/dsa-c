@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
     printf("Length: %d\n", p_ll->get_length(p_ll));
     printf("\n");
 
-    int pos = 2;
+    int pos = 3;
     printf("Get Node at Position: %d\n", pos);
     doubly_node_t* p_node = p_ll->get_node(p_ll, pos);
     printf("Node at Position %d: %d\n", pos, p_node->data);
@@ -75,6 +75,24 @@ int main(int argc, char *argv[])
 
     printf("Pop Back\n");
     p_ll->pop_back(&p_ll);
+    p_ll->traverse(p_ll);
+    printf("Length: %d\n", p_ll->get_length(p_ll));
+    printf("\n");
+
+    printf("Pop After Position %d\n", pos);
+    p_ll->pop_after(&p_ll, pos);
+    p_ll->traverse(p_ll);
+    printf("Length: %d\n", p_ll->get_length(p_ll));
+    printf("\n");
+
+    printf("Pop Before Position %d\n", pos);
+    p_ll->pop_before(&p_ll, pos);
+    p_ll->traverse(p_ll);
+    printf("Length: %d\n", p_ll->get_length(p_ll));
+    printf("\n");
+
+    printf("Pop At Position %d\n", pos);
+    p_ll->pop_at(&p_ll, pos);
     p_ll->traverse(p_ll);
     printf("Length: %d\n", p_ll->get_length(p_ll));
     printf("\n");

@@ -18,18 +18,18 @@ void traverse(doubly_ll_t* p_ll)
     doubly_node_t* p_node = p_ll->head;
     doubly_node_t* p_prev = NULL;
 
-    printf("NULL" RED "<");
+    printf("NULL" BLU " <");
 
     while (p_node)
     {
-        if (p_prev == p_node->p_prev) printf("-");
+        if (p_prev == p_node->p_prev) printf("=");
 
-        printf(">" RESET "%d" RED "<", p_node->data);
+        printf("> " RESET "%d" BLU " <", p_node->data);
         p_prev = p_node;
         p_node = p_node->p_next;
     }
 
-    printf("->" RESET "NULL\n");
+    printf("=> " RESET "NULL\n");
 
     return;
 }
@@ -239,6 +239,114 @@ void pop_back(doubly_ll_t** pp_ll)
     return;
 }
 
+void pop_after(doubly_ll_t** pp_ll, int pos)
+{
+    int next_pos = pos + 1;
+
+    if (pos < 0 || next_pos >(*pp_ll)->_len) return;
+
+    if (pos == 0)
+    {
+        pop_front(pp_ll);
+
+        return;
+    }
+
+    if (next_pos == (*pp_ll)->_len)
+    {
+        pop_back(pp_ll);
+
+        return;
+    }
+
+    doubly_node_t* p_node = get_node(*pp_ll, pos);
+
+    if (!p_node) return;
+    if (!p_node->p_next) return;
+
+    doubly_node_t* p_tmp = p_node->p_next;
+
+    p_node->p_next = p_tmp->p_next;
+    p_tmp->p_next->p_prev = p_node;
+    free(p_tmp);
+    (*pp_ll)->_len -= 1;
+
+    return;
+}
+
+void pop_before(doubly_ll_t** pp_ll, int pos)
+{
+    int max_pos = (*pp_ll)->_len + 1;
+
+    if (pos < 2 || pos > max_pos) return;
+
+    if (pos == 2)
+    {
+        pop_front(pp_ll);
+
+        return;
+    }
+
+    if (pos == max_pos)
+    {
+        pop_back(pp_ll);
+
+        return;
+    }
+
+    doubly_node_t* p_node = get_node(*pp_ll, pos);
+
+    if (!p_node) return;
+    if (!p_node->p_prev) return;
+
+    doubly_node_t* p_tmp = p_node->p_prev;
+
+    p_node->p_prev = p_tmp->p_prev;
+    p_tmp->p_prev->p_next = p_node;
+    free(p_tmp);
+    (*pp_ll)->_len -= 1;
+
+    return;
+}
+
+void pop_at(doubly_ll_t** pp_ll, int pos)
+{
+    if (pos < 1 || pos >(*pp_ll)->_len) return;
+
+    if (pos == 1)
+    {
+        pop_front(pp_ll);
+
+        return;
+    }
+
+    if (pos == (*pp_ll)->_len)
+    {
+        pop_back(pp_ll);
+
+        return;
+    }
+
+    doubly_node_t* p_tmp = get_node(*pp_ll, pos);
+
+    if (!p_tmp) return;
+
+    if (p_tmp->p_prev)
+    {
+        p_tmp->p_prev->p_next = p_tmp->p_next;
+    }
+
+    if (p_tmp->p_next)
+    {
+        p_tmp->p_next->p_prev = p_tmp->p_prev;
+    }
+
+    free(p_tmp);
+    (*pp_ll)->_len -= 1;
+
+    return;
+}
+
 doubly_ll_t* create_doubly_ll()
 {
     doubly_ll_t* p_self = (doubly_ll_t*)malloc(sizeof(doubly_ll_t));
@@ -263,6 +371,9 @@ doubly_ll_t* create_doubly_ll()
 
     p_self->pop_front = &pop_front;
     p_self->pop_back = &pop_back;
+    p_self->pop_after = &pop_after;
+    p_self->pop_before = &pop_before;
+    p_self->pop_at = &pop_at;
 
     return p_self;
 }

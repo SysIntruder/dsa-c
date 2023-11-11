@@ -12,13 +12,12 @@ typedef struct singly_ll singly_ll_t;
 struct singly_ll
 {
     singly_node_t* head;
-    int _len;
 
     int (*check_empty)(singly_ll_t*);
-    int (*get_length)(singly_ll_t*);
 
     void (*traverse)(singly_ll_t*);
     int (*count)(singly_node_t*);
+    int (*length)(singly_ll_t*);
 
     singly_node_t* (*get_node)(singly_ll_t*, int);
     int (*search)(singly_ll_t*, int);

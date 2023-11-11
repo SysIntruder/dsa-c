@@ -8,11 +8,6 @@ int check_empty(singly_ll_t* p_ll)
     return !p_ll->head;
 }
 
-int get_length(singly_ll_t* p_ll)
-{
-    return p_ll->_len;
-}
-
 void traverse(singly_ll_t* p_ll)
 {
     singly_node_t* p_node = p_ll->head;
@@ -35,9 +30,18 @@ int count(singly_node_t* p_node)
     return 1 + count(p_node->p_next);
 }
 
+int length(singly_ll_t* p_ll)
+{
+    singly_node_t* p_head = p_ll->head;
+
+    return count(p_head);
+}
+
 singly_node_t* get_node(singly_ll_t* p_ll, int pos)
 {
-    if (pos < 1 || pos > p_ll->_len) return NULL;
+    int len = length(p_ll);
+
+    if (pos < 1 || pos > len) return NULL;
     if (pos == 1) return p_ll->head;
 
     singly_node_t* p_node = p_ll->head;
@@ -73,7 +77,6 @@ void push_front(singly_ll_t** pp_ll, int data)
     p_new_node->data = data;
     p_new_node->p_next = (*pp_ll)->head;
     (*pp_ll)->head = p_new_node;
-    (*pp_ll)->_len += 1;
 
     return;
 }
@@ -98,14 +101,15 @@ void push_back(singly_ll_t** pp_ll, int data)
     p_new_node->data = data;
     p_new_node->p_next = NULL;
     p_node->p_next = p_new_node;
-    (*pp_ll)->_len += 1;
 
     return;
 }
 
 void push_after(singly_ll_t** pp_ll, int pos, int data)
 {
-    if (pos < 0 || pos >(*pp_ll)->_len) return;
+    int len = length(*pp_ll);
+
+    if (pos < 0 || pos > len) return;
 
     if (pos == 0)
     {
@@ -113,7 +117,7 @@ void push_after(singly_ll_t** pp_ll, int pos, int data)
         return;
     }
 
-    if (pos == (*pp_ll)->_len)
+    if (pos == len)
     {
         push_back(pp_ll, data);
         return;
@@ -128,16 +132,16 @@ void push_after(singly_ll_t** pp_ll, int pos, int data)
     p_new_node->data = data;
     p_new_node->p_next = p_node->p_next;
     p_node->p_next = p_new_node;
-    (*pp_ll)->_len += 1;
 
     return;
 }
 
 void push_before(singly_ll_t** pp_ll, int pos, int data)
 {
+    int len = length(*pp_ll);
     int prev_pos = pos - 1;
 
-    if (pos < 1 || prev_pos >(*pp_ll)->_len) return;
+    if (pos < 1 || prev_pos > len) return;
 
     if (pos == 1)
     {
@@ -145,7 +149,7 @@ void push_before(singly_ll_t** pp_ll, int pos, int data)
         return;
     }
 
-    if (prev_pos == (*pp_ll)->_len)
+    if (prev_pos == len)
     {
         push_back(pp_ll, data);
         return;
@@ -163,7 +167,6 @@ void pop_front(singly_ll_t** pp_ll)
 
     (*pp_ll)->head = p_tmp->p_next;
     free(p_tmp);
-    (*pp_ll)->_len -= 1;
 
     return;
 }
@@ -177,7 +180,7 @@ void pop_back(singly_ll_t** pp_ll)
         free((*pp_ll)->head);
         (*pp_ll)->head = NULL;
 
-        goto finish;
+        return;
     }
 
     singly_node_t* p_tmp = (*pp_ll)->head;
@@ -192,17 +195,15 @@ void pop_back(singly_ll_t** pp_ll)
     p_tmp->p_next = NULL;
     free(p_last);
 
-finish:
-    (*pp_ll)->_len -= 1;
-
     return;
 }
 
 void pop_after(singly_ll_t** pp_ll, int pos)
 {
+    int len = length(*pp_ll);
     int next_pos = pos + 1;
 
-    if (pos < 0 || next_pos >(*pp_ll)->_len) return;
+    if (pos < 0 || next_pos > len) return;
 
     if (pos == 0)
     {
@@ -210,7 +211,7 @@ void pop_after(singly_ll_t** pp_ll, int pos)
         return;
     }
 
-    if (next_pos == (*pp_ll)->_len)
+    if (next_pos == len)
     {
         pop_back(pp_ll);
         return;
@@ -224,14 +225,13 @@ void pop_after(singly_ll_t** pp_ll, int pos)
 
     p_node->p_next = p_tmp->p_next;
     free(p_tmp);
-    (*pp_ll)->_len -= 1;
 
     return;
 }
 
 void pop_before(singly_ll_t** pp_ll, int pos)
 {
-    int max_pos = (*pp_ll)->_len + 1;
+    int max_pos = length(*pp_ll) + 1;
 
     if (pos < 2 || pos > max_pos) return;
 
@@ -255,7 +255,9 @@ void pop_before(singly_ll_t** pp_ll, int pos)
 
 void pop_at(singly_ll_t** pp_ll, int pos)
 {
-    if (pos < 1 || pos >(*pp_ll)->_len) return;
+    int len = length(*pp_ll);
+
+    if (pos < 1 || pos > len) return;
 
     if (pos == 1)
     {
@@ -263,7 +265,7 @@ void pop_at(singly_ll_t** pp_ll, int pos)
         return;
     }
 
-    if (pos == (*pp_ll)->_len)
+    if (pos == len)
     {
         pop_back(pp_ll);
         return;
@@ -333,13 +335,12 @@ singly_ll_t* create_singly_ll()
     singly_ll_t* p_self = (singly_ll_t*)malloc(sizeof(singly_ll_t));
 
     p_self->head = NULL;
-    p_self->_len = 0;
 
     p_self->check_empty = &check_empty;
-    p_self->get_length = &get_length;
 
     p_self->traverse = &traverse;
     p_self->count = &count;
+    p_self->length = &length;
 
     p_self->get_node = &get_node;
     p_self->search = &search;

@@ -19,10 +19,7 @@ void traverse(circular_ll_t* p_ll)
     circular_node_t* p_prev = NULL;
     int count = 0;
 
-    if (p_node)
-    {
-        p_prev = p_ll->head->p_prev;
-    }
+    if (p_node) p_prev = p_ll->head->p_prev;
 
     if (p_ll->tail) printf(YEL "%d" RESET, p_ll->tail->data);
     else printf(YEL "NULL" RESET);
@@ -259,8 +256,7 @@ void pop_after(circular_ll_t** pp_ll, int pos)
 
     circular_node_t* p_node = get_node(*pp_ll, pos);
 
-    if (!p_node) return;
-    if (!p_node->p_next) return;
+    if (!p_node || !p_node->p_next) return;
 
     circular_node_t* p_tmp = p_node->p_next;
 
@@ -294,8 +290,7 @@ void pop_before(circular_ll_t** pp_ll, int pos)
 
     circular_node_t* p_node = get_node(*pp_ll, pos);
 
-    if (!p_node) return;
-    if (!p_node->p_prev) return;
+    if (!p_node || !p_node->p_prev) return;
 
     circular_node_t* p_tmp = p_node->p_prev;
 
@@ -347,8 +342,7 @@ void pop_at(circular_ll_t** pp_ll, int pos)
 
 void reverse(circular_ll_t** pp_ll)
 {
-    if (!(*pp_ll)->head || !(*pp_ll)->tail) return;
-    if ((*pp_ll)->head->p_next == (*pp_ll)->head->p_prev) return;
+    if (!(*pp_ll)->head || !(*pp_ll)->tail || (*pp_ll)->_len == 1) return;
 
     circular_node_t* p_cur = (*pp_ll)->head;
     circular_node_t* p_res = (*pp_ll)->tail;
@@ -376,8 +370,7 @@ void reverse(circular_ll_t** pp_ll)
 
 void sort(circular_ll_t** pp_ll)
 {
-    if (!(*pp_ll)->head || !(*pp_ll)->tail) return;
-    if ((*pp_ll)->head->p_next == (*pp_ll)->head->p_prev) return;
+    if (!(*pp_ll)->head || !(*pp_ll)->tail || (*pp_ll)->_len == 1) return;
 
     circular_node_t* p_cur = (*pp_ll)->head;
     circular_node_t* p_next = NULL;

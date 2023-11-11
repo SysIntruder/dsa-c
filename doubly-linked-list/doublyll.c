@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "doublyll.h"
+#include "../color.h"
 
 void help();
 void demo();
@@ -232,7 +233,7 @@ void doubly_ll()
 
             break;
         case 1:
-            printf("== Information ==\n\n");
+            printf(GRN "== Information ==\n\n" RESET);
             printf("Current Position: %d\n", pos);
             printf("Current Node: %d\n", p_node ? p_node->data : 0);
             printf("Current Length: %d\n", p_ll->get_length(p_ll));
@@ -240,7 +241,7 @@ void doubly_ll()
 
             break;
         case 2:
-            printf("== Push Front ==\n\n");
+            printf(GRN "== Push Front ==\n\n" RESET);
             printf("Input Data:\n");
             scanf("%d", &data);
             p_ll->push_front(&p_ll, data);
@@ -249,7 +250,7 @@ void doubly_ll()
 
             break;
         case 3:
-            printf("== Push Back ==\n\n");
+            printf(GRN "== Push Back ==\n\n" RESET);
             printf("Input Data:\n");
             scanf("%d", &data);
             p_ll->push_back(&p_ll, data);
@@ -258,7 +259,7 @@ void doubly_ll()
 
             break;
         case 4:
-            printf("== Push After ==\n\n");
+            printf(GRN "== Push After ==\n\n" RESET);
             printf("Choose Node Position:\n");
             scanf("%d", &pos);
             printf("Input Data:\n");
@@ -269,7 +270,7 @@ void doubly_ll()
 
             break;
         case 5:
-            printf("== Push Before ==\n\n");
+            printf(GRN "== Push Before ==\n\n" RESET);
             printf("Choose Node Position:\n");
             scanf("%d", &pos);
             printf("Input Data:\n");
@@ -280,7 +281,7 @@ void doubly_ll()
 
             break;
         case 6:
-            printf("== Push At ==\n\n");
+            printf(GRN "== Push At ==\n\n" RESET);
             printf("Choose Node Position:\n");
             scanf("%d", &pos);
             printf("Input Data:\n");
@@ -291,21 +292,21 @@ void doubly_ll()
 
             break;
         case 7:
-            printf("== Pop Front ==\n\n");
+            printf(GRN "== Pop Front ==\n\n" RESET);
             p_ll->pop_front(&p_ll);
             printf("Data Popped\n");
             p_ll->traverse(p_ll);
 
             break;
         case 8:
-            printf("== Pop Back ==\n\n");
+            printf(GRN "== Pop Back ==\n\n" RESET);
             p_ll->pop_back(&p_ll);
             printf("Data Popped\n");
             p_ll->traverse(p_ll);
 
             break;
         case 9:
-            printf("== Pop After ==\n\n");
+            printf(GRN "== Pop After ==\n\n" RESET);
             printf("Choose Node Position:\n");
             scanf("%d", &pos);
             p_ll->pop_after(&p_ll, pos);
@@ -314,7 +315,7 @@ void doubly_ll()
 
             break;
         case 10:
-            printf("== Pop Before ==\n\n");
+            printf(GRN "== Pop Before ==\n\n" RESET);
             printf("Choose Node Position:\n");
             scanf("%d", &pos);
             p_ll->pop_before(&p_ll, pos);
@@ -323,7 +324,7 @@ void doubly_ll()
 
             break;
         case 11:
-            printf("== Pop At ==\n\n");
+            printf(GRN "== Pop At ==\n\n" RESET);
             printf("Choose Node Position:\n");
             scanf("%d", &pos);
             p_ll->pop_at(&p_ll, pos);
@@ -332,21 +333,21 @@ void doubly_ll()
 
             break;
         case 12:
-            printf("== Reverse ==\n\n");
+            printf(GRN "== Reverse ==\n\n" RESET);
             p_ll->reverse(&p_ll);
             printf("Data Reversed\n");
             p_ll->traverse(p_ll);
 
             break;
         case 13:
-            printf("== Sort ==\n\n");
+            printf(GRN "== Sort ==\n\n" RESET);
             p_ll->sort(&p_ll);
             printf("Data Sorted\n");
             p_ll->traverse(p_ll);
 
             break;
         case 14:
-            printf("== Search Data ==\n\n");
+            printf(GRN "== Search Data ==\n\n" RESET);
             printf("Input Search Data\n");
             scanf("%d", &search);
             pos = p_ll->search(p_ll, search);
@@ -378,7 +379,7 @@ void doubly_ll()
 
             break;
         case 17:
-            printf("== Exiting ==\n");
+            printf(GRN "== Exiting ==\n");
             destroy_doubly_ll(p_ll);
             exit(0);
         default:

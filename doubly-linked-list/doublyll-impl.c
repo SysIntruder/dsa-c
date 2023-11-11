@@ -72,26 +72,34 @@ int search(doubly_ll_t* p_ll, int data)
     return 0;
 }
 
-void push_front(doubly_ll_t** pp_ll, int data)
+void push_new(doubly_ll_t** pp_ll, int data)
 {
     doubly_node_t* p_new_node = (doubly_node_t*)malloc(sizeof(doubly_node_t));
 
     p_new_node->data = data;
     p_new_node->p_prev = NULL;
+    p_new_node->p_next = NULL;
+    (*pp_ll)->head = p_new_node;
+    (*pp_ll)->_len += 1;
 
+    return;
+}
+
+void push_front(doubly_ll_t** pp_ll, int data)
+{
     if (!(*pp_ll)->head)
     {
-        p_new_node->p_next = NULL;
-        (*pp_ll)->head = p_new_node;
-
-        goto finish;
+        push_new(pp_ll, data);
+        return;
     }
 
+    doubly_node_t* p_new_node = (doubly_node_t*)malloc(sizeof(doubly_node_t));
+
+    p_new_node->data = data;
+    p_new_node->p_prev = NULL;
     p_new_node->p_next = (*pp_ll)->head;
     (*pp_ll)->head->p_prev = p_new_node;
     (*pp_ll)->head = p_new_node;
-
-finish:
     (*pp_ll)->_len += 1;
 
     return;
@@ -99,17 +107,10 @@ finish:
 
 void push_back(doubly_ll_t** pp_ll, int data)
 {
-    doubly_node_t* p_new_node = (doubly_node_t*)malloc(sizeof(doubly_node_t));
-
-    p_new_node->data = data;
-    p_new_node->p_next = NULL;
-
     if (!(*pp_ll)->head)
     {
-        p_new_node->p_prev = NULL;
-        (*pp_ll)->head = p_new_node;
-
-        goto finish;
+        push_new(pp_ll, data);
+        return;
     }
 
     doubly_node_t* p_node = (*pp_ll)->head;
@@ -119,10 +120,12 @@ void push_back(doubly_ll_t** pp_ll, int data)
         p_node = p_node->p_next;
     }
 
+    doubly_node_t* p_new_node = (doubly_node_t*)malloc(sizeof(doubly_node_t));
+
+    p_new_node->data = data;
+    p_new_node->p_next = NULL;
     p_new_node->p_prev = p_node;
     p_node->p_next = p_new_node;
-
-finish:
     (*pp_ll)->_len += 1;
 
     return;

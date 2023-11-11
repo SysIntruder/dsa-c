@@ -347,6 +347,63 @@ void pop_at(doubly_ll_t** pp_ll, int pos)
     return;
 }
 
+void reverse(doubly_ll_t** pp_ll)
+{
+    if (!(*pp_ll)->head) return;
+    if (!(*pp_ll)->head->p_next) return;
+
+    doubly_node_t* p_cur = (*pp_ll)->head->p_next;
+    doubly_node_t* p_res = (*pp_ll)->head;
+    doubly_node_t* p_tmp = NULL;
+
+    p_res->p_next = NULL;
+    p_res->p_prev = p_cur;
+
+    while (p_cur)
+    {
+        p_tmp = p_cur;
+        p_cur = p_cur->p_next;
+        p_tmp->p_next = p_res;
+        p_tmp->p_prev = p_cur;
+        p_res = p_tmp;
+    }
+
+    (*pp_ll)->head = p_res;
+
+    return;
+}
+
+void sort(doubly_ll_t** pp_ll)
+{
+    if (!(*pp_ll)->head) return;
+    if (!(*pp_ll)->head->p_next) return;
+
+    doubly_node_t* p_cur = (*pp_ll)->head;
+    doubly_node_t* p_next = NULL;
+    int tmp = 0;
+
+    while (p_cur)
+    {
+        p_next = p_cur->p_next;
+
+        while (p_next)
+        {
+            if (p_cur->data > p_next->data)
+            {
+                tmp = p_cur->data;
+                p_cur->data = p_next->data;
+                p_next->data = tmp;
+            }
+
+            p_next = p_next->p_next;
+        }
+
+        p_cur = p_cur->p_next;
+    }
+
+    return;
+}
+
 doubly_ll_t* create_doubly_ll()
 {
     doubly_ll_t* p_self = (doubly_ll_t*)malloc(sizeof(doubly_ll_t));
@@ -374,6 +431,9 @@ doubly_ll_t* create_doubly_ll()
     p_self->pop_after = &pop_after;
     p_self->pop_before = &pop_before;
     p_self->pop_at = &pop_at;
+
+    p_self->reverse = &reverse;
+    p_self->sort = &sort;
 
     return p_self;
 }

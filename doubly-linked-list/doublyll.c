@@ -97,5 +97,17 @@ int main(int argc, char *argv[])
     printf("Length: %d\n", p_ll->get_length(p_ll));
     printf("\n");
 
+    printf("Reverse\n");
+    p_ll->reverse(&p_ll);
+    p_ll->traverse(p_ll);
+    printf("Length: %d\n", p_ll->get_length(p_ll));
+    printf("\n");
+
+    printf("Sort\n");
+    p_ll->sort(&p_ll);
+    p_ll->traverse(p_ll);
+    printf("Length: %d\n", p_ll->get_length(p_ll));
+    printf("\n");
+
     return 0;
 }

@@ -227,8 +227,7 @@ void pop_after(singly_ll_t** pp_ll, int pos)
 
     singly_node_t* p_node = get_node(*pp_ll, pos);
 
-    if (!p_node) return;
-    if (!p_node->p_next) return;
+    if (!p_node || !p_node->p_next) return;
 
     singly_node_t* p_tmp = p_node->p_next;
 
@@ -293,8 +292,7 @@ void pop_at(singly_ll_t** pp_ll, int pos)
 
 void reverse(singly_ll_t** pp_ll)
 {
-    if (!(*pp_ll)->head) return;
-    if (!(*pp_ll)->head->p_next) return;
+    if (!(*pp_ll)->head || !(*pp_ll)->head->p_next) return;
 
     singly_node_t* p_cur = (*pp_ll)->head->p_next;
     singly_node_t* p_res = (*pp_ll)->head;
@@ -317,8 +315,7 @@ void reverse(singly_ll_t** pp_ll)
 
 void sort(singly_ll_t** pp_ll)
 {
-    if (!(*pp_ll)->head) return;
-    if (!(*pp_ll)->head->p_next) return;
+    if (!(*pp_ll)->head || !(*pp_ll)->head->p_next) return;
 
     singly_node_t* p_cur = (*pp_ll)->head;
     singly_node_t* p_next = NULL;

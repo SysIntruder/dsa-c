@@ -261,8 +261,7 @@ void pop_after(doubly_ll_t** pp_ll, int pos)
 
     doubly_node_t* p_node = get_node(*pp_ll, pos);
 
-    if (!p_node) return;
-    if (!p_node->p_next) return;
+    if (!p_node || !p_node->p_next) return;
 
     doubly_node_t* p_tmp = p_node->p_next;
 
@@ -296,8 +295,7 @@ void pop_before(doubly_ll_t** pp_ll, int pos)
 
     doubly_node_t* p_node = get_node(*pp_ll, pos);
 
-    if (!p_node) return;
-    if (!p_node->p_prev) return;
+    if (!p_node || !p_node->p_prev) return;
 
     doubly_node_t* p_tmp = p_node->p_prev;
 
@@ -349,8 +347,7 @@ void pop_at(doubly_ll_t** pp_ll, int pos)
 
 void reverse(doubly_ll_t** pp_ll)
 {
-    if (!(*pp_ll)->head) return;
-    if (!(*pp_ll)->head->p_next) return;
+    if (!(*pp_ll)->head || !(*pp_ll)->head->p_next) return;
 
     doubly_node_t* p_cur = (*pp_ll)->head->p_next;
     doubly_node_t* p_res = (*pp_ll)->head;
@@ -375,8 +372,7 @@ void reverse(doubly_ll_t** pp_ll)
 
 void sort(doubly_ll_t** pp_ll)
 {
-    if (!(*pp_ll)->head) return;
-    if (!(*pp_ll)->head->p_next) return;
+    if (!(*pp_ll)->head || !(*pp_ll)->head->p_next) return;
 
     doubly_node_t* p_cur = (*pp_ll)->head;
     doubly_node_t* p_next = NULL;

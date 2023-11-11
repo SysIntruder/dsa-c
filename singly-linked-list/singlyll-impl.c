@@ -19,7 +19,7 @@ void traverse(singly_ll_t* p_ll)
 
     while (p_node)
     {
-        printf("%d" RED "-->" RESET, p_node->data);
+        printf("%d" BLU " -> " RESET, p_node->data);
         p_node = p_node->p_next;
     }
 

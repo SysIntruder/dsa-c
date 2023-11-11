@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
     int data = 8;
     printf("Search Node: %d\n", data);
     pos = p_ll->search(p_ll, data);
-    printf("Node found at Position %d: %d\n", pos);
+    printf("Node found at Position: %d\n", pos);
     printf("\n");
 
     printf("Pop After Position %d\n", pos);
@@ -126,6 +126,8 @@ int main(int argc, char *argv[])
     p_ll->traverse(p_ll);
     printf("Length: %d\n", p_ll->get_length(p_ll));
     printf("\n");
+
+    destroy_doubly_ll(p_ll);
 
     return 0;
 }

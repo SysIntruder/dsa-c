@@ -13,14 +13,12 @@ typedef struct circular_ll circular_ll_t;
 struct circular_ll
 {
     circular_node_t* head;
-    circular_node_t* tail;
-    int _len;
 
     int (*check_empty)(circular_ll_t*);
-    int (*get_length)(circular_ll_t*);
 
+    int (*count)(circular_node_t*, circular_node_t*);
+    int (*length)(circular_ll_t*);
     void (*traverse)(circular_ll_t*);
-    int (*count)(circular_node_t*);
 
     circular_node_t* (*get_node)(circular_ll_t*, int);
     int (*search)(circular_ll_t*, int);

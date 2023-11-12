@@ -8,25 +8,42 @@ int check_empty(circular_ll_t* p_ll)
     return !p_ll->head;
 }
 
-int get_length(circular_ll_t* p_ll)
+int count(circular_node_t* p_node, circular_node_t* p_head)
 {
-    return p_ll->_len;
+    static circular_node_t* start = NULL;
+
+    if (p_node == start)
+    {
+        start = NULL;
+
+        return 0;
+    }
+
+    start = p_head ? p_head : start;
+
+    return 1 + count(p_node->p_next, NULL);
+}
+
+int length(circular_ll_t* p_ll)
+{
+    return count(p_ll->head, p_ll->head);
 }
 
 void traverse(circular_ll_t* p_ll)
 {
     circular_node_t* p_node = p_ll->head;
     circular_node_t* p_prev = NULL;
+    int len = length(p_ll);
     int count = 0;
 
     if (p_node) p_prev = p_ll->head->p_prev;
 
-    if (p_ll->tail) printf(YEL "%d" RESET, p_ll->tail->data);
+    if (p_ll->head) printf(YEL "%d" RESET, p_ll->head->p_prev->data);
     else printf(YEL "NULL" RESET);
 
     printf(BLU " <");
 
-    while (p_node && count < p_ll->_len)
+    while (p_node && count < len)
     {
         if (p_prev == p_node->p_prev) printf("=");
 
@@ -44,16 +61,11 @@ void traverse(circular_ll_t* p_ll)
     return;
 }
 
-int count(circular_node_t* p_node)
-{
-    if (!p_node) return 0;
-
-    return 1 + count(p_node->p_next);
-}
-
 circular_node_t* get_node(circular_ll_t* p_ll, int pos)
 {
-    if (pos < 1 || pos > p_ll->_len) return NULL;
+    int len = length(p_ll);
+
+    if (pos < 1 || pos > len) return NULL;
     if (pos == 1) return p_ll->head;
 
     circular_node_t* p_node = p_ll->head;
@@ -71,13 +83,13 @@ int search(circular_ll_t* p_ll, int data)
     int count = 1;
     circular_node_t* p_node = p_ll->head;
 
-    while (p_node)
+    do
     {
         if (p_node->data == data) return count;
 
         p_node = p_node->p_next;
         count++;
-    }
+    } while (p_node != p_ll->head);
 
     return 0;
 }
@@ -88,24 +100,20 @@ void push_new(circular_ll_t** pp_ll, int data, circular_node_t** node)
 
     p_new_node->data = data;
 
-    if (!(*pp_ll)->head || !(*pp_ll)->tail)
+    if (!(*pp_ll)->head)
     {
         p_new_node->p_prev = p_new_node;
         p_new_node->p_next = p_new_node;
         (*pp_ll)->head = p_new_node;
-        (*pp_ll)->tail = p_new_node;
 
-        goto finish;
+        return;
     }
 
     p_new_node->p_next = (*pp_ll)->head;
-    p_new_node->p_prev = (*pp_ll)->tail;
+    p_new_node->p_prev = (*pp_ll)->head->p_prev;
+    (*pp_ll)->head->p_prev->p_next = p_new_node;
     (*pp_ll)->head->p_prev = p_new_node;
-    (*pp_ll)->tail->p_next = p_new_node;
     *node = p_new_node;
-
-finish:
-    (*pp_ll)->_len += 1;
 
     return;
 }
@@ -118,13 +126,15 @@ void push_front(circular_ll_t** pp_ll, int data)
 
 void push_back(circular_ll_t** pp_ll, int data)
 {
-    push_new(pp_ll, data, &(*pp_ll)->tail);
+    push_new(pp_ll, data, &(*pp_ll)->head->p_prev);
     return;
 }
 
 void push_after(circular_ll_t** pp_ll, int pos, int data)
 {
-    if (pos < 0 || pos >(*pp_ll)->_len) return;
+    int len = length(*pp_ll);
+
+    if (pos < 0 || pos > len) return;
 
     if (pos == 0)
     {
@@ -132,7 +142,7 @@ void push_after(circular_ll_t** pp_ll, int pos, int data)
         return;
     }
 
-    if (pos == (*pp_ll)->_len)
+    if (pos == len)
     {
         push_back(pp_ll, data);
         return;
@@ -149,16 +159,16 @@ void push_after(circular_ll_t** pp_ll, int pos, int data)
     p_new_node->p_prev = p_node;
     p_node->p_next->p_prev = p_new_node;
     p_node->p_next = p_new_node;
-    (*pp_ll)->_len += 1;
 
     return;
 }
 
 void push_before(circular_ll_t** pp_ll, int pos, int data)
 {
+    int len = length(*pp_ll);
     int prev_pos = pos - 1;
 
-    if (pos < 1 || prev_pos >(*pp_ll)->_len) return;
+    if (pos < 1 || prev_pos > len) return;
 
     if (pos == 1)
     {
@@ -166,7 +176,7 @@ void push_before(circular_ll_t** pp_ll, int pos, int data)
         return;
     }
 
-    if (prev_pos == (*pp_ll)->_len)
+    if (prev_pos == len)
     {
         push_back(pp_ll, data);
         return;
@@ -183,44 +193,49 @@ void push_before(circular_ll_t** pp_ll, int pos, int data)
     p_new_node->p_prev = p_node->p_prev;
     p_node->p_prev->p_next = p_new_node;
     p_node->p_prev = p_new_node;
-    (*pp_ll)->_len += 1;
+
+    return;
+}
+
+void pop_node(circular_ll_t** pp_ll, circular_node_t** node)
+{
+    if (!(*pp_ll)->head) return;
+    if ((*pp_ll)->head == (*pp_ll)->head->p_next)
+    {
+        free((*pp_ll)->head);
+        (*pp_ll)->head = NULL;
+
+        return;
+    }
+
+    circular_node_t* p_tmp = *node;
+
+    p_tmp->p_prev->p_next = p_tmp->p_next;
+    (*pp_ll)->head = p_tmp->p_next;
+    (*pp_ll)->head->p_prev = p_tmp->p_prev;
+    free(p_tmp);
 
     return;
 }
 
 void pop_front(circular_ll_t** pp_ll)
 {
-    if (!(*pp_ll)->head || !(*pp_ll)->tail) return;
-
-    circular_node_t* p_tmp = (*pp_ll)->head;
-
-    (*pp_ll)->head = p_tmp->p_next;
-    (*pp_ll)->head->p_prev = (*pp_ll)->tail;
-    free(p_tmp);
-    (*pp_ll)->_len -= 1;
-
+    pop_node(pp_ll, &(*pp_ll)->head);
     return;
 }
 
 void pop_back(circular_ll_t** pp_ll)
 {
-    if (!(*pp_ll)->head || !(*pp_ll)->tail) return;
-
-    circular_node_t* p_tmp = (*pp_ll)->tail;
-
-    (*pp_ll)->tail = p_tmp->p_prev;
-    (*pp_ll)->tail->p_next = (*pp_ll)->head;
-    free(p_tmp);
-    (*pp_ll)->_len -= 1;
-
+    pop_node(pp_ll, &(*pp_ll)->head->p_prev);
     return;
 }
 
 void pop_after(circular_ll_t** pp_ll, int pos)
 {
+    int len = length(*pp_ll);
     int next_pos = pos + 1;
 
-    if (pos < 0 || next_pos >(*pp_ll)->_len) return;
+    if (pos < 0 || next_pos > len) return;
 
     if (pos == 0)
     {
@@ -228,7 +243,7 @@ void pop_after(circular_ll_t** pp_ll, int pos)
         return;
     }
 
-    if (next_pos == (*pp_ll)->_len)
+    if (next_pos == len)
     {
         pop_back(pp_ll);
         return;
@@ -243,14 +258,13 @@ void pop_after(circular_ll_t** pp_ll, int pos)
     p_node->p_next = p_tmp->p_next;
     p_tmp->p_next->p_prev = p_node;
     free(p_tmp);
-    (*pp_ll)->_len -= 1;
 
     return;
 }
 
 void pop_before(circular_ll_t** pp_ll, int pos)
 {
-    int max_pos = (*pp_ll)->_len + 1;
+    int max_pos = length(*pp_ll) + 1;
 
     if (pos < 2 || pos > max_pos) return;
 
@@ -275,14 +289,15 @@ void pop_before(circular_ll_t** pp_ll, int pos)
     p_node->p_prev = p_tmp->p_prev;
     p_tmp->p_prev->p_next = p_node;
     free(p_tmp);
-    (*pp_ll)->_len -= 1;
 
     return;
 }
 
 void pop_at(circular_ll_t** pp_ll, int pos)
 {
-    if (pos < 1 || pos >(*pp_ll)->_len) return;
+    int len = length(*pp_ll);
+
+    if (pos < 1 || pos > len) return;
 
     if (pos == 1)
     {
@@ -290,7 +305,7 @@ void pop_at(circular_ll_t** pp_ll, int pos)
         return;
     }
 
-    if (pos == (*pp_ll)->_len)
+    if (pos == len)
     {
         pop_back(pp_ll);
         return;
@@ -311,24 +326,25 @@ void pop_at(circular_ll_t** pp_ll, int pos)
     }
 
     free(p_tmp);
-    (*pp_ll)->_len -= 1;
 
     return;
 }
 
 void reverse(circular_ll_t** pp_ll)
 {
-    if (!(*pp_ll)->head || !(*pp_ll)->tail || (*pp_ll)->_len == 1) return;
+    int len = length(*pp_ll);
+
+    if (!(*pp_ll)->head || len == 1) return;
 
     circular_node_t* p_cur = (*pp_ll)->head;
-    circular_node_t* p_res = (*pp_ll)->tail;
+    circular_node_t* p_res = (*pp_ll)->head->p_prev;
     circular_node_t* p_tmp = NULL;
     int count = 0;
 
     p_res->p_next = (*pp_ll)->head;
     p_res->p_prev = p_cur;
 
-    while (p_cur && count < (*pp_ll)->_len)
+    while (p_cur && count < len)
     {
         p_tmp = p_cur;
         p_cur = p_cur->p_next;
@@ -339,14 +355,15 @@ void reverse(circular_ll_t** pp_ll)
     }
 
     (*pp_ll)->head = p_res;
-    (*pp_ll)->tail = p_res->p_prev;
 
     return;
 }
 
 void sort(circular_ll_t** pp_ll)
 {
-    if (!(*pp_ll)->head || !(*pp_ll)->tail || (*pp_ll)->_len == 1) return;
+    int len = length(*pp_ll);
+
+    if (!(*pp_ll)->head || len == 1) return;
 
     circular_node_t* p_cur = (*pp_ll)->head;
     circular_node_t* p_next = NULL;
@@ -379,14 +396,12 @@ circular_ll_t* create_circular_ll()
     circular_ll_t* p_self = (circular_ll_t*)malloc(sizeof(circular_ll_t));
 
     p_self->head = NULL;
-    p_self->tail = NULL;
-    p_self->_len = 0;
 
     p_self->check_empty = &check_empty;
-    p_self->get_length = &get_length;
 
-    p_self->traverse = &traverse;
     p_self->count = &count;
+    p_self->length = &length;
+    p_self->traverse = &traverse;
 
     p_self->get_node = &get_node;
     p_self->search = &search;
@@ -411,14 +426,15 @@ circular_ll_t* create_circular_ll()
 
 void destroy_circular_ll(circular_ll_t* p_ll)
 {
+    int len = length(p_ll);
     circular_node_t* p_tmp = p_ll->head;
 
-    while (p_ll->_len)
+    while (len)
     {
         p_tmp = p_ll->head->p_next;
         free(p_ll->head);
         p_ll->head = p_tmp;
-        p_ll->_len -= 1;
+        len -= 1;
     }
 
     free(p_ll);

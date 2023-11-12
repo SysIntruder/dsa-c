@@ -38,9 +38,7 @@ int count(doubly_node_t* p_node)
 
 int length(doubly_ll_t* p_ll)
 {
-    doubly_node_t* p_head = p_ll->head;
-
-    return count(p_head);
+    return count(p_ll->head);
 }
 
 doubly_node_t* get_node(doubly_ll_t* p_ll, int pos)
@@ -76,7 +74,7 @@ int search(doubly_ll_t* p_ll, int data)
     return 0;
 }
 
-void push_new(doubly_ll_t** pp_ll, int data)
+void push_node(doubly_ll_t** pp_ll, int data)
 {
     doubly_node_t* p_new_node = (doubly_node_t*)malloc(sizeof(doubly_node_t));
 
@@ -92,7 +90,7 @@ void push_front(doubly_ll_t** pp_ll, int data)
 {
     if (!(*pp_ll)->head)
     {
-        push_new(pp_ll, data);
+        push_node(pp_ll, data);
         return;
     }
 
@@ -111,7 +109,7 @@ void push_back(doubly_ll_t** pp_ll, int data)
 {
     if (!(*pp_ll)->head)
     {
-        push_new(pp_ll, data);
+        push_node(pp_ll, data);
         return;
     }
 

@@ -94,7 +94,7 @@ int search(circular_ll_t* p_ll, int data)
     return 0;
 }
 
-void push_new(circular_ll_t** pp_ll, int data, circular_node_t** node)
+void push_node(circular_ll_t** pp_ll, int data, circular_node_t** node)
 {
     circular_node_t* p_new_node = (circular_node_t*)malloc(sizeof(circular_node_t));
 
@@ -120,13 +120,13 @@ void push_new(circular_ll_t** pp_ll, int data, circular_node_t** node)
 
 void push_front(circular_ll_t** pp_ll, int data)
 {
-    push_new(pp_ll, data, &(*pp_ll)->head);
+    push_node(pp_ll, data, &(*pp_ll)->head);
     return;
 }
 
 void push_back(circular_ll_t** pp_ll, int data)
 {
-    push_new(pp_ll, data, &(*pp_ll)->head->p_prev);
+    push_node(pp_ll, data, &(*pp_ll)->head->p_prev);
     return;
 }
 

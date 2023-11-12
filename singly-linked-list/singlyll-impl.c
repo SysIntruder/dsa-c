@@ -32,9 +32,7 @@ int count(singly_node_t* p_node)
 
 int length(singly_ll_t* p_ll)
 {
-    singly_node_t* p_head = p_ll->head;
-
-    return count(p_head);
+    return count(p_ll->head);
 }
 
 singly_node_t* get_node(singly_ll_t* p_ll, int pos)

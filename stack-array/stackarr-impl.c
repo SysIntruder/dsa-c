@@ -59,21 +59,16 @@ int peek(stack_arr_t* p_st)
 
 void reverse(stack_arr_t* p_st)
 {
-    int* p_tmp = (int*)malloc(p_st->size * sizeof(int));
-    int top = p_st->top;
+    if (p_st->is_empty(p_st) || p_st->top == 0) return;
 
-    while (!p_st->is_empty(p_st))
+    int tmp = 0;
+
+    for (int i = 0; i < p_st->top; i++)
     {
-        p_tmp[p_st->top] = p_st->pop(p_st);
+        tmp = p_st->p_data[p_st->top - i];
+        p_st->p_data[p_st->top - i] = p_st->p_data[i];
+        p_st->p_data[i] = tmp;
     }
-
-    for (int i = top; i > -1; i--)
-    {
-        p_st->p_data[top - i] = p_tmp[i];
-    }
-
-    p_st->top = top;
-    free(p_tmp);
 
     return;
 }

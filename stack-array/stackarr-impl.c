@@ -57,6 +57,27 @@ int peek(stack_arr_t* p_st)
     return p_st->p_data[p_st->top];
 }
 
+void reverse(stack_arr_t* p_st)
+{
+    int* p_tmp = (int*)malloc(p_st->size * sizeof(int));
+    int top = p_st->top;
+
+    while (!p_st->is_empty(p_st))
+    {
+        p_tmp[p_st->top] = p_st->pop(p_st);
+    }
+
+    for (int i = top; i > -1; i--)
+    {
+        p_st->p_data[top - i] = p_tmp[i];
+    }
+
+    p_st->top = top;
+    free(p_tmp);
+
+    return;
+}
+
 stack_arr_t create_stack_arr(int size)
 {
     stack_arr_t self;
@@ -74,6 +95,8 @@ stack_arr_t create_stack_arr(int size)
     self.push = &push;
     self.pop = &pop;
     self.peek = &peek;
+
+    self.reverse = &reverse;
 
     return self;
 }

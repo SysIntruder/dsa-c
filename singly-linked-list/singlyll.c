@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
 
         return 0;
     }
-    
+
     char* args = argv[1];
 
     switch (*args)
@@ -55,7 +55,7 @@ void demo()
     singly_ll_t ll = create_singly_ll();
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
-    printf("Check Empty: %d\n", ll.check_empty(&ll));
+    printf("Check Empty: %d\n", ll.is_empty(&ll));
     printf("\n");
 
     printf("Push Front: 1\n");
@@ -388,6 +388,6 @@ void singly_ll()
             break;
         }
     }
-    
+
     return;
 }

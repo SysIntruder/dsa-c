@@ -13,7 +13,7 @@ struct singly_ll
 {
     singly_node_t* p_head;
 
-    int (*check_empty)(singly_ll_t*);
+    int (*is_empty)(singly_ll_t*);
 
     void (*traverse)(singly_ll_t*);
     int (*count)(singly_node_t*);

@@ -3,7 +3,7 @@
 #include "circularll.h"
 #include "../color.h"
 
-int check_empty(circular_ll_t* p_ll)
+int is_empty(circular_ll_t* p_ll)
 {
     return !p_ll->p_head;
 }
@@ -91,7 +91,7 @@ int search(circular_ll_t* p_ll, int data)
         count++;
     } while (p_node != p_ll->p_head);
 
-    return 0;
+    return -1;
 }
 
 void push_node(circular_ll_t* p_ll, int data, circular_node_t** node)
@@ -397,7 +397,7 @@ circular_ll_t create_circular_ll()
 
     self.p_head = NULL;
 
-    self.check_empty = &check_empty;
+    self.is_empty = &is_empty;
 
     self.count = &count;
     self.length = &length;

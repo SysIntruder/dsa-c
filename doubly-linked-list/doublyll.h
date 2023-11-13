@@ -14,7 +14,7 @@ struct doubly_ll
 {
     doubly_node_t* p_head;
 
-    int (*check_empty)(doubly_ll_t*);
+    int (*is_empty)(doubly_ll_t*);
 
     void (*traverse)(doubly_ll_t*);
     int (*count)(doubly_node_t*);

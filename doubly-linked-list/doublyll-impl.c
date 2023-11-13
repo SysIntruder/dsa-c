@@ -3,7 +3,7 @@
 #include "doublyll.h"
 #include "../color.h"
 
-int check_empty(doubly_ll_t* p_ll)
+int is_empty(doubly_ll_t* p_ll)
 {
     return !p_ll->p_head;
 }
@@ -31,9 +31,7 @@ void traverse(doubly_ll_t* p_ll)
 
 int count(doubly_node_t* p_node)
 {
-    if (!p_node) return 0;
-
-    return 1 + count(p_node->p_next);
+    return !p_node ? 0 : 1 + count(p_node->p_next);
 }
 
 int length(doubly_ll_t* p_ll)
@@ -71,7 +69,7 @@ int search(doubly_ll_t* p_ll, int data)
         count++;
     }
 
-    return 0;
+    return -1;
 }
 
 void push_node(doubly_ll_t* p_ll, int data)
@@ -398,7 +396,7 @@ doubly_ll_t create_doubly_ll()
 
     self.p_head = NULL;
 
-    self.check_empty = &check_empty;
+    self.is_empty = &is_empty;
 
     self.traverse = &traverse;
     self.count = &count;

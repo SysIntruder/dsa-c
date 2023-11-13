@@ -14,7 +14,7 @@ struct circular_ll
 {
     circular_node_t* p_head;
 
-    int (*check_empty)(circular_ll_t*);
+    int (*is_empty)(circular_ll_t*);
 
     int (*count)(circular_node_t*, circular_node_t*);
     int (*length)(circular_ll_t*);

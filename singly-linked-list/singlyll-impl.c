@@ -3,7 +3,7 @@
 #include "singlyll.h"
 #include "../color.h"
 
-int check_empty(singly_ll_t* p_ll)
+int is_empty(singly_ll_t* p_ll)
 {
     return !p_ll->p_head;
 }
@@ -25,9 +25,7 @@ void traverse(singly_ll_t* p_ll)
 
 int count(singly_node_t* p_node)
 {
-    if (!p_node) return 0;
-
-    return 1 + count(p_node->p_next);
+    return !p_node ? 0 : 1 + count(p_node->p_next);
 }
 
 int length(singly_ll_t* p_ll)
@@ -65,7 +63,7 @@ int search(singly_ll_t* p_ll, int data)
         count++;
     }
 
-    return 0;
+    return -1;
 }
 
 void push_front(singly_ll_t* p_ll, int data)
@@ -334,7 +332,7 @@ singly_ll_t create_singly_ll()
 
     self.p_head = NULL;
 
-    self.check_empty = &check_empty;
+    self.is_empty = &is_empty;
 
     self.traverse = &traverse;
     self.count = &count;

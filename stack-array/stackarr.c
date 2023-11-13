@@ -107,12 +107,9 @@ void stack_arr()
     printf("2)\tPush\n");
     printf("3)\tPop\n");
     printf("4)\tPeek\n");
-    printf("5)\tReverse\n");
-    printf("6)\tSort\n");
-    printf("7)\tSearch Data\n");
-    printf("8)\tClear Screen\n");
-    printf("9)\tReset\n");
-    printf("10)\tExit\n");
+    printf("5)\tClear Screen\n");
+    printf("6)\tReset\n");
+    printf("7)\tExit\n");
 
     while (1)
     {
@@ -127,12 +124,9 @@ void stack_arr()
             printf("2)\tPush\n");
             printf("3)\tPop\n");
             printf("4)\tPeek\n");
-            printf("5)\tReverse\n");
-            printf("6)\tSort\n");
-            printf("7)\tSearch Data\n");
-            printf("8)\tClear Screen\n");
-            printf("9)\tReset\n");
-            printf("10)\tExit\n");
+            printf("5)\tClear Screen\n");
+            printf("6)\tReset\n");
+            printf("7)\tExit\n");
 
             break;
         case 1:
@@ -164,11 +158,11 @@ void stack_arr()
             printf("Top Data: %d\n", st.peek(&st));
 
             break;
-        case 8:
+        case 5:
             system("clear");
 
             break;
-        case 9:
+        case 6:
             data = 0;
             destroy_stack_arr(&st);
             printf("input stack size --THIS CAN'T BE CHANGED LATER--\n");
@@ -177,7 +171,7 @@ void stack_arr()
             system("clear");
 
             break;
-        case 10:
+        case 7:
             printf(GRN "== Exiting ==\n");
             destroy_stack_arr(&st);
             exit(0);

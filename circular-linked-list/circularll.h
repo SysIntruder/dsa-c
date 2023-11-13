@@ -23,23 +23,23 @@ struct circular_ll
     circular_node_t* (*get_node)(circular_ll_t*, int);
     int (*search)(circular_ll_t*, int);
 
-    void (*push_front)(circular_ll_t**, int);
-    void (*push_back)(circular_ll_t**, int);
-    void (*push_after)(circular_ll_t**, int, int);
-    void (*push_before)(circular_ll_t**, int, int);
-    void (*push_at)(circular_ll_t**, int, int);
+    void (*push_front)(circular_ll_t*, int);
+    void (*push_back)(circular_ll_t*, int);
+    void (*push_after)(circular_ll_t*, int, int);
+    void (*push_before)(circular_ll_t*, int, int);
+    void (*push_at)(circular_ll_t*, int, int);
 
-    void (*pop_front)(circular_ll_t**);
-    void (*pop_back)(circular_ll_t**);
-    void (*pop_after)(circular_ll_t**, int);
-    void (*pop_before)(circular_ll_t**, int);
-    void (*pop_at)(circular_ll_t**, int);
+    void (*pop_front)(circular_ll_t*);
+    void (*pop_back)(circular_ll_t*);
+    void (*pop_after)(circular_ll_t*, int);
+    void (*pop_before)(circular_ll_t*, int);
+    void (*pop_at)(circular_ll_t*, int);
 
-    void (*reverse)(circular_ll_t**);
-    void (*sort)(circular_ll_t**);
+    void (*reverse)(circular_ll_t*);
+    void (*sort)(circular_ll_t*);
 };
 
-circular_ll_t* create_circular_ll();
+circular_ll_t create_circular_ll();
 void destroy_circular_ll(circular_ll_t*);
 
 #endif

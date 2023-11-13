@@ -68,26 +68,26 @@ int search(singly_ll_t* p_ll, int data)
     return 0;
 }
 
-void push_front(singly_ll_t** pp_ll, int data)
+void push_front(singly_ll_t* p_ll, int data)
 {
     singly_node_t* p_new_node = (singly_node_t*)malloc(sizeof(singly_node_t));
 
     p_new_node->data = data;
-    p_new_node->p_next = (*pp_ll)->head;
-    (*pp_ll)->head = p_new_node;
+    p_new_node->p_next = p_ll->head;
+    p_ll->head = p_new_node;
 
     return;
 }
 
-void push_back(singly_ll_t** pp_ll, int data)
+void push_back(singly_ll_t* p_ll, int data)
 {
-    if (!(*pp_ll)->head)
+    if (!p_ll->head)
     {
-        push_front(pp_ll, data);
+        push_front(p_ll, data);
         return;
     }
 
-    singly_node_t* p_node = (*pp_ll)->head;
+    singly_node_t* p_node = p_ll->head;
 
     while (p_node->p_next != NULL)
     {
@@ -103,25 +103,25 @@ void push_back(singly_ll_t** pp_ll, int data)
     return;
 }
 
-void push_after(singly_ll_t** pp_ll, int pos, int data)
+void push_after(singly_ll_t* p_ll, int pos, int data)
 {
-    int len = length(*pp_ll);
+    int len = length(p_ll);
 
     if (pos < 0 || pos > len) return;
 
     if (pos == 0)
     {
-        push_front(pp_ll, data);
+        push_front(p_ll, data);
         return;
     }
 
     if (pos == len)
     {
-        push_back(pp_ll, data);
+        push_back(p_ll, data);
         return;
     }
 
-    singly_node_t* p_node = get_node(*pp_ll, pos);
+    singly_node_t* p_node = get_node(p_ll, pos);
 
     if (!p_node) return;
 
@@ -134,54 +134,54 @@ void push_after(singly_ll_t** pp_ll, int pos, int data)
     return;
 }
 
-void push_before(singly_ll_t** pp_ll, int pos, int data)
+void push_before(singly_ll_t* p_ll, int pos, int data)
 {
-    int len = length(*pp_ll);
+    int len = length(p_ll);
     int prev_pos = pos - 1;
 
     if (pos < 1 || prev_pos > len) return;
 
     if (pos == 1)
     {
-        push_front(pp_ll, data);
+        push_front(p_ll, data);
         return;
     }
 
     if (prev_pos == len)
     {
-        push_back(pp_ll, data);
+        push_back(p_ll, data);
         return;
     }
 
-    push_after(pp_ll, prev_pos, data);
+    push_after(p_ll, prev_pos, data);
     return;
 }
 
-void pop_front(singly_ll_t** pp_ll)
+void pop_front(singly_ll_t* p_ll)
 {
-    if (!(*pp_ll)->head) return;
+    if (!p_ll->head) return;
 
-    singly_node_t* p_tmp = (*pp_ll)->head;
+    singly_node_t* p_tmp = p_ll->head;
 
-    (*pp_ll)->head = p_tmp->p_next;
+    p_ll->head = p_tmp->p_next;
     free(p_tmp);
 
     return;
 }
 
-void pop_back(singly_ll_t** pp_ll)
+void pop_back(singly_ll_t* p_ll)
 {
-    if (!(*pp_ll)->head) return;
+    if (!p_ll->head) return;
 
-    if (!(*pp_ll)->head->p_next)
+    if (!p_ll->head->p_next)
     {
-        free((*pp_ll)->head);
-        (*pp_ll)->head = NULL;
+        free(p_ll->head);
+        p_ll->head = NULL;
 
         return;
     }
 
-    singly_node_t* p_tmp = (*pp_ll)->head;
+    singly_node_t* p_tmp = p_ll->head;
 
     while (p_tmp->p_next->p_next != NULL)
     {
@@ -196,26 +196,26 @@ void pop_back(singly_ll_t** pp_ll)
     return;
 }
 
-void pop_after(singly_ll_t** pp_ll, int pos)
+void pop_after(singly_ll_t* p_ll, int pos)
 {
-    int len = length(*pp_ll);
+    int len = length(p_ll);
     int next_pos = pos + 1;
 
     if (pos < 0 || next_pos > len) return;
 
     if (pos == 0)
     {
-        pop_front(pp_ll);
+        pop_front(p_ll);
         return;
     }
 
     if (next_pos == len)
     {
-        pop_back(pp_ll);
+        pop_back(p_ll);
         return;
     }
 
-    singly_node_t* p_node = get_node(*pp_ll, pos);
+    singly_node_t* p_node = get_node(p_ll, pos);
 
     if (!p_node || !p_node->p_next) return;
 
@@ -227,60 +227,60 @@ void pop_after(singly_ll_t** pp_ll, int pos)
     return;
 }
 
-void pop_before(singly_ll_t** pp_ll, int pos)
+void pop_before(singly_ll_t* p_ll, int pos)
 {
-    int max_pos = length(*pp_ll) + 1;
+    int max_pos = length(p_ll) + 1;
 
     if (pos < 2 || pos > max_pos) return;
 
     if (pos == 2)
     {
-        pop_front(pp_ll);
+        pop_front(p_ll);
         return;
     }
 
     if (pos == max_pos)
     {
-        pop_back(pp_ll);
+        pop_back(p_ll);
         return;
     }
 
     int dbl_prev_pos = pos - 2;
 
-    pop_after(pp_ll, dbl_prev_pos);
+    pop_after(p_ll, dbl_prev_pos);
     return;
 }
 
-void pop_at(singly_ll_t** pp_ll, int pos)
+void pop_at(singly_ll_t* p_ll, int pos)
 {
-    int len = length(*pp_ll);
+    int len = length(p_ll);
 
     if (pos < 1 || pos > len) return;
 
     if (pos == 1)
     {
-        pop_front(pp_ll);
+        pop_front(p_ll);
         return;
     }
 
     if (pos == len)
     {
-        pop_back(pp_ll);
+        pop_back(p_ll);
         return;
     }
 
     int prev_pos = pos - 1;
 
-    pop_after(pp_ll, prev_pos);
+    pop_after(p_ll, prev_pos);
     return;
 }
 
-void reverse(singly_ll_t** pp_ll)
+void reverse(singly_ll_t* p_ll)
 {
-    if (!(*pp_ll)->head || !(*pp_ll)->head->p_next) return;
+    if (!p_ll->head || !p_ll->head->p_next) return;
 
-    singly_node_t* p_cur = (*pp_ll)->head->p_next;
-    singly_node_t* p_res = (*pp_ll)->head;
+    singly_node_t* p_cur = p_ll->head->p_next;
+    singly_node_t* p_res = p_ll->head;
     singly_node_t* p_tmp = NULL;
 
     p_res->p_next = NULL;
@@ -293,16 +293,16 @@ void reverse(singly_ll_t** pp_ll)
         p_res = p_tmp;
     }
 
-    (*pp_ll)->head = p_res;
+    p_ll->head = p_res;
 
     return;
 }
 
-void sort(singly_ll_t** pp_ll)
+void sort(singly_ll_t* p_ll)
 {
-    if (!(*pp_ll)->head || !(*pp_ll)->head->p_next) return;
+    if (!p_ll->head || !p_ll->head->p_next) return;
 
-    singly_node_t* p_cur = (*pp_ll)->head;
+    singly_node_t* p_cur = p_ll->head;
     singly_node_t* p_next = NULL;
     int tmp = 0;
 
@@ -328,37 +328,37 @@ void sort(singly_ll_t** pp_ll)
     return;
 }
 
-singly_ll_t* create_singly_ll()
+singly_ll_t create_singly_ll()
 {
-    singly_ll_t* p_self = (singly_ll_t*)malloc(sizeof(singly_ll_t));
+    singly_ll_t self;
 
-    p_self->head = NULL;
+    self.head = NULL;
 
-    p_self->check_empty = &check_empty;
+    self.check_empty = &check_empty;
 
-    p_self->traverse = &traverse;
-    p_self->count = &count;
-    p_self->length = &length;
+    self.traverse = &traverse;
+    self.count = &count;
+    self.length = &length;
 
-    p_self->get_node = &get_node;
-    p_self->search = &search;
+    self.get_node = &get_node;
+    self.search = &search;
 
-    p_self->push_front = &push_front;
-    p_self->push_back = &push_back;
-    p_self->push_after = &push_after;
-    p_self->push_before = &push_before;
-    p_self->push_at = &push_before;
+    self.push_front = &push_front;
+    self.push_back = &push_back;
+    self.push_after = &push_after;
+    self.push_before = &push_before;
+    self.push_at = &push_before;
 
-    p_self->pop_front = &pop_front;
-    p_self->pop_back = &pop_back;
-    p_self->pop_after = &pop_after;
-    p_self->pop_before = &pop_before;
-    p_self->pop_at = &pop_at;
+    self.pop_front = &pop_front;
+    self.pop_back = &pop_back;
+    self.pop_after = &pop_after;
+    self.pop_before = &pop_before;
+    self.pop_at = &pop_at;
 
-    p_self->reverse = &reverse;
-    p_self->sort = &sort;
+    self.reverse = &reverse;
+    self.sort = &sort;
 
-    return p_self;
+    return self;
 }
 
 void destroy_singly_ll(singly_ll_t* p_ll)
@@ -371,8 +371,6 @@ void destroy_singly_ll(singly_ll_t* p_ll)
         free(p_ll->head);
         p_ll->head = p_tmp;
     }
-
-    free(p_ll);
 
     return;
 }

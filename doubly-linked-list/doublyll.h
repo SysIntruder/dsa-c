@@ -13,7 +13,6 @@ typedef struct doubly_ll doubly_ll_t;
 struct doubly_ll
 {
     doubly_node_t* head;
-    int _len;
 
     int (*check_empty)(doubly_ll_t*);
 

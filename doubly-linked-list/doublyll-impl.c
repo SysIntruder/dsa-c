@@ -74,23 +74,23 @@ int search(doubly_ll_t* p_ll, int data)
     return 0;
 }
 
-void push_node(doubly_ll_t** pp_ll, int data)
+void push_node(doubly_ll_t* p_ll, int data)
 {
     doubly_node_t* p_new_node = (doubly_node_t*)malloc(sizeof(doubly_node_t));
 
     p_new_node->data = data;
     p_new_node->p_prev = NULL;
     p_new_node->p_next = NULL;
-    (*pp_ll)->head = p_new_node;
+    p_ll->head = p_new_node;
 
     return;
 }
 
-void push_front(doubly_ll_t** pp_ll, int data)
+void push_front(doubly_ll_t* p_ll, int data)
 {
-    if (!(*pp_ll)->head)
+    if (!p_ll->head)
     {
-        push_node(pp_ll, data);
+        push_node(p_ll, data);
         return;
     }
 
@@ -98,22 +98,22 @@ void push_front(doubly_ll_t** pp_ll, int data)
 
     p_new_node->data = data;
     p_new_node->p_prev = NULL;
-    p_new_node->p_next = (*pp_ll)->head;
-    (*pp_ll)->head->p_prev = p_new_node;
-    (*pp_ll)->head = p_new_node;
+    p_new_node->p_next = p_ll->head;
+    p_ll->head->p_prev = p_new_node;
+    p_ll->head = p_new_node;
 
     return;
 }
 
-void push_back(doubly_ll_t** pp_ll, int data)
+void push_back(doubly_ll_t* p_ll, int data)
 {
-    if (!(*pp_ll)->head)
+    if (!p_ll->head)
     {
-        push_node(pp_ll, data);
+        push_node(p_ll, data);
         return;
     }
 
-    doubly_node_t* p_node = (*pp_ll)->head;
+    doubly_node_t* p_node = p_ll->head;
 
     while (p_node->p_next != NULL)
     {
@@ -130,25 +130,25 @@ void push_back(doubly_ll_t** pp_ll, int data)
     return;
 }
 
-void push_after(doubly_ll_t** pp_ll, int pos, int data)
+void push_after(doubly_ll_t* p_ll, int pos, int data)
 {
-    int len = length(*pp_ll);
+    int len = length(p_ll);
 
     if (pos < 0 || pos > len) return;
 
     if (pos == 0)
     {
-        push_front(pp_ll, data);
+        push_front(p_ll, data);
         return;
     }
 
     if (pos == len)
     {
-        push_back(pp_ll, data);
+        push_back(p_ll, data);
         return;
     }
 
-    doubly_node_t* p_node = get_node(*pp_ll, pos);
+    doubly_node_t* p_node = get_node(p_ll, pos);
 
     if (!p_node) return;
 
@@ -163,26 +163,26 @@ void push_after(doubly_ll_t** pp_ll, int pos, int data)
     return;
 }
 
-void push_before(doubly_ll_t** pp_ll, int pos, int data)
+void push_before(doubly_ll_t* p_ll, int pos, int data)
 {
-    int len = length(*pp_ll);
+    int len = length(p_ll);
     int prev_pos = pos - 1;
 
     if (pos < 1 || prev_pos > len) return;
 
     if (pos == 1)
     {
-        push_front(pp_ll, data);
+        push_front(p_ll, data);
         return;
     }
 
     if (prev_pos == len)
     {
-        push_back(pp_ll, data);
+        push_back(p_ll, data);
         return;
     }
 
-    doubly_node_t* p_node = get_node(*pp_ll, pos);
+    doubly_node_t* p_node = get_node(p_ll, pos);
 
     if (!p_node) return;
 
@@ -197,32 +197,32 @@ void push_before(doubly_ll_t** pp_ll, int pos, int data)
     return;
 }
 
-void pop_front(doubly_ll_t** pp_ll)
+void pop_front(doubly_ll_t* p_ll)
 {
-    if (!(*pp_ll)->head) return;
+    if (!p_ll->head) return;
 
-    doubly_node_t* p_tmp = (*pp_ll)->head;
+    doubly_node_t* p_tmp = p_ll->head;
 
-    (*pp_ll)->head = p_tmp->p_next;
-    (*pp_ll)->head->p_prev = NULL;
+    p_ll->head = p_tmp->p_next;
+    p_ll->head->p_prev = NULL;
     free(p_tmp);
 
     return;
 }
 
-void pop_back(doubly_ll_t** pp_ll)
+void pop_back(doubly_ll_t* p_ll)
 {
-    if (!(*pp_ll)->head) return;
+    if (!p_ll->head) return;
 
-    if (!(*pp_ll)->head->p_next)
+    if (!p_ll->head->p_next)
     {
-        free((*pp_ll)->head);
-        (*pp_ll)->head = NULL;
+        free(p_ll->head);
+        p_ll->head = NULL;
 
         return;
     }
 
-    doubly_node_t* p_tmp = (*pp_ll)->head;
+    doubly_node_t* p_tmp = p_ll->head;
 
     while (p_tmp->p_next->p_next != NULL)
     {
@@ -237,26 +237,26 @@ void pop_back(doubly_ll_t** pp_ll)
     return;
 }
 
-void pop_after(doubly_ll_t** pp_ll, int pos)
+void pop_after(doubly_ll_t* p_ll, int pos)
 {
-    int len = length(*pp_ll);
+    int len = length(p_ll);
     int next_pos = pos + 1;
 
     if (pos < 0 || next_pos > len) return;
 
     if (pos == 0)
     {
-        pop_front(pp_ll);
+        pop_front(p_ll);
         return;
     }
 
     if (next_pos == len)
     {
-        pop_back(pp_ll);
+        pop_back(p_ll);
         return;
     }
 
-    doubly_node_t* p_node = get_node(*pp_ll, pos);
+    doubly_node_t* p_node = get_node(p_ll, pos);
 
     if (!p_node || !p_node->p_next) return;
 
@@ -269,25 +269,25 @@ void pop_after(doubly_ll_t** pp_ll, int pos)
     return;
 }
 
-void pop_before(doubly_ll_t** pp_ll, int pos)
+void pop_before(doubly_ll_t* p_ll, int pos)
 {
-    int max_pos = length(*pp_ll) + 1;
+    int max_pos = length(p_ll) + 1;
 
     if (pos < 2 || pos > max_pos) return;
 
     if (pos == 2)
     {
-        pop_front(pp_ll);
+        pop_front(p_ll);
         return;
     }
 
     if (pos == max_pos)
     {
-        pop_back(pp_ll);
+        pop_back(p_ll);
         return;
     }
 
-    doubly_node_t* p_node = get_node(*pp_ll, pos);
+    doubly_node_t* p_node = get_node(p_ll, pos);
 
     if (!p_node || !p_node->p_prev) return;
 
@@ -300,25 +300,25 @@ void pop_before(doubly_ll_t** pp_ll, int pos)
     return;
 }
 
-void pop_at(doubly_ll_t** pp_ll, int pos)
+void pop_at(doubly_ll_t* p_ll, int pos)
 {
-    int len = length(*pp_ll);
+    int len = length(p_ll);
 
     if (pos < 1 || pos > len) return;
 
     if (pos == 1)
     {
-        pop_front(pp_ll);
+        pop_front(p_ll);
         return;
     }
 
     if (pos == len)
     {
-        pop_back(pp_ll);
+        pop_back(p_ll);
         return;
     }
 
-    doubly_node_t* p_tmp = get_node(*pp_ll, pos);
+    doubly_node_t* p_tmp = get_node(p_ll, pos);
 
     if (!p_tmp) return;
 
@@ -337,12 +337,12 @@ void pop_at(doubly_ll_t** pp_ll, int pos)
     return;
 }
 
-void reverse(doubly_ll_t** pp_ll)
+void reverse(doubly_ll_t* p_ll)
 {
-    if (!(*pp_ll)->head || !(*pp_ll)->head->p_next) return;
+    if (!p_ll->head || !p_ll->head->p_next) return;
 
-    doubly_node_t* p_cur = (*pp_ll)->head->p_next;
-    doubly_node_t* p_res = (*pp_ll)->head;
+    doubly_node_t* p_cur = p_ll->head->p_next;
+    doubly_node_t* p_res = p_ll->head;
     doubly_node_t* p_tmp = NULL;
 
     p_res->p_next = NULL;
@@ -357,16 +357,16 @@ void reverse(doubly_ll_t** pp_ll)
         p_res = p_tmp;
     }
 
-    (*pp_ll)->head = p_res;
+    p_ll->head = p_res;
 
     return;
 }
 
-void sort(doubly_ll_t** pp_ll)
+void sort(doubly_ll_t* p_ll)
 {
-    if (!(*pp_ll)->head || !(*pp_ll)->head->p_next) return;
+    if (!p_ll->head || !p_ll->head->p_next) return;
 
-    doubly_node_t* p_cur = (*pp_ll)->head;
+    doubly_node_t* p_cur = p_ll->head;
     doubly_node_t* p_next = NULL;
     int tmp = 0;
 
@@ -392,37 +392,37 @@ void sort(doubly_ll_t** pp_ll)
     return;
 }
 
-doubly_ll_t* create_doubly_ll()
+doubly_ll_t create_doubly_ll()
 {
-    doubly_ll_t* p_self = (doubly_ll_t*)malloc(sizeof(doubly_ll_t));
+    doubly_ll_t self;
 
-    p_self->head = NULL;
+    self.head = NULL;
 
-    p_self->check_empty = &check_empty;
+    self.check_empty = &check_empty;
 
-    p_self->traverse = &traverse;
-    p_self->count = &count;
-    p_self->length = &length;
+    self.traverse = &traverse;
+    self.count = &count;
+    self.length = &length;
 
-    p_self->get_node = &get_node;
-    p_self->search = &search;
+    self.get_node = &get_node;
+    self.search = &search;
 
-    p_self->push_front = &push_front;
-    p_self->push_back = &push_back;
-    p_self->push_after = &push_after;
-    p_self->push_before = &push_before;
-    p_self->push_at = &push_before;
+    self.push_front = &push_front;
+    self.push_back = &push_back;
+    self.push_after = &push_after;
+    self.push_before = &push_before;
+    self.push_at = &push_before;
 
-    p_self->pop_front = &pop_front;
-    p_self->pop_back = &pop_back;
-    p_self->pop_after = &pop_after;
-    p_self->pop_before = &pop_before;
-    p_self->pop_at = &pop_at;
+    self.pop_front = &pop_front;
+    self.pop_back = &pop_back;
+    self.pop_after = &pop_after;
+    self.pop_before = &pop_before;
+    self.pop_at = &pop_at;
 
-    p_self->reverse = &reverse;
-    p_self->sort = &sort;
+    self.reverse = &reverse;
+    self.sort = &sort;
 
-    return p_self;
+    return self;
 }
 
 void destroy_doubly_ll(doubly_ll_t* p_ll)
@@ -435,8 +435,6 @@ void destroy_doubly_ll(doubly_ll_t* p_ll)
         free(p_ll->head);
         p_ll->head = p_tmp;
     }
-
-    free(p_ll);
 
     return;
 }

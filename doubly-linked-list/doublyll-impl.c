@@ -5,12 +5,12 @@
 
 int check_empty(doubly_ll_t* p_ll)
 {
-    return !p_ll->head;
+    return !p_ll->p_head;
 }
 
 void traverse(doubly_ll_t* p_ll)
 {
-    doubly_node_t* p_node = p_ll->head;
+    doubly_node_t* p_node = p_ll->p_head;
     doubly_node_t* p_prev = NULL;
 
     printf("NULL" BLU " <");
@@ -38,7 +38,7 @@ int count(doubly_node_t* p_node)
 
 int length(doubly_ll_t* p_ll)
 {
-    return count(p_ll->head);
+    return count(p_ll->p_head);
 }
 
 doubly_node_t* get_node(doubly_ll_t* p_ll, int pos)
@@ -46,9 +46,9 @@ doubly_node_t* get_node(doubly_ll_t* p_ll, int pos)
     int len = length(p_ll);
 
     if (pos < 1 || pos > len) return NULL;
-    if (pos == 1) return p_ll->head;
+    if (pos == 1) return p_ll->p_head;
 
-    doubly_node_t* p_node = p_ll->head;
+    doubly_node_t* p_node = p_ll->p_head;
 
     for (int i = 1; i < pos; i++)
     {
@@ -61,7 +61,7 @@ doubly_node_t* get_node(doubly_ll_t* p_ll, int pos)
 int search(doubly_ll_t* p_ll, int data)
 {
     int count = 1;
-    doubly_node_t* p_node = p_ll->head;
+    doubly_node_t* p_node = p_ll->p_head;
 
     while (p_node)
     {
@@ -81,14 +81,14 @@ void push_node(doubly_ll_t* p_ll, int data)
     p_new_node->data = data;
     p_new_node->p_prev = NULL;
     p_new_node->p_next = NULL;
-    p_ll->head = p_new_node;
+    p_ll->p_head = p_new_node;
 
     return;
 }
 
 void push_front(doubly_ll_t* p_ll, int data)
 {
-    if (!p_ll->head)
+    if (!p_ll->p_head)
     {
         push_node(p_ll, data);
         return;
@@ -98,22 +98,22 @@ void push_front(doubly_ll_t* p_ll, int data)
 
     p_new_node->data = data;
     p_new_node->p_prev = NULL;
-    p_new_node->p_next = p_ll->head;
-    p_ll->head->p_prev = p_new_node;
-    p_ll->head = p_new_node;
+    p_new_node->p_next = p_ll->p_head;
+    p_ll->p_head->p_prev = p_new_node;
+    p_ll->p_head = p_new_node;
 
     return;
 }
 
 void push_back(doubly_ll_t* p_ll, int data)
 {
-    if (!p_ll->head)
+    if (!p_ll->p_head)
     {
         push_node(p_ll, data);
         return;
     }
 
-    doubly_node_t* p_node = p_ll->head;
+    doubly_node_t* p_node = p_ll->p_head;
 
     while (p_node->p_next != NULL)
     {
@@ -199,12 +199,12 @@ void push_before(doubly_ll_t* p_ll, int pos, int data)
 
 void pop_front(doubly_ll_t* p_ll)
 {
-    if (!p_ll->head) return;
+    if (!p_ll->p_head) return;
 
-    doubly_node_t* p_tmp = p_ll->head;
+    doubly_node_t* p_tmp = p_ll->p_head;
 
-    p_ll->head = p_tmp->p_next;
-    p_ll->head->p_prev = NULL;
+    p_ll->p_head = p_tmp->p_next;
+    p_ll->p_head->p_prev = NULL;
     free(p_tmp);
 
     return;
@@ -212,17 +212,17 @@ void pop_front(doubly_ll_t* p_ll)
 
 void pop_back(doubly_ll_t* p_ll)
 {
-    if (!p_ll->head) return;
+    if (!p_ll->p_head) return;
 
-    if (!p_ll->head->p_next)
+    if (!p_ll->p_head->p_next)
     {
-        free(p_ll->head);
-        p_ll->head = NULL;
+        free(p_ll->p_head);
+        p_ll->p_head = NULL;
 
         return;
     }
 
-    doubly_node_t* p_tmp = p_ll->head;
+    doubly_node_t* p_tmp = p_ll->p_head;
 
     while (p_tmp->p_next->p_next != NULL)
     {
@@ -339,10 +339,10 @@ void pop_at(doubly_ll_t* p_ll, int pos)
 
 void reverse(doubly_ll_t* p_ll)
 {
-    if (!p_ll->head || !p_ll->head->p_next) return;
+    if (!p_ll->p_head || !p_ll->p_head->p_next) return;
 
-    doubly_node_t* p_cur = p_ll->head->p_next;
-    doubly_node_t* p_res = p_ll->head;
+    doubly_node_t* p_cur = p_ll->p_head->p_next;
+    doubly_node_t* p_res = p_ll->p_head;
     doubly_node_t* p_tmp = NULL;
 
     p_res->p_next = NULL;
@@ -357,16 +357,16 @@ void reverse(doubly_ll_t* p_ll)
         p_res = p_tmp;
     }
 
-    p_ll->head = p_res;
+    p_ll->p_head = p_res;
 
     return;
 }
 
 void sort(doubly_ll_t* p_ll)
 {
-    if (!p_ll->head || !p_ll->head->p_next) return;
+    if (!p_ll->p_head || !p_ll->p_head->p_next) return;
 
-    doubly_node_t* p_cur = p_ll->head;
+    doubly_node_t* p_cur = p_ll->p_head;
     doubly_node_t* p_next = NULL;
     int tmp = 0;
 
@@ -396,7 +396,7 @@ doubly_ll_t create_doubly_ll()
 {
     doubly_ll_t self;
 
-    self.head = NULL;
+    self.p_head = NULL;
 
     self.check_empty = &check_empty;
 
@@ -427,13 +427,13 @@ doubly_ll_t create_doubly_ll()
 
 void destroy_doubly_ll(doubly_ll_t* p_ll)
 {
-    doubly_node_t* p_tmp = p_ll->head;
+    doubly_node_t* p_tmp = p_ll->p_head;
 
-    while (p_ll->head)
+    while (p_ll->p_head)
     {
-        p_tmp = p_ll->head->p_next;
-        free(p_ll->head);
-        p_ll->head = p_tmp;
+        p_tmp = p_ll->p_head->p_next;
+        free(p_ll->p_head);
+        p_ll->p_head = p_tmp;
     }
 
     return;

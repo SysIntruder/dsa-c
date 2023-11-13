@@ -5,7 +5,7 @@
 
 int check_empty(circular_ll_t* p_ll)
 {
-    return !p_ll->head;
+    return !p_ll->p_head;
 }
 
 int count(circular_node_t* p_node, circular_node_t* p_head)
@@ -26,19 +26,19 @@ int count(circular_node_t* p_node, circular_node_t* p_head)
 
 int length(circular_ll_t* p_ll)
 {
-    return count(p_ll->head, p_ll->head);
+    return count(p_ll->p_head, p_ll->p_head);
 }
 
 void traverse(circular_ll_t* p_ll)
 {
-    circular_node_t* p_node = p_ll->head;
+    circular_node_t* p_node = p_ll->p_head;
     circular_node_t* p_prev = NULL;
     int len = length(p_ll);
     int count = 0;
 
-    if (p_node) p_prev = p_ll->head->p_prev;
+    if (p_node) p_prev = p_ll->p_head->p_prev;
 
-    if (p_ll->head) printf(YEL "%d" RESET, p_ll->head->p_prev->data);
+    if (p_ll->p_head) printf(YEL "%d" RESET, p_ll->p_head->p_prev->data);
     else printf(YEL "NULL" RESET);
 
     printf(BLU " <");
@@ -55,7 +55,7 @@ void traverse(circular_ll_t* p_ll)
 
     printf("=> " RESET);
 
-    if (p_ll->head) printf(YEL "%d\n" RESET, p_ll->head->data);
+    if (p_ll->p_head) printf(YEL "%d\n" RESET, p_ll->p_head->data);
     else printf(YEL "NULL\n" RESET);
 
     return;
@@ -66,9 +66,9 @@ circular_node_t* get_node(circular_ll_t* p_ll, int pos)
     int len = length(p_ll);
 
     if (pos < 1 || pos > len) return NULL;
-    if (pos == 1) return p_ll->head;
+    if (pos == 1) return p_ll->p_head;
 
-    circular_node_t* p_node = p_ll->head;
+    circular_node_t* p_node = p_ll->p_head;
 
     for (int i = 1; i < pos; i++)
     {
@@ -81,7 +81,7 @@ circular_node_t* get_node(circular_ll_t* p_ll, int pos)
 int search(circular_ll_t* p_ll, int data)
 {
     int count = 1;
-    circular_node_t* p_node = p_ll->head;
+    circular_node_t* p_node = p_ll->p_head;
 
     do
     {
@@ -89,7 +89,7 @@ int search(circular_ll_t* p_ll, int data)
 
         p_node = p_node->p_next;
         count++;
-    } while (p_node != p_ll->head);
+    } while (p_node != p_ll->p_head);
 
     return 0;
 }
@@ -100,19 +100,19 @@ void push_node(circular_ll_t* p_ll, int data, circular_node_t** node)
 
     p_new_node->data = data;
 
-    if (!p_ll->head)
+    if (!p_ll->p_head)
     {
         p_new_node->p_prev = p_new_node;
         p_new_node->p_next = p_new_node;
-        p_ll->head = p_new_node;
+        p_ll->p_head = p_new_node;
 
         return;
     }
 
-    p_new_node->p_next = p_ll->head;
-    p_new_node->p_prev = p_ll->head->p_prev;
-    p_ll->head->p_prev->p_next = p_new_node;
-    p_ll->head->p_prev = p_new_node;
+    p_new_node->p_next = p_ll->p_head;
+    p_new_node->p_prev = p_ll->p_head->p_prev;
+    p_ll->p_head->p_prev->p_next = p_new_node;
+    p_ll->p_head->p_prev = p_new_node;
     *node = p_new_node;
 
     return;
@@ -120,13 +120,13 @@ void push_node(circular_ll_t* p_ll, int data, circular_node_t** node)
 
 void push_front(circular_ll_t* p_ll, int data)
 {
-    push_node(p_ll, data, &p_ll->head);
+    push_node(p_ll, data, &p_ll->p_head);
     return;
 }
 
 void push_back(circular_ll_t* p_ll, int data)
 {
-    push_node(p_ll, data, &p_ll->head->p_prev);
+    push_node(p_ll, data, &p_ll->p_head->p_prev);
     return;
 }
 
@@ -199,11 +199,11 @@ void push_before(circular_ll_t* p_ll, int pos, int data)
 
 void pop_node(circular_ll_t* p_ll, circular_node_t** node)
 {
-    if (!p_ll->head) return;
-    if (p_ll->head == p_ll->head->p_next)
+    if (!p_ll->p_head) return;
+    if (p_ll->p_head == p_ll->p_head->p_next)
     {
-        free(p_ll->head);
-        p_ll->head = NULL;
+        free(p_ll->p_head);
+        p_ll->p_head = NULL;
 
         return;
     }
@@ -211,8 +211,8 @@ void pop_node(circular_ll_t* p_ll, circular_node_t** node)
     circular_node_t* p_tmp = *node;
 
     p_tmp->p_prev->p_next = p_tmp->p_next;
-    p_ll->head = p_tmp->p_next;
-    p_ll->head->p_prev = p_tmp->p_prev;
+    p_ll->p_head = p_tmp->p_next;
+    p_ll->p_head->p_prev = p_tmp->p_prev;
     free(p_tmp);
 
     return;
@@ -220,13 +220,13 @@ void pop_node(circular_ll_t* p_ll, circular_node_t** node)
 
 void pop_front(circular_ll_t* p_ll)
 {
-    pop_node(p_ll, &p_ll->head);
+    pop_node(p_ll, &p_ll->p_head);
     return;
 }
 
 void pop_back(circular_ll_t* p_ll)
 {
-    pop_node(p_ll, &p_ll->head->p_prev);
+    pop_node(p_ll, &p_ll->p_head->p_prev);
     return;
 }
 
@@ -334,14 +334,14 @@ void reverse(circular_ll_t* p_ll)
 {
     int len = length(p_ll);
 
-    if (!p_ll->head || len == 1) return;
+    if (!p_ll->p_head || len == 1) return;
 
-    circular_node_t* p_cur = p_ll->head;
-    circular_node_t* p_res = p_ll->head->p_prev;
+    circular_node_t* p_cur = p_ll->p_head;
+    circular_node_t* p_res = p_ll->p_head->p_prev;
     circular_node_t* p_tmp = NULL;
     int count = 0;
 
-    p_res->p_next = p_ll->head;
+    p_res->p_next = p_ll->p_head;
     p_res->p_prev = p_cur;
 
     while (p_cur && count < len)
@@ -354,7 +354,7 @@ void reverse(circular_ll_t* p_ll)
         count++;
     }
 
-    p_ll->head = p_res;
+    p_ll->p_head = p_res;
 
     return;
 }
@@ -363,9 +363,9 @@ void sort(circular_ll_t* p_ll)
 {
     int len = length(p_ll);
 
-    if (!p_ll->head || len == 1) return;
+    if (!p_ll->p_head || len == 1) return;
 
-    circular_node_t* p_cur = p_ll->head;
+    circular_node_t* p_cur = p_ll->p_head;
     circular_node_t* p_next = NULL;
     int tmp = 0;
 
@@ -373,7 +373,7 @@ void sort(circular_ll_t* p_ll)
     {
         p_next = p_cur->p_next;
 
-        while (p_next && p_next != p_ll->head)
+        while (p_next && p_next != p_ll->p_head)
         {
             if (p_cur->data > p_next->data)
             {
@@ -386,7 +386,7 @@ void sort(circular_ll_t* p_ll)
         }
 
         p_cur = p_cur->p_next;
-    } while (p_cur && p_cur != p_ll->head);
+    } while (p_cur && p_cur != p_ll->p_head);
 
     return;
 }
@@ -395,7 +395,7 @@ circular_ll_t create_circular_ll()
 {
     circular_ll_t self;
 
-    self.head = NULL;
+    self.p_head = NULL;
 
     self.check_empty = &check_empty;
 
@@ -427,13 +427,13 @@ circular_ll_t create_circular_ll()
 void destroy_circular_ll(circular_ll_t* p_ll)
 {
     int len = length(p_ll);
-    circular_node_t* p_tmp = p_ll->head;
+    circular_node_t* p_tmp = p_ll->p_head;
 
     while (len)
     {
-        p_tmp = p_ll->head->p_next;
-        free(p_ll->head);
-        p_ll->head = p_tmp;
+        p_tmp = p_ll->p_head->p_next;
+        free(p_ll->p_head);
+        p_ll->p_head = p_tmp;
         len -= 1;
     }
 

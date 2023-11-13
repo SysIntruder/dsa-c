@@ -12,7 +12,7 @@ struct circular_node
 typedef struct circular_ll circular_ll_t;
 struct circular_ll
 {
-    circular_node_t* head;
+    circular_node_t* p_head;
 
     int (*check_empty)(circular_ll_t*);
 

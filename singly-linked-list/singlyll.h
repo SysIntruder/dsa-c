@@ -11,7 +11,7 @@ struct singly_node
 typedef struct singly_ll singly_ll_t;
 struct singly_ll
 {
-    singly_node_t* head;
+    singly_node_t* p_head;
 
     int (*check_empty)(singly_ll_t*);
 

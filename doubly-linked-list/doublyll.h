@@ -12,7 +12,7 @@ struct doubly_node
 typedef struct doubly_ll doubly_ll_t;
 struct doubly_ll
 {
-    doubly_node_t* head;
+    doubly_node_t* p_head;
 
     int (*check_empty)(doubly_ll_t*);
 

@@ -71,6 +71,11 @@ int dequeue(queue_arr_t* p_qu)
     return res;
 }
 
+int peek(queue_arr_t* p_qu)
+{
+    return p_qu->is_empty(p_qu) ? -1 : p_qu->p_data[p_qu->_front];
+}
+
 queue_arr_t create_queue_arr(int size)
 {
     queue_arr_t self;
@@ -88,6 +93,7 @@ queue_arr_t create_queue_arr(int size)
 
     self.enqueue = &enqueue;
     self.dequeue = &dequeue;
+    self.peek = &peek;
 
     return self;
 }

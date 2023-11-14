@@ -17,6 +17,7 @@ struct queue_arr
 
     void (*enqueue)(queue_arr_t*, int);
     int (*dequeue)(queue_arr_t*);
+    int (*peek)(queue_arr_t*);
 };
 
 queue_arr_t create_queue_arr(int);

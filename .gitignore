@@ -3,5 +3,6 @@ singly-linked-list/singlyll
 doubly-linked-list/doublyll
 circular-linked-list/circularll
 stack-array/stackarr
+queue-array/queuearr
 */vgcore.*
 .vscode

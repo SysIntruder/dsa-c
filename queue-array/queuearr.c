@@ -52,7 +52,7 @@ void demo()
     system("clear");
     printf("Queue\n");
 
-    queue_arr_t qu = create_queue_arr(4);
+    queue_arr_t qu = create_queue_arr(3);
     qu.traverse(&qu);
     printf("Length: %d\n", qu.length(&qu));
     printf("\n");
@@ -75,16 +75,7 @@ void demo()
     printf("Length: %d\n", qu.length(&qu));
     printf("\n");
 
-    printf("Enqueue: 4\n");
-    qu.enqueue(&qu, 4);
-    qu.traverse(&qu);
-    printf("Length: %d\n", qu.length(&qu));
-    printf("\n");
-
-    printf("Dequeue\n");
-    qu.dequeue(&qu);
-    qu.traverse(&qu);
-    printf("Length: %d\n", qu.length(&qu));
+    printf("Peek: %d\n", qu.peek(&qu));
     printf("\n");
 
     printf("Dequeue\n");
@@ -125,9 +116,10 @@ void queue_arr()
     printf("1)\tDisplay Status\n");
     printf("2)\tEnqueue\n");
     printf("3)\tDequeue\n");
-    printf("4)\tClear Screen\n");
-    printf("5)\tReset\n");
-    printf("6)\tExit\n");
+    printf("4)\tPeek\n");
+    printf("5)\tClear Screen\n");
+    printf("6)\tReset\n");
+    printf("7)\tExit\n");
 
     while (1)
     {
@@ -141,9 +133,10 @@ void queue_arr()
             printf("1)\tDisplay Status\n");
             printf("2)\tEnqueue\n");
             printf("3)\tDequeue\n");
-            printf("4)\tClear Screen\n");
-            printf("5)\tReset\n");
-            printf("6)\tExit\n");
+            printf("4)\tPeek\n");
+            printf("5)\tClear Screen\n");
+            printf("6)\tReset\n");
+            printf("7)\tExit\n");
 
             break;
         case 1:
@@ -170,10 +163,15 @@ void queue_arr()
 
             break;
         case 4:
-            system("clear");
+            printf(GRN "== Peek ==\n\n" RESET);
+            printf("Top Data: %d\n", qu.peek(&qu));
 
             break;
         case 5:
+            system("clear");
+
+            break;
+        case 6:
             data = 0;
             destroy_queue_arr(&qu);
             printf("input queue size --THIS CAN'T BE CHANGED LATER--\n");
@@ -182,7 +180,7 @@ void queue_arr()
             system("clear");
 
             break;
-        case 6:
+        case 7:
             printf(GRN "== Exiting ==\n");
             destroy_queue_arr(&qu);
             exit(0);

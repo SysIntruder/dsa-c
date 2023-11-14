@@ -92,6 +92,34 @@ void reverse(queue_arr_t* p_qu)
     return;
 }
 
+void sort(queue_arr_t* p_qu)
+{
+    if (p_qu->is_empty(p_qu) || p_qu->length(p_qu) == 1) return;
+
+    int cur = 0, next = 0, tmp = 0;
+
+    while (cur <= p_qu->_rear)
+    {
+        next = cur + 1;
+
+        while (next <= p_qu->_rear)
+        {
+            if (p_qu->p_data[cur] > p_qu->p_data[next])
+            {
+                tmp = p_qu->p_data[cur];
+                p_qu->p_data[cur] = p_qu->p_data[next];
+                p_qu->p_data[next] = tmp;
+            }
+
+            next++;
+        }
+
+        cur++;
+    }
+
+    return;
+}
+
 queue_arr_t create_queue_arr(int size)
 {
     queue_arr_t self;
@@ -112,6 +140,7 @@ queue_arr_t create_queue_arr(int size)
     self.peek = &peek;
 
     self.reverse = &reverse;
+    self.sort = &sort;
 
     return self;
 }

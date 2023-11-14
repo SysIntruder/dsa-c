@@ -80,6 +80,11 @@ void demo()
     qu.traverse(&qu);
     printf("\n");
 
+    printf("Sort\n");
+    qu.sort(&qu);
+    qu.traverse(&qu);
+    printf("\n");
+
     printf("Peek: %d\n", qu.peek(&qu));
     printf("\n");
 
@@ -123,9 +128,10 @@ void queue_arr()
     printf("3)\tDequeue\n");
     printf("4)\tPeek\n");
     printf("5)\tReverse\n");
-    printf("6)\tClear Screen\n");
-    printf("7)\tReset\n");
-    printf("8)\tExit\n");
+    printf("6)\tSort\n");
+    printf("7)\tClear Screen\n");
+    printf("8)\tReset\n");
+    printf("9)\tExit\n");
 
     while (1)
     {
@@ -141,9 +147,10 @@ void queue_arr()
             printf("3)\tDequeue\n");
             printf("4)\tPeek\n");
             printf("5)\tReverse\n");
-            printf("6)\tClear Screen\n");
-            printf("7)\tReset\n");
-            printf("8)\tExit\n");
+            printf("6)\tSort\n");
+            printf("7)\tClear Screen\n");
+            printf("8)\tReset\n");
+            printf("9)\tExit\n");
 
             break;
         case 1:
@@ -182,10 +189,17 @@ void queue_arr()
 
             break;
         case 6:
-            system("clear");
+            printf(GRN "== Sort ==\n\n" RESET);
+            qu.sort(&qu);
+            printf("Data Sorted\n");
+            qu.traverse(&qu);
 
             break;
         case 7:
+            system("clear");
+
+            break;
+        case 8:
             data = 0;
             destroy_queue_arr(&qu);
             printf("input queue size --THIS CAN'T BE CHANGED LATER--\n");
@@ -194,7 +208,7 @@ void queue_arr()
             system("clear");
 
             break;
-        case 8:
+        case 9:
             printf(GRN "== Exiting ==\n");
             destroy_queue_arr(&qu);
             exit(0);

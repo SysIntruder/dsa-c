@@ -20,6 +20,7 @@ struct queue_arr
     int (*peek)(queue_arr_t*);
 
     void (*reverse)(queue_arr_t*);
+    void (*sort)(queue_arr_t*);
 };
 
 queue_arr_t create_queue_arr(int);

@@ -10,7 +10,7 @@ int is_full(queue_arr_t* p_qu)
 
 int is_empty(queue_arr_t* p_qu)
 {
-    return p_qu->_front == -1;
+    return p_qu->_front == -1 || p_qu->_rear == -1;
 }
 
 int length(queue_arr_t* p_qu)
@@ -85,8 +85,8 @@ void reverse(queue_arr_t* p_qu)
     for (int i = 0; i < limit; i++)
     {
         tmp = p_qu->p_data[p_qu->_rear - i];
-        p_qu->p_data[p_qu->_rear - i] = p_qu->p_data[i];
-        p_qu->p_data[i] = tmp;
+        p_qu->p_data[p_qu->_rear - i] = p_qu->p_data[p_qu->_front + i];
+        p_qu->p_data[p_qu->_front + i] = tmp;
     }
 
     return;
@@ -96,7 +96,7 @@ void sort(queue_arr_t* p_qu)
 {
     if (p_qu->is_empty(p_qu) || p_qu->length(p_qu) == 1) return;
 
-    int cur = 0, next = 0, tmp = 0;
+    int cur = p_qu->_front, next = 0, tmp = 0;
 
     while (cur <= p_qu->_rear)
     {

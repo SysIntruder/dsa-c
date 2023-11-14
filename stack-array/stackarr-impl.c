@@ -22,11 +22,11 @@ void traverse(stack_arr_t* p_st)
 {
     printf(BLU "[" RESET);
 
-    int len = p_st->length(p_st);
-
-    for (int i = p_st->top; i > -1; i--)
+    for (int i = 0; i < p_st->length(p_st); i++)
     {
-        printf(" %d ", p_st->p_data[i]);
+        if(i == p_st->top) printf(YEL);
+
+        printf(" %d " RESET, p_st->p_data[i]);
     }
 
     printf(BLU "]" RESET "\n");
@@ -59,15 +59,43 @@ int peek(stack_arr_t* p_st)
 
 void reverse(stack_arr_t* p_st)
 {
-    if (p_st->is_empty(p_st) || p_st->top == 0) return;
+    if (p_st->is_empty(p_st) || p_st->length(p_st) == 1) return;
 
-    int tmp = 0;
+    int tmp = 0, limit = p_st->length(p_st) / 2;
 
-    for (int i = 0; i < p_st->top; i++)
+    for (int i = 0; i < limit; i++)
     {
         tmp = p_st->p_data[p_st->top - i];
         p_st->p_data[p_st->top - i] = p_st->p_data[i];
         p_st->p_data[i] = tmp;
+    }
+
+    return;
+}
+
+void sort(stack_arr_t* p_st)
+{
+    if (p_st->is_empty(p_st) || p_st->length(p_st) == 1) return;
+
+    int cur = 0, next = 0, tmp = 0;
+
+    while (cur <= p_st->top)
+    {
+        next = cur + 1;
+
+        while (next <= p_st->top)
+        {
+            if (p_st->p_data[cur] > p_st->p_data[next])
+            {
+                tmp = p_st->p_data[cur];
+                p_st->p_data[cur] = p_st->p_data[next];
+                p_st->p_data[next] = tmp;
+            }
+
+            next++;
+        }
+
+        cur++;
     }
 
     return;
@@ -92,6 +120,7 @@ stack_arr_t create_stack_arr(int size)
     self.peek = &peek;
 
     self.reverse = &reverse;
+    self.sort = &sort;
 
     return self;
 }

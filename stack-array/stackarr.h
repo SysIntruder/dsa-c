@@ -19,6 +19,7 @@ struct stack_arr
     int (*peek)(stack_arr_t*);
 
     void (*reverse)(stack_arr_t*);
+    void (*sort)(stack_arr_t*);
 };
 
 stack_arr_t create_stack_arr(int);

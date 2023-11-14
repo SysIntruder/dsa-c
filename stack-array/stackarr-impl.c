@@ -29,7 +29,7 @@ void traverse(stack_arr_t* p_st)
         printf(" %d ", p_st->p_data[i]);
     }
 
-    printf(BLU "]" RESET "\n");
+    printf(BLU "<*>" RESET "\n");
 
     return;
 }

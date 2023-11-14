@@ -73,6 +73,7 @@ void demo()
     qu.enqueue(&qu, 3);
     qu.traverse(&qu);
     printf("Length: %d\n", qu.length(&qu));
+    printf("Check Full: %d\n", qu.is_full(&qu));
     printf("\n");
 
     printf("Reverse\n");
@@ -104,6 +105,7 @@ void demo()
     qu.dequeue(&qu);
     qu.traverse(&qu);
     printf("Length: %d\n", qu.length(&qu));
+    printf("Check Empty: %d\n", qu.is_empty(&qu));
     printf("\n");
 
     destroy_queue_arr(&qu);

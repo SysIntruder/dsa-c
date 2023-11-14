@@ -20,7 +20,7 @@ int length(queue_arr_t* p_qu)
 
 void traverse(queue_arr_t* p_qu)
 {
-    printf(BLU "[" RESET);
+    printf(BLU "<<" RESET);
 
     int start = p_qu->is_empty(p_qu) ? 0 : p_qu->_front;
 
@@ -40,7 +40,7 @@ void traverse(queue_arr_t* p_qu)
         }
     }
 
-    printf(BLU "]" RESET "\n");
+    printf(BLU "<<" RESET "\n");
 
     return;
 }

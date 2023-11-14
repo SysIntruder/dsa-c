@@ -157,8 +157,8 @@ void stack_arr()
             break;
         case 1:
             printf(GRN "== Information ==\n\n" RESET);
-            printf("Top: %d\n", st.top);
-            printf("Stack Size: %d\n", st.size);
+            printf("Top Index: %d\n", st._top);
+            printf("Stack Size: %d\n", st._size);
             printf("Current Length: %d\n", st.length(&st));
             st.traverse(&st);
 

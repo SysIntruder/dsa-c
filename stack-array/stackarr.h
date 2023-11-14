@@ -4,8 +4,8 @@
 typedef struct stack_arr stack_arr_t;
 struct stack_arr
 {
-    int top;
-    int size;
+    int _top;
+    int _size;
     int* p_data;
 
     int (*is_full)(stack_arr_t*);

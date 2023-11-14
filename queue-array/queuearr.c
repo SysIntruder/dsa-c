@@ -75,6 +75,11 @@ void demo()
     printf("Length: %d\n", qu.length(&qu));
     printf("\n");
 
+    printf("Reverse\n");
+    qu.reverse(&qu);
+    qu.traverse(&qu);
+    printf("\n");
+
     printf("Peek: %d\n", qu.peek(&qu));
     printf("\n");
 
@@ -117,9 +122,10 @@ void queue_arr()
     printf("2)\tEnqueue\n");
     printf("3)\tDequeue\n");
     printf("4)\tPeek\n");
-    printf("5)\tClear Screen\n");
-    printf("6)\tReset\n");
-    printf("7)\tExit\n");
+    printf("5)\tReverse\n");
+    printf("6)\tClear Screen\n");
+    printf("7)\tReset\n");
+    printf("8)\tExit\n");
 
     while (1)
     {
@@ -134,9 +140,10 @@ void queue_arr()
             printf("2)\tEnqueue\n");
             printf("3)\tDequeue\n");
             printf("4)\tPeek\n");
-            printf("5)\tClear Screen\n");
-            printf("6)\tReset\n");
-            printf("7)\tExit\n");
+            printf("5)\tReverse\n");
+            printf("6)\tClear Screen\n");
+            printf("7)\tReset\n");
+            printf("8)\tExit\n");
 
             break;
         case 1:
@@ -168,10 +175,17 @@ void queue_arr()
 
             break;
         case 5:
-            system("clear");
+            printf(GRN "== Reverse ==\n\n" RESET);
+            qu.reverse(&qu);
+            printf("Data Reversed\n");
+            qu.traverse(&qu);
 
             break;
         case 6:
+            system("clear");
+
+            break;
+        case 7:
             data = 0;
             destroy_queue_arr(&qu);
             printf("input queue size --THIS CAN'T BE CHANGED LATER--\n");
@@ -180,7 +194,7 @@ void queue_arr()
             system("clear");
 
             break;
-        case 7:
+        case 8:
             printf(GRN "== Exiting ==\n");
             destroy_queue_arr(&qu);
             exit(0);

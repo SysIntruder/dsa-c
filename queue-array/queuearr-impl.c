@@ -76,6 +76,22 @@ int peek(queue_arr_t* p_qu)
     return p_qu->is_empty(p_qu) ? -1 : p_qu->p_data[p_qu->_front];
 }
 
+void reverse(queue_arr_t* p_qu)
+{
+    if (p_qu->is_empty(p_qu) || p_qu->length(p_qu) == 1) return;
+
+    int tmp = 0, limit = p_qu->length(p_qu) / 2;
+
+    for (int i = 0; i < limit; i++)
+    {
+        tmp = p_qu->p_data[p_qu->_rear - i];
+        p_qu->p_data[p_qu->_rear - i] = p_qu->p_data[i];
+        p_qu->p_data[i] = tmp;
+    }
+
+    return;
+}
+
 queue_arr_t create_queue_arr(int size)
 {
     queue_arr_t self;
@@ -94,6 +110,8 @@ queue_arr_t create_queue_arr(int size)
     self.enqueue = &enqueue;
     self.dequeue = &dequeue;
     self.peek = &peek;
+
+    self.reverse = &reverse;
 
     return self;
 }

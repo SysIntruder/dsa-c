@@ -98,6 +98,8 @@ void push_node(circular_ll_t* p_ll, int data, circular_node_t** node)
 {
     circular_node_t* p_new_node = (circular_node_t*)malloc(sizeof(circular_node_t));
 
+    if (!p_new_node) return;
+
     p_new_node->data = data;
 
     if (!p_ll->p_head)
@@ -154,6 +156,8 @@ void push_after(circular_ll_t* p_ll, int pos, int data)
 
     circular_node_t* p_new_node = (circular_node_t*)malloc(sizeof(circular_node_t));
 
+    if (!p_new_node) return;
+
     p_new_node->data = data;
     p_new_node->p_next = p_node->p_next;
     p_new_node->p_prev = p_node;
@@ -187,6 +191,8 @@ void push_before(circular_ll_t* p_ll, int pos, int data)
     if (!p_node) return;
 
     circular_node_t* p_new_node = (circular_node_t*)malloc(sizeof(circular_node_t));
+
+    if (!p_new_node) return;
 
     p_new_node->data = data;
     p_new_node->p_next = p_node;

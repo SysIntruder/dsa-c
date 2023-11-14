@@ -70,6 +70,8 @@ void push_front(singly_ll_t* p_ll, int data)
 {
     singly_node_t* p_new_node = (singly_node_t*)malloc(sizeof(singly_node_t));
 
+    if (!p_new_node) return;
+
     p_new_node->data = data;
     p_new_node->p_next = p_ll->p_head;
     p_ll->p_head = p_new_node;
@@ -93,6 +95,8 @@ void push_back(singly_ll_t* p_ll, int data)
     }
 
     singly_node_t* p_new_node = (singly_node_t*)malloc(sizeof(singly_node_t));
+
+    if (!p_new_node) return;
 
     p_new_node->data = data;
     p_new_node->p_next = NULL;
@@ -124,6 +128,8 @@ void push_after(singly_ll_t* p_ll, int pos, int data)
     if (!p_node) return;
 
     singly_node_t* p_new_node = (singly_node_t*)malloc(sizeof(singly_node_t));
+
+    if (!p_new_node) return;
 
     p_new_node->data = data;
     p_new_node->p_next = p_node->p_next;

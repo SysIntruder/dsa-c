@@ -1,24 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "stackarr.h"
+#include "stack.h"
 #include "../color.h"
 
-int is_full(stack_arr_t* p_st)
+int is_full(stack_t* p_st)
 {
     return p_st->_top == p_st->_size - 1;
 }
 
-int is_empty(stack_arr_t* p_st)
+int is_empty(stack_t* p_st)
 {
     return p_st->_top == -1;
 }
 
-int length(stack_arr_t* p_st)
+int length(stack_t* p_st)
 {
     return p_st->_top + 1;
 }
 
-void traverse(stack_arr_t* p_st)
+void traverse(stack_t* p_st)
 {
     printf(BLU "[" RESET);
 
@@ -29,12 +29,12 @@ void traverse(stack_arr_t* p_st)
         printf(" %d ", p_st->p_data[i]);
     }
 
-    printf(BLU "<*>" RESET "\n");
+    printf(BLU "<=>" RESET "\n");
 
     return;
 }
 
-void push(stack_arr_t* p_st, int data)
+void push(stack_t* p_st, int data)
 {
     if (p_st->is_full(p_st)) return;
 
@@ -43,17 +43,17 @@ void push(stack_arr_t* p_st, int data)
     return;
 }
 
-int pop(stack_arr_t* p_st)
+int pop(stack_t* p_st)
 {
     return p_st->is_empty(p_st) ? -1 : p_st->p_data[p_st->_top--];
 }
 
-int peek(stack_arr_t* p_st)
+int peek(stack_t* p_st)
 {
     return p_st->is_empty(p_st) ? -1 : p_st->p_data[p_st->_top];
 }
 
-void reverse(stack_arr_t* p_st)
+void reverse(stack_t* p_st)
 {
     if (p_st->is_empty(p_st) || p_st->length(p_st) == 1) return;
 
@@ -69,7 +69,7 @@ void reverse(stack_arr_t* p_st)
     return;
 }
 
-void sort(stack_arr_t* p_st)
+void sort(stack_t* p_st)
 {
     if (p_st->is_empty(p_st) || p_st->length(p_st) == 1) return;
 
@@ -97,9 +97,9 @@ void sort(stack_arr_t* p_st)
     return;
 }
 
-stack_arr_t create_stack_arr(int size)
+stack_t create_stack(int size)
 {
-    stack_arr_t self;
+    stack_t self;
 
     self._top = -1;
     self._size = size;
@@ -121,7 +121,7 @@ stack_arr_t create_stack_arr(int size)
     return self;
 }
 
-void destroy_stack_arr(stack_arr_t* p_st)
+void destroy_stack(stack_t* p_st)
 {
     free(p_st->p_data);
 

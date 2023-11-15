@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "stackarr.h"
+#include "stack.h"
 #include "../color.h"
 
 void help();
@@ -52,7 +52,7 @@ void demo()
     system("clear");
     printf("Stack\n");
 
-    stack_arr_t st = create_stack_arr(3);
+    stack_t st = create_stack(3);
     st.traverse(&st);
     printf("Length: %d\n", st.length(&st));
     printf("\n");
@@ -108,7 +108,7 @@ void demo()
     printf("Check Empty: %d\n", st.is_empty(&st));
     printf("\n");
 
-    destroy_stack_arr(&st);
+    destroy_stack(&st);
 }
 
 void stack_arr()
@@ -120,9 +120,9 @@ void stack_arr()
     system("clear");
 
     int choice = 0, data = 0;
-    stack_arr_t st = create_stack_arr(size);
+    stack_t st = create_stack(size);
 
-    printf("Interactive Stack Array\n");
+    printf("Interactive Stack\n");
     printf("choose operation:\n\n");
     printf("0)\tShow Operation\n");
     printf("1)\tDisplay Status\n");
@@ -204,16 +204,16 @@ void stack_arr()
             break;
         case 8:
             data = 0;
-            destroy_stack_arr(&st);
+            destroy_stack(&st);
             printf("input stack size --THIS CAN'T BE CHANGED LATER--\n");
             scanf("%d", &size);
-            st = create_stack_arr(size);
+            st = create_stack(size);
             system("clear");
 
             break;
         case 9:
             printf(GRN "== Exiting ==\n");
-            destroy_stack_arr(&st);
+            destroy_stack(&st);
             exit(0);
         default:
             printf("\nInvalid Choice\n");

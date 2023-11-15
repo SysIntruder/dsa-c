@@ -2,7 +2,7 @@ distance/distance
 singly-linked-list/singlyll
 doubly-linked-list/doublyll
 circular-linked-list/circularll
-stack-array/stackarr
+stack/stack
 queue-array/queuearr
 */vgcore.*
 .vscode

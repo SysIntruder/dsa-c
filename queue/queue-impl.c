@@ -1,26 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "queuearr.h"
+#include "queue.h"
 #include "../color.h"
 
-int is_full(queue_arr_t* p_qu)
+int is_full(queue_t* p_qu)
 {
     return p_qu->_rear == p_qu->_size - 1;
 }
 
-int is_empty(queue_arr_t* p_qu)
+int is_empty(queue_t* p_qu)
 {
     return p_qu->_front == -1 || p_qu->_rear == -1;
 }
 
-int length(queue_arr_t* p_qu)
+int length(queue_t* p_qu)
 {
     return p_qu->is_empty(p_qu) ? 0 : p_qu->_rear - p_qu->_front + 1;
 }
 
-void traverse(queue_arr_t* p_qu)
+void traverse(queue_t* p_qu)
 {
-    printf(BLU "<<" RESET);
+    printf(BLU "<=|" RESET);
 
     int start = p_qu->is_empty(p_qu) ? 0 : p_qu->_front;
 
@@ -40,12 +40,12 @@ void traverse(queue_arr_t* p_qu)
         }
     }
 
-    printf(BLU "<<" RESET "\n");
+    printf(BLU "<=|" RESET "\n");
 
     return;
 }
 
-void enqueue(queue_arr_t* p_qu, int data)
+void enqueue(queue_t* p_qu, int data)
 {
     if (p_qu->is_full(p_qu)) return;
 
@@ -56,7 +56,7 @@ void enqueue(queue_arr_t* p_qu, int data)
     return;
 }
 
-int dequeue(queue_arr_t* p_qu)
+int dequeue(queue_t* p_qu)
 {
     if (p_qu->is_empty(p_qu)) return -1;
 
@@ -71,12 +71,12 @@ int dequeue(queue_arr_t* p_qu)
     return res;
 }
 
-int peek(queue_arr_t* p_qu)
+int peek(queue_t* p_qu)
 {
     return p_qu->is_empty(p_qu) ? -1 : p_qu->p_data[p_qu->_front];
 }
 
-void reverse(queue_arr_t* p_qu)
+void reverse(queue_t* p_qu)
 {
     if (p_qu->is_empty(p_qu) || p_qu->length(p_qu) == 1) return;
 
@@ -92,7 +92,7 @@ void reverse(queue_arr_t* p_qu)
     return;
 }
 
-void sort(queue_arr_t* p_qu)
+void sort(queue_t* p_qu)
 {
     if (p_qu->is_empty(p_qu) || p_qu->length(p_qu) == 1) return;
 
@@ -120,9 +120,9 @@ void sort(queue_arr_t* p_qu)
     return;
 }
 
-queue_arr_t create_queue_arr(int size)
+queue_t create_queue(int size)
 {
-    queue_arr_t self;
+    queue_t self;
 
     self._front = -1;
     self._rear = -1;
@@ -145,7 +145,7 @@ queue_arr_t create_queue_arr(int size)
     return self;
 }
 
-void destroy_queue_arr(queue_arr_t* p_qu)
+void destroy_queue(queue_t* p_qu)
 {
     free(p_qu->p_data);
 

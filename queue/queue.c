@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "queuearr.h"
+#include "queue.h"
 #include "../color.h"
 
 void help();
 void demo();
-void queue_arr();
+void queue();
 
 int main(int argc, char* argv[])
 {
@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
         demo();
         break;
     case 'i':
-        queue_arr();
+        queue();
         break;
     case 'h':
         help();
@@ -52,7 +52,7 @@ void demo()
     system("clear");
     printf("Queue\n");
 
-    queue_arr_t qu = create_queue_arr(3);
+    queue_t qu = create_queue(3);
     qu.traverse(&qu);
     printf("Length: %d\n", qu.length(&qu));
     printf("\n");
@@ -108,10 +108,10 @@ void demo()
     printf("Check Empty: %d\n", qu.is_empty(&qu));
     printf("\n");
 
-    destroy_queue_arr(&qu);
+    destroy_queue(&qu);
 }
 
-void queue_arr()
+void queue()
 {
     int size = 0;
     printf("input queue size --THIS CAN'T BE CHANGED LATER--\n");
@@ -120,7 +120,7 @@ void queue_arr()
     system("clear");
 
     int choice = 0, data = 0;
-    queue_arr_t qu = create_queue_arr(size);
+    queue_t qu = create_queue(size);
 
     printf("Interactive Queue Array\n");
     printf("choose operation:\n\n");
@@ -203,16 +203,16 @@ void queue_arr()
             break;
         case 8:
             data = 0;
-            destroy_queue_arr(&qu);
+            destroy_queue(&qu);
             printf("input queue size --THIS CAN'T BE CHANGED LATER--\n");
             scanf("%d", &size);
-            qu = create_queue_arr(size);
+            qu = create_queue(size);
             system("clear");
 
             break;
         case 9:
             printf(GRN "== Exiting ==\n");
-            destroy_queue_arr(&qu);
+            destroy_queue(&qu);
             exit(0);
         default:
             printf("\nInvalid Choice\n");

@@ -51,7 +51,12 @@ void push(dyn_stack_t* p_st, int data)
 
 int pop(dyn_stack_t* p_st)
 {
-    return p_st->is_empty(p_st) ? -1 : p_st->p_data[p_st->_top], p_st->p_data[p_st->_top--] = 0;
+    if (p_st->is_empty(p_st)) return -1;
+
+    int res = p_st->p_data[p_st->_top];
+    p_st->p_data[p_st->_top--] = 0;
+
+    return res;
 }
 
 int peek(dyn_stack_t* p_st)

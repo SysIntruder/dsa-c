@@ -5,5 +5,6 @@ circular-linked-list/circularll
 stack/stack
 dynamic-stack/dynstack
 queue/queue
+circular-queue/cirqueue
 */vgcore.*
 .vscode

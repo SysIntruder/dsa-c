@@ -22,8 +22,7 @@ void traverse(dyn_stack_t* p_st)
 {
     printf(BLU "[" RESET);
 
-    // for (int i = 0; i < p_st->length(p_st); i++)
-    for (int i = 0; i < p_st->_size; i++)
+    for (int i = 0; i < p_st->length(p_st); i++)
     {
         if (i == p_st->_top) printf(YEL);
 

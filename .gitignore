@@ -3,6 +3,7 @@ singly-linked-list/singlyll
 doubly-linked-list/doublyll
 circular-linked-list/circularll
 stack/stack
+dynamic-stack/dynstack
 queue/queue
 */vgcore.*
 .vscode

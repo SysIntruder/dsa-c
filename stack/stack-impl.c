@@ -45,7 +45,12 @@ void push(stack_t* p_st, int data)
 
 int pop(stack_t* p_st)
 {
-    return p_st->is_empty(p_st) ? -1 : p_st->p_data[p_st->_top--];
+    if (p_st->is_empty(p_st)) return -1;
+
+    int res = p_st->p_data[p_st->_top];
+    p_st->p_data[p_st->_top--] = 0;
+
+    return res;
 }
 
 int peek(stack_t* p_st)
@@ -103,7 +108,7 @@ stack_t create_stack(int size)
 
     self._top = -1;
     self._size = size;
-    self.p_data = (int*)malloc(size * sizeof(int));
+    self.p_data = (int*)calloc(size, sizeof(int));
 
     self.is_full = &is_full;
     self.is_empty = &is_empty;

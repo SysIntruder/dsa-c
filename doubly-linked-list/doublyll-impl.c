@@ -117,7 +117,7 @@ void push_back(doubly_ll_t* p_ll, int data)
 
     doubly_node_t* p_node = p_ll->p_head;
 
-    while (p_node->p_next != NULL)
+    while (p_node->p_next)
     {
         p_node = p_node->p_next;
     }
@@ -232,7 +232,7 @@ void pop_back(doubly_ll_t* p_ll)
 
     doubly_node_t* p_tmp = p_ll->p_head;
 
-    while (p_tmp->p_next->p_next != NULL)
+    while (p_tmp->p_next->p_next)
     {
         p_tmp = p_tmp->p_next;
     }

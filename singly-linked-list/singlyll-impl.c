@@ -89,7 +89,7 @@ void push_back(singly_ll_t* p_ll, int data)
 
     singly_node_t* p_node = p_ll->p_head;
 
-    while (p_node->p_next != NULL)
+    while (p_node->p_next)
     {
         p_node = p_node->p_next;
     }
@@ -187,7 +187,7 @@ void pop_back(singly_ll_t* p_ll)
 
     singly_node_t* p_tmp = p_ll->p_head;
 
-    while (p_tmp->p_next->p_next != NULL)
+    while (p_tmp->p_next->p_next)
     {
         p_tmp = p_tmp->p_next;
     }

@@ -18,8 +18,10 @@ int length(cir_queue_t* p_qu)
     if (p_qu->is_empty(p_qu)) return 0;
     if (p_qu->is_full(p_qu)) return p_qu->_size;
 
+    int next_size = (p_qu->_size + 1);
+
     return p_qu->_rear < p_qu->_front
-        ? ((p_qu->_size + p_qu->_rear + 1) % (p_qu->_size + 1)) + ((p_qu->_size - p_qu->_front + 1) % (p_qu->_size + 1))
+        ? (p_qu->_rear - p_qu->_front + next_size) % next_size
         : p_qu->_rear - p_qu->_front + 1;
 }
 
@@ -29,9 +31,12 @@ void traverse(cir_queue_t* p_qu)
 
     for (int i = 0; i <= p_qu->_size - 1; i++)
     {
-        if (i == p_qu->_front) printf(YEL " %d " RESET, p_qu->p_data[i]);
-        else if (i == p_qu->_rear) printf(GRN " %d " RESET, p_qu->p_data[i]);
-        else printf(" %d " RESET, p_qu->p_data[i]);
+        if (i == p_qu->_front)
+            printf(YEL " %d " RESET, p_qu->p_data[i]);
+        else if (i == p_qu->_rear)
+            printf(GRN " %d " RESET, p_qu->p_data[i]);
+        else
+            printf(" %d " RESET, p_qu->p_data[i]);
     }
 
     printf(BLU "<<" RESET "\n");
@@ -44,7 +49,7 @@ void enqueue(cir_queue_t* p_qu, int data)
     if (p_qu->is_full(p_qu)) return;
 
     p_qu->_rear + 1 == p_qu->_size && p_qu->_front > 0
-        ? p_qu->_rear = (p_qu->_rear + 1) % p_qu->_size
+        ? p_qu->_rear = ++p_qu->_rear % p_qu->_size
         : p_qu->_rear++;
 
     p_qu->p_data[p_qu->_rear] = data;
@@ -64,7 +69,7 @@ int dequeue(cir_queue_t* p_qu)
 
     if (p_qu->_front == p_qu->_size)
     {
-        p_qu->_front = p_qu->_front %= p_qu->_size;
+        p_qu->_front %= p_qu->_size;
 
         goto finish;
     }

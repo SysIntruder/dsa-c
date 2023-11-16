@@ -329,16 +329,10 @@ void pop_at(doubly_ll_t* p_ll, int pos)
     doubly_node_t* p_tmp = get_node(p_ll, pos);
 
     if (!p_tmp) return;
-
     if (p_tmp->p_prev)
-    {
         p_tmp->p_prev->p_next = p_tmp->p_next;
-    }
-
     if (p_tmp->p_next)
-    {
         p_tmp->p_next->p_prev = p_tmp->p_prev;
-    }
 
     free(p_tmp);
 

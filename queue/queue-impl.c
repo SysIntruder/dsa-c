@@ -20,27 +20,22 @@ int length(queue_t* p_qu)
 
 void traverse(queue_t* p_qu)
 {
-    printf(BLU "<=|" RESET);
+    printf(BLU "<<" RESET);
 
-    int start = p_qu->is_empty(p_qu) ? 0 : p_qu->_front;
+    if (p_qu->is_empty(p_qu)) goto finish;
 
-    for (int i = start; i <= p_qu->_rear; i++)
+    for (int i = p_qu->_front; i <= p_qu->_rear; i++)
     {
         if (i == p_qu->_front)
-        {
             printf(YEL " %d " RESET, p_qu->p_data[i]);
-        }
         else if (i == p_qu->_rear)
-        {
             printf(GRN " %d " RESET, p_qu->p_data[i]);
-        }
         else
-        {
             printf(" %d " RESET, p_qu->p_data[i]);
-        }
     }
 
-    printf(BLU "<=|" RESET "\n");
+finish:
+    printf(BLU "<<" RESET "\n");
 
     return;
 }
@@ -60,7 +55,9 @@ int dequeue(queue_t* p_qu)
 {
     if (p_qu->is_empty(p_qu)) return -1;
 
-    int res = p_qu->p_data[p_qu->_front++];
+    int res = p_qu->p_data[p_qu->_front];
+    p_qu->p_data[p_qu->_front] = 0;
+    p_qu->_front++;
 
     if (p_qu->_front > p_qu->_rear)
     {

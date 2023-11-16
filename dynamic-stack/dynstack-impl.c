@@ -38,7 +38,7 @@ void push(dyn_stack_t* p_st, int data)
 {
     if (p_st->is_full(p_st))
     {
-        p_st->_size += p_st->_size / 2;
+        p_st->_size *= 1.5;
         p_st->p_data = (int*)realloc(p_st->p_data, p_st->_size * sizeof(int));
 
         if (!p_st->p_data) return;

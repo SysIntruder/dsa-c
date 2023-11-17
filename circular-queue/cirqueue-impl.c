@@ -3,17 +3,17 @@
 #include "cirqueue.h"
 #include "../color.h"
 
-int is_full(cir_queue_t* p_qu)
+__attribute__((pure)) int is_full(cir_queue_t* p_qu)
 {
     return (p_qu->_rear + 1) % p_qu->_size == p_qu->_front;
 }
 
-int is_empty(cir_queue_t* p_qu)
+__attribute__((pure)) int is_empty(cir_queue_t* p_qu)
 {
     return p_qu->_front == -1 || p_qu->_rear == -1;
 }
 
-int length(cir_queue_t* p_qu)
+__attribute__((pure)) int length(cir_queue_t* p_qu)
 {
     if (p_qu->is_empty(p_qu)) return 0;
     if (p_qu->is_full(p_qu)) return p_qu->_size;
@@ -84,7 +84,7 @@ finish:
     return res;
 }
 
-int peek(cir_queue_t* p_qu)
+__attribute__((pure)) int peek(cir_queue_t* p_qu)
 {
     return p_qu->is_empty(p_qu) ? -1 : p_qu->p_data[p_qu->_front];
 }

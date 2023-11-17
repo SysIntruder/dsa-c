@@ -3,17 +3,17 @@
 #include "dynstack.h"
 #include "../color.h"
 
-int is_full(dyn_stack_t* p_st)
+__attribute__((pure)) int is_full(dyn_stack_t* p_st)
 {
     return p_st->_top == p_st->_size - 1;
 }
 
-int is_empty(dyn_stack_t* p_st)
+__attribute__((pure)) int is_empty(dyn_stack_t* p_st)
 {
     return p_st->_top == -1;
 }
 
-int length(dyn_stack_t* p_st)
+__attribute__((pure)) int length(dyn_stack_t* p_st)
 {
     return p_st->_top + 1;
 }
@@ -59,7 +59,7 @@ int pop(dyn_stack_t* p_st)
     return res;
 }
 
-int peek(dyn_stack_t* p_st)
+__attribute__((pure)) int peek(dyn_stack_t* p_st)
 {
     return p_st->is_empty(p_st) ? -1 : p_st->p_data[p_st->_top];
 }

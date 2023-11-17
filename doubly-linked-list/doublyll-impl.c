@@ -3,7 +3,7 @@
 #include "doublyll.h"
 #include "../color.h"
 
-int is_empty(doubly_ll_t* p_ll)
+__attribute__((pure)) int is_empty(doubly_ll_t* p_ll)
 {
     return !p_ll->p_head;
 }

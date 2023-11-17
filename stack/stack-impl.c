@@ -3,17 +3,17 @@
 #include "stack.h"
 #include "../color.h"
 
-int is_full(stack_t* p_st)
+__attribute__((pure)) int is_full(stack_t* p_st)
 {
     return p_st->_top == p_st->_size - 1;
 }
 
-int is_empty(stack_t* p_st)
+__attribute__((pure)) int is_empty(stack_t* p_st)
 {
     return p_st->_top == -1;
 }
 
-int length(stack_t* p_st)
+__attribute__((pure)) int length(stack_t* p_st)
 {
     return p_st->_top + 1;
 }

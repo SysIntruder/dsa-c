@@ -3,17 +3,17 @@
 #include "queue.h"
 #include "../color.h"
 
-int is_full(queue_t* p_qu)
+__attribute__((pure)) int is_full(queue_t* p_qu)
 {
     return p_qu->_rear == p_qu->_size - 1;
 }
 
-int is_empty(queue_t* p_qu)
+__attribute__((pure)) int is_empty(queue_t* p_qu)
 {
     return p_qu->_front == -1 || p_qu->_rear == -1;
 }
 
-int length(queue_t* p_qu)
+__attribute__((pure)) int length(queue_t* p_qu)
 {
     return p_qu->is_empty(p_qu) ? 0 : p_qu->_rear - p_qu->_front + 1;
 }
@@ -68,7 +68,7 @@ int dequeue(queue_t* p_qu)
     return res;
 }
 
-int peek(queue_t* p_qu)
+__attribute__((pure)) int peek(queue_t* p_qu)
 {
     return p_qu->is_empty(p_qu) ? -1 : p_qu->p_data[p_qu->_front];
 }

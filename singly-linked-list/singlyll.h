@@ -2,21 +2,19 @@
 #define SINGLYLL_H
 
 typedef struct singly_node singly_node_t;
-struct singly_node
-{
+struct singly_node {
     int data;
     singly_node_t* p_next;
 };
 
 typedef struct singly_ll singly_ll_t;
-struct singly_ll
-{
+struct singly_ll {
     singly_node_t* p_head;
 
     int (*is_empty)(singly_ll_t*);
 
     void (*traverse)(singly_ll_t*);
-    int (*count)(singly_node_t*);
+    int (*count)(singly_ll_t*, singly_node_t*);
     int (*length)(singly_ll_t*);
 
     singly_node_t* (*get_node)(singly_ll_t*, int);

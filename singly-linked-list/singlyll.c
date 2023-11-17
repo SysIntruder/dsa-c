@@ -7,10 +7,8 @@ void help();
 void demo();
 void singly_ll();
 
-int main(int argc, char* argv[])
-{
-    if (argc < 2)
-    {
+int main(int argc, char* argv[]) {
+    if (argc < 2) {
         help();
 
         return 0;
@@ -18,8 +16,7 @@ int main(int argc, char* argv[])
 
     char* args = argv[1];
 
-    switch (*args)
-    {
+    switch (*args) {
     case 'd':
         demo();
         break;
@@ -37,8 +34,7 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-void help()
-{
+void help() {
     printf("Use one of following arguments:\n");
     printf("h\tShow this help\n");
     printf("d\tDemo\n");
@@ -47,8 +43,7 @@ void help()
     return;
 }
 
-void demo()
-{
+void demo() {
     system("clear");
     printf("Singly Linked List\n");
 
@@ -175,8 +170,7 @@ void demo()
     destroy_singly_ll(&ll);
 }
 
-void singly_ll()
-{
+void singly_ll() {
     system("clear");
 
     int choice = 0, pos = 0, data = 0, search = 0;
@@ -204,13 +198,11 @@ void singly_ll()
     printf("16)\tReset\n");
     printf("17)\tExit\n");
 
-    while (1)
-    {
+    while (1) {
         printf("\n> ");
         scanf("%d", &choice);
 
-        switch (choice)
-        {
+        switch (choice) {
         case 0:
             printf("0)\tShow Operation\n");
             printf("1)\tDisplay Status\n");
@@ -352,12 +344,10 @@ void singly_ll()
             scanf("%d", &search);
             pos = ll.search(&ll, search);
 
-            if (pos)
-            {
+            if (pos) {
                 printf("Node Found at Position: %d\n", pos);
             }
-            else
-            {
+            else {
                 printf("Node Not Found\n");
             }
             ll.traverse(&ll);

@@ -7,7 +7,8 @@ void help();
 void demo();
 void singly_ll();
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[])
+{
     if (argc < 2) {
         help();
 
@@ -34,7 +35,8 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 
-void help() {
+void help()
+{
     printf("Use one of following arguments:\n");
     printf("h\tShow this help\n");
     printf("d\tDemo\n");
@@ -43,139 +45,141 @@ void help() {
     return;
 }
 
-void demo() {
+void demo()
+{
     system("clear");
     printf("Singly Linked List\n");
 
-    singly_ll_t ll = create_singly_ll();
-    ll.traverse(&ll);
-    printf("Length: %d\n", ll.length(&ll));
-    printf("Check Empty: %d\n", ll.is_empty(&ll));
+    struct singly_ll ll = create_singly_ll();
+    ll.fn.traverse(&ll);
+    printf("Length: %d\n", ll.fn.length(&ll));
+    printf("Check Empty: %d\n", ll.fn.is_empty(&ll));
     printf("\n");
 
     printf("Push Front: 1\n");
-    ll.push_front(&ll, 1);
-    ll.traverse(&ll);
-    printf("Length: %d\n", ll.length(&ll));
+    ll.fn.push_front(&ll, 1);
+    ll.fn.traverse(&ll);
+    printf("Length: %d\n", ll.fn.length(&ll));
     printf("\n");
 
     printf("Push Front: 2\n");
-    ll.push_front(&ll, 2);
-    ll.traverse(&ll);
-    printf("Length: %d\n", ll.length(&ll));
+    ll.fn.push_front(&ll, 2);
+    ll.fn.traverse(&ll);
+    printf("Length: %d\n", ll.fn.length(&ll));
     printf("\n");
 
     printf("Push Back: 3\n");
-    ll.push_back(&ll, 3);
-    ll.traverse(&ll);
-    printf("Length: %d\n", ll.length(&ll));
+    ll.fn.push_back(&ll, 3);
+    ll.fn.traverse(&ll);
+    printf("Length: %d\n", ll.fn.length(&ll));
     printf("\n");
 
     printf("Push Back: 4\n");
-    ll.push_back(&ll, 4);
-    ll.traverse(&ll);
-    printf("Length: %d\n", ll.length(&ll));
+    ll.fn.push_back(&ll, 4);
+    ll.fn.traverse(&ll);
+    printf("Length: %d\n", ll.fn.length(&ll));
     printf("\n");
 
     int pos = 3;
     printf("Get Node at Position: %d\n", pos);
-    singly_node_t* p_node = ll.get_node(&ll, pos);
+    struct singly_node* p_node = ll.fn.get_node(&ll, pos);
     printf("Node at Position %d: %d\n", pos, p_node->data);
     printf("\n");
 
     printf("Push After Position %d: 5\n", pos);
-    ll.push_after(&ll, pos, 5);
-    ll.traverse(&ll);
-    printf("Length: %d\n", ll.length(&ll));
+    ll.fn.push_after(&ll, pos, 5);
+    ll.fn.traverse(&ll);
+    printf("Length: %d\n", ll.fn.length(&ll));
     printf("\n");
 
     printf("Push After Position %d: 6\n", p_node->data);
-    ll.push_after(&ll, pos, 6);
-    ll.traverse(&ll);
-    printf("Length: %d\n", ll.length(&ll));
+    ll.fn.push_after(&ll, pos, 6);
+    ll.fn.traverse(&ll);
+    printf("Length: %d\n", ll.fn.length(&ll));
     printf("\n");
 
     printf("Push Before Position %d: 7\n", pos);
-    ll.push_before(&ll, pos, 7);
-    ll.traverse(&ll);
-    printf("Length: %d\n", ll.length(&ll));
+    ll.fn.push_before(&ll, pos, 7);
+    ll.fn.traverse(&ll);
+    printf("Length: %d\n", ll.fn.length(&ll));
     printf("\n");
 
     printf("Push Before Position %d: 8\n", pos);
-    ll.push_before(&ll, pos, 8);
-    ll.traverse(&ll);
-    printf("Length: %d\n", ll.length(&ll));
+    ll.fn.push_before(&ll, pos, 8);
+    ll.fn.traverse(&ll);
+    printf("Length: %d\n", ll.fn.length(&ll));
     printf("\n");
 
     printf("Push At Position %d: 9\n", pos);
-    ll.push_at(&ll, pos, 9);
-    ll.traverse(&ll);
-    printf("Length: %d\n", ll.length(&ll));
+    ll.fn.push_at(&ll, pos, 9);
+    ll.fn.traverse(&ll);
+    printf("Length: %d\n", ll.fn.length(&ll));
     printf("\n");
 
     printf("Push At Position %d: 10\n", pos);
-    ll.push_at(&ll, pos, 10);
-    ll.traverse(&ll);
-    printf("Length: %d\n", ll.length(&ll));
+    ll.fn.push_at(&ll, pos, 10);
+    ll.fn.traverse(&ll);
+    printf("Length: %d\n", ll.fn.length(&ll));
     printf("\n");
 
     printf("Pop Front\n");
-    ll.pop_front(&ll);
-    ll.traverse(&ll);
-    printf("Length: %d\n", ll.length(&ll));
+    ll.fn.pop_front(&ll);
+    ll.fn.traverse(&ll);
+    printf("Length: %d\n", ll.fn.length(&ll));
     printf("\n");
 
     printf("Pop Back\n");
-    ll.pop_back(&ll);
-    ll.traverse(&ll);
-    printf("Length: %d\n", ll.length(&ll));
+    ll.fn.pop_back(&ll);
+    ll.fn.traverse(&ll);
+    printf("Length: %d\n", ll.fn.length(&ll));
     printf("\n");
 
     int data = 8;
     printf("Search Node: %d\n", data);
-    pos = ll.search(&ll, data);
+    pos = ll.fn.search(&ll, data);
     printf("Node found at Position: %d\n", pos);
     printf("\n");
 
     printf("Pop After Position %d\n", pos);
-    ll.pop_after(&ll, pos);
-    ll.traverse(&ll);
-    printf("Length: %d\n", ll.length(&ll));
+    ll.fn.pop_after(&ll, pos);
+    ll.fn.traverse(&ll);
+    printf("Length: %d\n", ll.fn.length(&ll));
     printf("\n");
 
     printf("Pop Before Position %d\n", pos);
-    ll.pop_before(&ll, pos);
-    ll.traverse(&ll);
-    printf("Length: %d\n", ll.length(&ll));
+    ll.fn.pop_before(&ll, pos);
+    ll.fn.traverse(&ll);
+    printf("Length: %d\n", ll.fn.length(&ll));
     printf("\n");
 
     printf("Pop At Position %d\n", pos);
-    ll.pop_at(&ll, pos);
-    ll.traverse(&ll);
-    printf("Length: %d\n", ll.length(&ll));
+    ll.fn.pop_at(&ll, pos);
+    ll.fn.traverse(&ll);
+    printf("Length: %d\n", ll.fn.length(&ll));
     printf("\n");
 
     printf("Reverse:\n");
-    ll.reverse(&ll);
-    ll.traverse(&ll);
-    printf("Length: %d\n", ll.length(&ll));
+    ll.fn.reverse(&ll);
+    ll.fn.traverse(&ll);
+    printf("Length: %d\n", ll.fn.length(&ll));
     printf("\n");
 
     printf("Sort:\n");
-    ll.sort(&ll);
-    ll.traverse(&ll);
-    printf("Length: %d\n", ll.length(&ll));
+    ll.fn.sort(&ll);
+    ll.fn.traverse(&ll);
+    printf("Length: %d\n", ll.fn.length(&ll));
     printf("\n");
 
     destroy_singly_ll(&ll);
 }
 
-void singly_ll() {
+void singly_ll()
+{
     system("clear");
 
     int choice = 0, pos = 0, data = 0, search = 0;
-    singly_ll_t ll = create_singly_ll();
-    singly_node_t* p_node = NULL;
+    struct singly_ll ll = create_singly_ll();
+    struct singly_node* p_node = NULL;
 
     printf("Interactive Singly Linked List\n");
     printf("choose operation:\n\n");
@@ -228,26 +232,26 @@ void singly_ll() {
             printf(GRN "== Information ==\n\n" RESET);
             printf("Current Position: %d\n", pos);
             printf("Current Node: %d\n", p_node ? p_node->data : 0);
-            printf("Current Length: %d\n", ll.length(&ll));
-            ll.traverse(&ll);
+            printf("Current Length: %d\n", ll.fn.length(&ll));
+            ll.fn.traverse(&ll);
 
             break;
         case 2:
             printf(GRN "== Push Front ==\n\n" RESET);
             printf("Input Data:\n");
             scanf("%d", &data);
-            ll.push_front(&ll, data);
+            ll.fn.push_front(&ll, data);
             printf("Data Pushed\n");
-            ll.traverse(&ll);
+            ll.fn.traverse(&ll);
 
             break;
         case 3:
             printf(GRN "== Push Back ==\n\n" RESET);
             printf("Input Data:\n");
             scanf("%d", &data);
-            ll.push_back(&ll, data);
+            ll.fn.push_back(&ll, data);
             printf("Data Pushed\n");
-            ll.traverse(&ll);
+            ll.fn.traverse(&ll);
 
             break;
         case 4:
@@ -256,9 +260,9 @@ void singly_ll() {
             scanf("%d", &pos);
             printf("Input Data:\n");
             scanf("%d", &data);
-            ll.push_after(&ll, pos, data);
+            ll.fn.push_after(&ll, pos, data);
             printf("Data Pushed\n");
-            ll.traverse(&ll);
+            ll.fn.traverse(&ll);
 
             break;
         case 5:
@@ -267,9 +271,9 @@ void singly_ll() {
             scanf("%d", &pos);
             printf("Input Data:\n");
             scanf("%d", &data);
-            ll.push_before(&ll, pos, data);
+            ll.fn.push_before(&ll, pos, data);
             printf("Data Pushed\n");
-            ll.traverse(&ll);
+            ll.fn.traverse(&ll);
 
             break;
         case 6:
@@ -278,71 +282,71 @@ void singly_ll() {
             scanf("%d", &pos);
             printf("Input Data:\n");
             scanf("%d", &data);
-            ll.push_at(&ll, pos, data);
+            ll.fn.push_at(&ll, pos, data);
             printf("Data Pushed\n");
-            ll.traverse(&ll);
+            ll.fn.traverse(&ll);
 
             break;
         case 7:
             printf(GRN "== Pop Front ==\n\n" RESET);
-            ll.pop_front(&ll);
+            ll.fn.pop_front(&ll);
             printf("Data Popped\n");
-            ll.traverse(&ll);
+            ll.fn.traverse(&ll);
 
             break;
         case 8:
             printf(GRN "== Pop Back ==\n\n" RESET);
-            ll.pop_back(&ll);
+            ll.fn.pop_back(&ll);
             printf("Data Popped\n");
-            ll.traverse(&ll);
+            ll.fn.traverse(&ll);
 
             break;
         case 9:
             printf(GRN "== Pop After ==\n\n" RESET);
             printf("Choose Node Position:\n");
             scanf("%d", &pos);
-            ll.pop_after(&ll, pos);
+            ll.fn.pop_after(&ll, pos);
             printf("Data Popped\n");
-            ll.traverse(&ll);
+            ll.fn.traverse(&ll);
 
             break;
         case 10:
             printf(GRN "== Pop Before ==\n\n" RESET);
             printf("Choose Node Position:\n");
             scanf("%d", &pos);
-            ll.pop_before(&ll, pos);
+            ll.fn.pop_before(&ll, pos);
             printf("Data Popped\n");
-            ll.traverse(&ll);
+            ll.fn.traverse(&ll);
 
             break;
         case 11:
             printf(GRN "== Pop At ==\n\n" RESET);
             printf("Choose Node Position:\n");
             scanf("%d", &pos);
-            ll.pop_at(&ll, pos);
+            ll.fn.pop_at(&ll, pos);
             printf("Data Popped\n");
-            ll.traverse(&ll);
+            ll.fn.traverse(&ll);
 
             break;
         case 12:
             printf(GRN "== Reverse ==\n\n" RESET);
-            ll.reverse(&ll);
+            ll.fn.reverse(&ll);
             printf("Data Reversed\n");
-            ll.traverse(&ll);
+            ll.fn.traverse(&ll);
 
             break;
         case 13:
             printf(GRN "== Sort ==\n\n" RESET);
-            ll.sort(&ll);
+            ll.fn.sort(&ll);
             printf("Data Sorted\n");
-            ll.traverse(&ll);
+            ll.fn.traverse(&ll);
 
             break;
         case 14:
             printf(GRN "== Search Data ==\n\n" RESET);
             printf("Input Search Data\n");
             scanf("%d", &search);
-            pos = ll.search(&ll, search);
+            pos = ll.fn.search(&ll, search);
 
             if (pos) {
                 printf("Node Found at Position: %d\n", pos);
@@ -350,7 +354,7 @@ void singly_ll() {
             else {
                 printf("Node Not Found\n");
             }
-            ll.traverse(&ll);
+            ll.fn.traverse(&ll);
 
             break;
         case 15:

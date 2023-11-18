@@ -7,10 +7,8 @@ void help();
 void demo();
 void stack_arr();
 
-int main(int argc, char* argv[])
-{
-    if (argc < 2)
-    {
+int main(int argc, char* argv[]) {
+    if (argc < 2) {
         help();
 
         return 0;
@@ -18,8 +16,7 @@ int main(int argc, char* argv[])
 
     char* args = argv[1];
 
-    switch (*args)
-    {
+    switch (*args) {
     case 'd':
         demo();
         break;
@@ -37,8 +34,7 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-void help()
-{
+void help() {
     printf("Use one of following arguments:\n");
     printf("h\tShow this help\n");
     printf("d\tDemo\n");
@@ -47,8 +43,7 @@ void help()
     return;
 }
 
-void demo()
-{
+void demo() {
     system("clear");
     printf("Dynamic Stack\n");
 
@@ -112,8 +107,7 @@ void demo()
     destroy_dyn_stack(&st);
 }
 
-void stack_arr()
-{
+void stack_arr() {
     int size = 0;
     printf("input Dynamic Stack size --THIS CAN'T BE CHANGED LATER--\n");
     scanf("%d", &size);
@@ -136,13 +130,11 @@ void stack_arr()
     printf("8)\tReset\n");
     printf("9)\tExit\n");
 
-    while (1)
-    {
+    while (1) {
         printf("\n> ");
         scanf("%d", &choice);
 
-        switch (choice)
-        {
+        switch (choice) {
         case 0:
             printf("0)\tShow Operation\n");
             printf("1)\tDisplay Status\n");

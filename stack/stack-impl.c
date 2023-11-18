@@ -3,94 +3,80 @@
 #include "stack.h"
 #include "../color.h"
 
-__attribute__((pure)) int is_full(stack_t* p_st)
-{
-    return p_st->_top == p_st->_size - 1;
+__attribute__((pure)) int is_full(struct stack* p_self) {
+    return p_self->_top == p_self->_size - 1;
 }
 
-__attribute__((pure)) int is_empty(stack_t* p_st)
-{
-    return p_st->_top == -1;
+__attribute__((pure)) int is_empty(struct stack* p_self) {
+    return p_self->_top == -1;
 }
 
-__attribute__((pure)) int length(stack_t* p_st)
-{
-    return p_st->_top + 1;
+__attribute__((pure)) int length(struct stack* p_self) {
+    return p_self->_top + 1;
 }
 
-void traverse(stack_t* p_st)
-{
+void traverse(struct stack* p_self) {
     printf(BLU "[" RESET);
 
-    for (int i = 0; i < p_st->length(p_st); i++)
-    {
-        if (i == p_st->_top) printf(YEL);
+    for (int i = 0; i < p_self->length(p_self); i++) {
+        printf(" %d ", p_self->p_data[i]);
 
-        printf(" %d ", p_st->p_data[i]);
+        if (i + 1 < p_self->length(p_self)) printf(BLU "|" RESET);
     }
 
-    printf(BLU "<=>" RESET "\n");
+    printf(BLU "<<" RESET "\n");
 
     return;
 }
 
-void push(stack_t* p_st, int data)
-{
-    if (p_st->is_full(p_st)) return;
+void push(struct stack* p_self, int data) {
+    if (p_self->is_full(p_self)) return;
 
-    p_st->p_data[++p_st->_top] = data;
+    p_self->p_data[++p_self->_top] = data;
 
     return;
 }
 
-int pop(stack_t* p_st)
-{
-    if (p_st->is_empty(p_st)) return -1;
+int pop(struct stack* p_self) {
+    if (p_self->is_empty(p_self)) return -1;
 
-    int res = p_st->p_data[p_st->_top];
-    p_st->p_data[p_st->_top--] = 0;
+    int res = p_self->p_data[p_self->_top];
+    p_self->p_data[p_self->_top--] = 0;
 
     return res;
 }
 
-int peek(stack_t* p_st)
-{
-    return p_st->is_empty(p_st) ? -1 : p_st->p_data[p_st->_top];
+int peek(struct stack* p_self) {
+    return p_self->is_empty(p_self) ? -1 : p_self->p_data[p_self->_top];
 }
 
-void reverse(stack_t* p_st)
-{
-    if (p_st->is_empty(p_st) || p_st->length(p_st) == 1) return;
+void reverse(struct stack* p_self) {
+    if (p_self->is_empty(p_self) || p_self->length(p_self) == 1) return;
 
-    int tmp = 0, limit = p_st->length(p_st) / 2;
+    int tmp = 0, limit = p_self->length(p_self) / 2;
 
-    for (int i = 0; i < limit; i++)
-    {
-        tmp = p_st->p_data[p_st->_top - i];
-        p_st->p_data[p_st->_top - i] = p_st->p_data[i];
-        p_st->p_data[i] = tmp;
+    for (int i = 0; i < limit; i++) {
+        tmp = p_self->p_data[p_self->_top - i];
+        p_self->p_data[p_self->_top - i] = p_self->p_data[i];
+        p_self->p_data[i] = tmp;
     }
 
     return;
 }
 
-void sort(stack_t* p_st)
-{
-    if (p_st->is_empty(p_st) || p_st->length(p_st) == 1) return;
+void sort(struct stack* p_self) {
+    if (p_self->is_empty(p_self) || p_self->length(p_self) == 1) return;
 
     int cur = 0, next = 0, tmp = 0;
 
-    while (cur <= p_st->_top)
-    {
+    while (cur <= p_self->_top) {
         next = cur + 1;
 
-        while (next <= p_st->_top)
-        {
-            if (p_st->p_data[cur] > p_st->p_data[next])
-            {
-                tmp = p_st->p_data[cur];
-                p_st->p_data[cur] = p_st->p_data[next];
-                p_st->p_data[next] = tmp;
+        while (next <= p_self->_top) {
+            if (p_self->p_data[cur] > p_self->p_data[next]) {
+                tmp = p_self->p_data[cur];
+                p_self->p_data[cur] = p_self->p_data[next];
+                p_self->p_data[next] = tmp;
             }
 
             next++;
@@ -102,13 +88,12 @@ void sort(stack_t* p_st)
     return;
 }
 
-stack_t create_stack(int size)
-{
-    stack_t self;
+struct stack create_stack(int size) {
+    struct stack self;
 
     self._top = -1;
     self._size = size;
-    self.p_data = (int*)calloc(size, sizeof(int));
+    self.p_data = calloc(size, sizeof self.p_data);
 
     self.is_full = &is_full;
     self.is_empty = &is_empty;
@@ -126,9 +111,8 @@ stack_t create_stack(int size)
     return self;
 }
 
-void destroy_stack(stack_t* p_st)
-{
-    free(p_st->p_data);
+void destroy_stack(struct stack* p_self) {
+    free(p_self->p_data);
 
     return;
 }

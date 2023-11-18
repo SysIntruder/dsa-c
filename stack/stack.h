@@ -1,28 +1,26 @@
 #ifndef STACK_H
 #define STACK_H
 
-typedef struct stack stack_t;
-struct stack
-{
+struct stack {
     int _top;
     int _size;
     int* p_data;
 
-    int (*is_full)(stack_t*);
-    int (*is_empty)(stack_t*);
-    int (*length)(stack_t*);
+    int (*is_full)(struct stack*);
+    int (*is_empty)(struct stack*);
+    int (*length)(struct stack*);
 
-    void (*traverse)(stack_t*);
+    void (*traverse)(struct stack*);
 
-    void (*push)(stack_t*, int);
-    int (*pop)(stack_t*);
-    int (*peek)(stack_t*);
+    void (*push)(struct stack*, int);
+    int (*pop)(struct stack*);
+    int (*peek)(struct stack*);
 
-    void (*reverse)(stack_t*);
-    void (*sort)(stack_t*);
+    void (*reverse)(struct stack*);
+    void (*sort)(struct stack*);
 };
 
-stack_t create_stack(int);
-void destroy_stack(stack_t*);
+struct stack create_stack(int);
+void destroy_stack(struct stack*);
 
 #endif

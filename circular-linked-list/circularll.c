@@ -7,10 +7,8 @@ void help();
 void demo();
 void circular_ll();
 
-int main(int argc, char* argv[])
-{
-    if (argc < 2)
-    {
+int main(int argc, char* argv[]) {
+    if (argc < 2) {
         help();
 
         return 0;
@@ -18,8 +16,7 @@ int main(int argc, char* argv[])
 
     char* args = argv[1];
 
-    switch (*args)
-    {
+    switch (*args) {
     case 'd':
         demo();
         break;
@@ -37,8 +34,7 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-void help()
-{
+void help() {
     printf("Use one of following arguments:\n");
     printf("h\tShow this help\n");
     printf("d\tDemo\n");
@@ -47,91 +43,90 @@ void help()
     return;
 }
 
-void demo()
-{
+void demo() {
     system("clear");
     printf("Circular Linked List\n");
 
-    circular_ll_t ll = create_circular_ll();
+    struct circular_ll ll = create_circular_ll();
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("Check Empty: %d\n", ll.is_empty(&ll));
     printf("\n");
 
-    printf("Push Front: 1\n");
-    ll.push_front(&ll, 1);
+    printf("Insert First: 1\n");
+    ll.insert_first(&ll, 1);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
-    printf("Push Front: 2\n");
-    ll.push_front(&ll, 2);
+    printf("Insert First: 2\n");
+    ll.insert_first(&ll, 2);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
-    printf("Push Back: 3\n");
-    ll.push_back(&ll, 3);
+    printf("Insert Last: 3\n");
+    ll.insert_last(&ll, 3);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
-    printf("Push Back: 4\n");
-    ll.push_back(&ll, 4);
+    printf("Insert Last: 4\n");
+    ll.insert_last(&ll, 4);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
     int pos = 3;
     printf("Get Node at Position: %d\n", pos);
-    circular_node_t* p_node = ll.get_node(&ll, pos);
+    struct circular_node* p_node = ll.get_node(&ll, pos);
     printf("Node at Position %d: %d\n", pos, p_node->data);
     printf("\n");
 
-    printf("Push After Position %d: 5\n", pos);
-    ll.push_after(&ll, pos, 5);
+    printf("Insert After Position %d: 5\n", pos);
+    ll.insert_after(&ll, pos, 5);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
-    printf("Push After Position %d: 6\n", p_node->data);
-    ll.push_after(&ll, pos, 6);
+    printf("Insert After Position %d: 6\n", p_node->data);
+    ll.insert_after(&ll, pos, 6);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
-    printf("Push Before Position %d: 7\n", pos);
-    ll.push_before(&ll, pos, 7);
+    printf("Insert Before Position %d: 7\n", pos);
+    ll.insert_before(&ll, pos, 7);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
-    printf("Push Before Position %d: 8\n", pos);
-    ll.push_before(&ll, pos, 8);
+    printf("Insert Before Position %d: 8\n", pos);
+    ll.insert_before(&ll, pos, 8);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
-    printf("Push At Position %d: 9\n", pos);
-    ll.push_at(&ll, pos, 9);
+    printf("Insert At Position %d: 9\n", pos);
+    ll.insert_at(&ll, pos, 9);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
-    printf("Push At Position %d: 10\n", pos);
-    ll.push_at(&ll, pos, 10);
+    printf("Insert At Position %d: 10\n", pos);
+    ll.insert_at(&ll, pos, 10);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
-    printf("Pop Front\n");
-    ll.pop_front(&ll);
+    printf("Delete First\n");
+    ll.delete_first(&ll);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
-    printf("Pop Back\n");
-    ll.pop_back(&ll);
+    printf("Delete Last\n");
+    ll.delete_last(&ll);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
@@ -142,20 +137,20 @@ void demo()
     printf("Node found at Position: %d\n", pos);
     printf("\n");
 
-    printf("Pop After Position %d\n", pos);
-    ll.pop_after(&ll, pos);
+    printf("Delete After Position %d\n", pos);
+    ll.delete_after(&ll, pos);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
-    printf("Pop Before Position %d\n", pos);
-    ll.pop_before(&ll, pos);
+    printf("Delete Before Position %d\n", pos);
+    ll.delete_before(&ll, pos);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
-    printf("Pop At Position %d\n", pos);
-    ll.pop_at(&ll, pos);
+    printf("Delete At Position %d\n", pos);
+    ll.delete_at(&ll, pos);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
@@ -175,25 +170,24 @@ void demo()
     destroy_circular_ll(&ll);
 }
 
-void circular_ll()
-{
+void circular_ll() {
     system("clear");
 
     int choice = 0, pos = 0, data = 0, search = 0;
-    circular_ll_t ll = create_circular_ll();
-    circular_node_t* p_node = NULL;
+    struct circular_ll ll = create_circular_ll();
+    struct circular_node* p_node = NULL;
 
     printf("Interactive Circular Linked List\n");
     printf("choose operation:\n\n");
     printf("0)\tShow Operation\n");
     printf("1)\tDisplay Status\n");
-    printf("2)\tPush Front\n");
-    printf("3)\tPush Back\n");
+    printf("2)\tPush First\n");
+    printf("3)\tPush Last\n");
     printf("4)\tPush After Position\n");
     printf("5)\tPush Before Position\n");
     printf("6)\tPush At Position\n");
-    printf("7)\tPop Front\n");
-    printf("8)\tPop Back\n");
+    printf("7)\tPop First\n");
+    printf("8)\tPop Last\n");
     printf("9)\tPop After Position\n");
     printf("10)\tPop Before Position\n");
     printf("11)\tPop At Position\n");
@@ -204,23 +198,21 @@ void circular_ll()
     printf("16)\tReset\n");
     printf("17)\tExit\n");
 
-    while (1)
-    {
+    while (1) {
         printf("\n> ");
         scanf("%d", &choice);
 
-        switch (choice)
-        {
+        switch (choice) {
         case 0:
             printf("0)\tShow Operation\n");
             printf("1)\tDisplay Status\n");
-            printf("2)\tPush Front\n");
-            printf("3)\tPush Back\n");
+            printf("2)\tPush First\n");
+            printf("3)\tPush Last\n");
             printf("4)\tPush After Position\n");
             printf("5)\tPush Before Position\n");
             printf("6)\tPush At Position\n");
-            printf("7)\tPop Front\n");
-            printf("8)\tPop Back\n");
+            printf("7)\tPop First\n");
+            printf("8)\tPop Last\n");
             printf("9)\tPop After Position\n");
             printf("10)\tPop Before Position\n");
             printf("11)\tPop At Position\n");
@@ -241,93 +233,93 @@ void circular_ll()
 
             break;
         case 2:
-            printf(GRN "== Push Front ==\n\n" RESET);
+            printf(GRN "== Insert First ==\n\n" RESET);
             printf("Input Data:\n");
             scanf("%d", &data);
-            ll.push_front(&ll, data);
+            ll.insert_first(&ll, data);
             printf("Data Pushed\n");
             ll.traverse(&ll);
 
             break;
         case 3:
-            printf(GRN "== Push Back ==\n\n" RESET);
+            printf(GRN "== Insert Last ==\n\n" RESET);
             printf("Input Data:\n");
             scanf("%d", &data);
-            ll.push_back(&ll, data);
+            ll.insert_last(&ll, data);
             printf("Data Pushed\n");
             ll.traverse(&ll);
 
             break;
         case 4:
-            printf(GRN "== Push After ==\n\n" RESET);
+            printf(GRN "== Insert After ==\n\n" RESET);
             printf("Choose Node Position:\n");
             scanf("%d", &pos);
             printf("Input Data:\n");
             scanf("%d", &data);
-            ll.push_after(&ll, pos, data);
+            ll.insert_after(&ll, pos, data);
             printf("Data Pushed\n");
             ll.traverse(&ll);
 
             break;
         case 5:
-            printf(GRN "== Push Before ==\n\n" RESET);
+            printf(GRN "== Insert Before ==\n\n" RESET);
             printf("Choose Node Position:\n");
             scanf("%d", &pos);
             printf("Input Data:\n");
             scanf("%d", &data);
-            ll.push_before(&ll, pos, data);
+            ll.insert_before(&ll, pos, data);
             printf("Data Pushed\n");
             ll.traverse(&ll);
 
             break;
         case 6:
-            printf(GRN "== Push At ==\n\n" RESET);
+            printf(GRN "== Insert At ==\n\n" RESET);
             printf("Choose Node Position:\n");
             scanf("%d", &pos);
             printf("Input Data:\n");
             scanf("%d", &data);
-            ll.push_at(&ll, pos, data);
+            ll.insert_at(&ll, pos, data);
             printf("Data Pushed\n");
             ll.traverse(&ll);
 
             break;
         case 7:
-            printf(GRN "== Pop Front ==\n\n" RESET);
-            ll.pop_front(&ll);
+            printf(GRN "== Delete First ==\n\n" RESET);
+            ll.delete_first(&ll);
             printf("Data Popped\n");
             ll.traverse(&ll);
 
             break;
         case 8:
-            printf(GRN "== Pop Back ==\n\n" RESET);
-            ll.pop_back(&ll);
+            printf(GRN "== Delete Last ==\n\n" RESET);
+            ll.delete_last(&ll);
             printf("Data Popped\n");
             ll.traverse(&ll);
 
             break;
         case 9:
-            printf(GRN "== Pop After ==\n\n" RESET);
+            printf(GRN "== Delete After ==\n\n" RESET);
             printf("Choose Node Position:\n");
             scanf("%d", &pos);
-            ll.pop_after(&ll, pos);
+            ll.delete_after(&ll, pos);
             printf("Data Popped\n");
             ll.traverse(&ll);
 
             break;
         case 10:
-            printf(GRN "== Pop Before ==\n\n" RESET);
+            printf(GRN "== Delete Before ==\n\n" RESET);
             printf("Choose Node Position:\n");
             scanf("%d", &pos);
-            ll.pop_before(&ll, pos);
+            ll.delete_before(&ll, pos);
             printf("Data Popped\n");
             ll.traverse(&ll);
 
             break;
         case 11:
-            printf(GRN "== Pop At ==\n\n" RESET);
+            printf(GRN "== Delete At ==\n\n" RESET);
             printf("Choose Node Position:\n");
             scanf("%d", &pos);
-            ll.pop_at(&ll, pos);
+            ll.delete_at(&ll, pos);
             printf("Data Popped\n");
             ll.traverse(&ll);
 
@@ -352,12 +344,10 @@ void circular_ll()
             scanf("%d", &search);
             pos = ll.search(&ll, search);
 
-            if (pos)
-            {
+            if (pos) {
                 printf("Node Found at Position: %d\n", pos);
             }
-            else
-            {
+            else {
                 printf("Node Not Found\n");
             }
             ll.traverse(&ll);

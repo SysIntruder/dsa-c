@@ -1,45 +1,43 @@
 #ifndef CIRCULARLL_H
 #define CIRCULARLL_H
 
-typedef struct circular_node circular_node_t;
-struct circular_node
-{
+struct circular_node {
     int data;
-    circular_node_t* p_prev;
-    circular_node_t* p_next;
+    struct circular_node* p_prev;
+    struct circular_node* p_next;
 };
 
-typedef struct circular_ll circular_ll_t;
-struct circular_ll
-{
-    circular_node_t* p_head;
+struct circular_ll {
+    struct circular_node* p_head;
 
-    int (*is_empty)(circular_ll_t*);
+    int (*is_empty)(struct circular_ll*);
 
-    int (*count)(circular_node_t*, circular_node_t*);
-    int (*length)(circular_ll_t*);
-    void (*traverse)(circular_ll_t*);
+    int (*count)(struct circular_ll*, struct circular_node*, struct circular_node*);
+    int (*length)(struct circular_ll*);
+    void (*traverse)(struct circular_ll*);
 
-    circular_node_t* (*get_node)(circular_ll_t*, int);
-    int (*search)(circular_ll_t*, int);
+    struct circular_node* (*get_node)(struct circular_ll*, int);
+    int (*search)(struct circular_ll*, int);
 
-    void (*push_front)(circular_ll_t*, int);
-    void (*push_back)(circular_ll_t*, int);
-    void (*push_after)(circular_ll_t*, int, int);
-    void (*push_before)(circular_ll_t*, int, int);
-    void (*push_at)(circular_ll_t*, int, int);
+    void (*_insert_node)(struct circular_ll*, struct circular_node**, int);
+    void (*insert_first)(struct circular_ll*, int);
+    void (*insert_last)(struct circular_ll*, int);
+    void (*insert_after)(struct circular_ll*, int, int);
+    void (*insert_before)(struct circular_ll*, int, int);
+    void (*insert_at)(struct circular_ll*, int, int);
 
-    void (*pop_front)(circular_ll_t*);
-    void (*pop_back)(circular_ll_t*);
-    void (*pop_after)(circular_ll_t*, int);
-    void (*pop_before)(circular_ll_t*, int);
-    void (*pop_at)(circular_ll_t*, int);
+    void (*_delete_node)(struct circular_ll*, struct circular_node**);
+    void (*delete_first)(struct circular_ll*);
+    void (*delete_last)(struct circular_ll*);
+    void (*delete_after)(struct circular_ll*, int);
+    void (*delete_before)(struct circular_ll*, int);
+    void (*delete_at)(struct circular_ll*, int);
 
-    void (*reverse)(circular_ll_t*);
-    void (*sort)(circular_ll_t*);
+    void (*reverse)(struct circular_ll*);
+    void (*sort)(struct circular_ll*);
 };
 
-circular_ll_t create_circular_ll();
-void destroy_circular_ll(circular_ll_t*);
+struct circular_ll create_circular_ll();
+void destroy_circular_ll(struct circular_ll*);
 
 #endif

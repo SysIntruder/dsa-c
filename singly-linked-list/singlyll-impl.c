@@ -3,12 +3,12 @@
 #include "singlyll.h"
 #include "../color.h"
 
-__attribute__((pure)) int is_empty(singly_ll_t* p_self) {
+__attribute__((pure)) int is_empty(struct singly_ll* p_self) {
     return !p_self->p_head;
 }
 
-void traverse(singly_ll_t* p_self) {
-    singly_node_t* p_node = p_self->p_head;
+void traverse(struct singly_ll* p_self) {
+    struct singly_node* p_node = p_self->p_head;
 
     printf(GRN);
 
@@ -24,21 +24,21 @@ void traverse(singly_ll_t* p_self) {
     return;
 }
 
-int count(singly_ll_t* p_self, singly_node_t* p_node) {
+int count(struct singly_ll* p_self, struct singly_node* p_node) {
     return !p_node ? 0 : 1 + p_self->count(p_self, p_node->p_next);
 }
 
-int length(singly_ll_t* p_self) {
+int length(struct singly_ll* p_self) {
     return p_self->count(p_self, p_self->p_head);
 }
 
-singly_node_t* get_node(singly_ll_t* p_self, int pos) {
+struct singly_node* get_node(struct singly_ll* p_self, int pos) {
     int len = p_self->length(p_self);
 
     if (pos < 1 || pos > len) return NULL;
     if (pos == 1) return p_self->p_head;
 
-    singly_node_t* p_node = p_self->p_head;
+    struct singly_node* p_node = p_self->p_head;
 
     for (int i = 1; i < pos; i++) {
         p_node = p_node->p_next;
@@ -47,9 +47,9 @@ singly_node_t* get_node(singly_ll_t* p_self, int pos) {
     return p_node;
 }
 
-int search(singly_ll_t* p_self, int data) {
+int search(struct singly_ll* p_self, int data) {
     int count = 1;
-    singly_node_t* p_node = p_self->p_head;
+    struct singly_node* p_node = p_self->p_head;
 
     while (p_node) {
         if (p_node->data == data) return count;
@@ -61,8 +61,8 @@ int search(singly_ll_t* p_self, int data) {
     return -1;
 }
 
-void push_front(singly_ll_t* p_self, int data) {
-    singly_node_t* p_new_node = (singly_node_t*)malloc(sizeof(singly_node_t));
+void push_front(struct singly_ll* p_self, int data) {
+    struct singly_node* p_new_node = malloc(sizeof * p_new_node);
 
     if (!p_new_node) return;
 
@@ -73,19 +73,19 @@ void push_front(singly_ll_t* p_self, int data) {
     return;
 }
 
-void push_back(singly_ll_t* p_self, int data) {
+void push_back(struct singly_ll* p_self, int data) {
     if (!p_self->p_head) {
         p_self->push_front(p_self, data);
         return;
     }
 
-    singly_node_t* p_node = p_self->p_head;
+    struct singly_node* p_node = p_self->p_head;
 
     while (p_node->p_next) {
         p_node = p_node->p_next;
     }
 
-    singly_node_t* p_new_node = (singly_node_t*)malloc(sizeof(singly_node_t));
+    struct singly_node* p_new_node = malloc(sizeof * p_node);
 
     if (!p_new_node) return;
 
@@ -96,7 +96,7 @@ void push_back(singly_ll_t* p_self, int data) {
     return;
 }
 
-void push_after(singly_ll_t* p_self, int pos, int data) {
+void push_after(struct singly_ll* p_self, int pos, int data) {
     int len = p_self->length(p_self);
 
     if (pos < 0 || pos > len) return;
@@ -111,11 +111,11 @@ void push_after(singly_ll_t* p_self, int pos, int data) {
         return;
     }
 
-    singly_node_t* p_node = p_self->get_node(p_self, pos);
+    struct singly_node* p_node = p_self->get_node(p_self, pos);
 
     if (!p_node) return;
 
-    singly_node_t* p_new_node = (singly_node_t*)malloc(sizeof(singly_node_t));
+    struct singly_node* p_new_node = malloc(sizeof * p_node);
 
     if (!p_new_node) return;
 
@@ -126,7 +126,7 @@ void push_after(singly_ll_t* p_self, int pos, int data) {
     return;
 }
 
-void push_before(singly_ll_t* p_self, int pos, int data) {
+void push_before(struct singly_ll* p_self, int pos, int data) {
     int len = p_self->length(p_self);
     int prev_pos = pos - 1;
 
@@ -146,10 +146,10 @@ void push_before(singly_ll_t* p_self, int pos, int data) {
     return;
 }
 
-void pop_front(singly_ll_t* p_self) {
+void pop_front(struct singly_ll* p_self) {
     if (!p_self->p_head) return;
 
-    singly_node_t* p_tmp = p_self->p_head;
+    struct singly_node* p_tmp = p_self->p_head;
 
     p_self->p_head = p_tmp->p_next;
     free(p_tmp);
@@ -157,7 +157,7 @@ void pop_front(singly_ll_t* p_self) {
     return;
 }
 
-void pop_back(singly_ll_t* p_self) {
+void pop_back(struct singly_ll* p_self) {
     if (!p_self->p_head) return;
 
     if (!p_self->p_head->p_next) {
@@ -167,13 +167,13 @@ void pop_back(singly_ll_t* p_self) {
         return;
     }
 
-    singly_node_t* p_tmp = p_self->p_head;
+    struct singly_node* p_tmp = p_self->p_head;
 
     while (p_tmp->p_next->p_next) {
         p_tmp = p_tmp->p_next;
     }
 
-    singly_node_t* p_last = p_tmp->p_next;
+    struct singly_node* p_last = p_tmp->p_next;
 
     p_tmp->p_next = NULL;
     free(p_last);
@@ -181,7 +181,7 @@ void pop_back(singly_ll_t* p_self) {
     return;
 }
 
-void pop_after(singly_ll_t* p_self, int pos) {
+void pop_after(struct singly_ll* p_self, int pos) {
     int len = p_self->length(p_self);
     int next_pos = pos + 1;
 
@@ -197,11 +197,11 @@ void pop_after(singly_ll_t* p_self, int pos) {
         return;
     }
 
-    singly_node_t* p_node = p_self->get_node(p_self, pos);
+    struct singly_node* p_node = p_self->get_node(p_self, pos);
 
     if (!p_node || !p_node->p_next) return;
 
-    singly_node_t* p_tmp = p_node->p_next;
+    struct singly_node* p_tmp = p_node->p_next;
 
     p_node->p_next = p_tmp->p_next;
     free(p_tmp);
@@ -209,7 +209,7 @@ void pop_after(singly_ll_t* p_self, int pos) {
     return;
 }
 
-void pop_before(singly_ll_t* p_self, int pos) {
+void pop_before(struct singly_ll* p_self, int pos) {
     int max_pos = p_self->length(p_self) + 1;
 
     if (pos < 2 || pos > max_pos) return;
@@ -228,7 +228,7 @@ void pop_before(singly_ll_t* p_self, int pos) {
     return;
 }
 
-void pop_at(singly_ll_t* p_self, int pos) {
+void pop_at(struct singly_ll* p_self, int pos) {
     int len = p_self->length(p_self);
 
     if (pos < 1 || pos > len) return;
@@ -247,12 +247,12 @@ void pop_at(singly_ll_t* p_self, int pos) {
     return;
 }
 
-void reverse(singly_ll_t* p_self) {
+void reverse(struct singly_ll* p_self) {
     if (!p_self->p_head || !p_self->p_head->p_next) return;
 
-    singly_node_t* p_cur = p_self->p_head->p_next;
-    singly_node_t* p_res = p_self->p_head;
-    singly_node_t* p_tmp = NULL;
+    struct singly_node* p_cur = p_self->p_head->p_next;
+    struct singly_node* p_res = p_self->p_head;
+    struct singly_node* p_tmp = NULL;
 
     p_res->p_next = NULL;
 
@@ -268,11 +268,11 @@ void reverse(singly_ll_t* p_self) {
     return;
 }
 
-void sort(singly_ll_t* p_self) {
+void sort(struct singly_ll* p_self) {
     if (!p_self->p_head || !p_self->p_head->p_next) return;
 
-    singly_node_t* p_cur = p_self->p_head;
-    singly_node_t* p_next = NULL;
+    struct singly_node* p_cur = p_self->p_head;
+    struct singly_node* p_next = NULL;
     int tmp = 0;
 
     while (p_cur) {
@@ -294,8 +294,8 @@ void sort(singly_ll_t* p_self) {
     return;
 }
 
-singly_ll_t create_singly_ll() {
-    singly_ll_t self;
+struct singly_ll create_singly_ll() {
+    struct singly_ll self;
 
     self.p_head = NULL;
 
@@ -326,8 +326,8 @@ singly_ll_t create_singly_ll() {
     return self;
 }
 
-void destroy_singly_ll(singly_ll_t* p_self) {
-    singly_node_t* p_tmp = p_self->p_head;
+void destroy_singly_ll(struct singly_ll* p_self) {
+    struct singly_node* p_tmp = p_self->p_head;
 
     while (p_self->p_head) {
         p_tmp = p_self->p_head->p_next;

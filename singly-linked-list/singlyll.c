@@ -47,7 +47,7 @@ void demo() {
     system("clear");
     printf("Singly Linked List\n");
 
-    singly_ll_t ll = create_singly_ll();
+    struct singly_ll ll = create_singly_ll();
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("Check Empty: %d\n", ll.is_empty(&ll));
@@ -79,7 +79,7 @@ void demo() {
 
     int pos = 3;
     printf("Get Node at Position: %d\n", pos);
-    singly_node_t* p_node = ll.get_node(&ll, pos);
+    struct singly_node* p_node = ll.get_node(&ll, pos);
     printf("Node at Position %d: %d\n", pos, p_node->data);
     printf("\n");
 
@@ -174,8 +174,8 @@ void singly_ll() {
     system("clear");
 
     int choice = 0, pos = 0, data = 0, search = 0;
-    singly_ll_t ll = create_singly_ll();
-    singly_node_t* p_node = NULL;
+    struct singly_ll ll = create_singly_ll();
+    struct singly_node* p_node = NULL;
 
     printf("Interactive Singly Linked List\n");
     printf("choose operation:\n\n");

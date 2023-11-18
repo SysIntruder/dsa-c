@@ -61,7 +61,7 @@ int search(struct singly_ll* p_self, int data) {
     return -1;
 }
 
-void push_front(struct singly_ll* p_self, int data) {
+void insert_first(struct singly_ll* p_self, int data) {
     struct singly_node* p_new_node = malloc(sizeof * p_new_node);
 
     if (!p_new_node) return;
@@ -73,9 +73,9 @@ void push_front(struct singly_ll* p_self, int data) {
     return;
 }
 
-void push_back(struct singly_ll* p_self, int data) {
+void insert_last(struct singly_ll* p_self, int data) {
     if (!p_self->p_head) {
-        p_self->push_front(p_self, data);
+        p_self->insert_first(p_self, data);
         return;
     }
 
@@ -96,18 +96,18 @@ void push_back(struct singly_ll* p_self, int data) {
     return;
 }
 
-void push_after(struct singly_ll* p_self, int pos, int data) {
+void insert_after(struct singly_ll* p_self, int pos, int data) {
     int len = p_self->length(p_self);
 
     if (pos < 0 || pos > len) return;
 
     if (pos == 0) {
-        p_self->push_front(p_self, data);
+        p_self->insert_first(p_self, data);
         return;
     }
 
     if (pos == len) {
-        p_self->push_back(p_self, data);
+        p_self->insert_last(p_self, data);
         return;
     }
 
@@ -126,27 +126,27 @@ void push_after(struct singly_ll* p_self, int pos, int data) {
     return;
 }
 
-void push_before(struct singly_ll* p_self, int pos, int data) {
+void insert_before(struct singly_ll* p_self, int pos, int data) {
     int len = p_self->length(p_self);
     int prev_pos = pos - 1;
 
     if (pos < 1 || prev_pos > len) return;
 
     if (pos == 1) {
-        p_self->push_front(p_self, data);
+        p_self->insert_first(p_self, data);
         return;
     }
 
     if (prev_pos == len) {
-        p_self->push_back(p_self, data);
+        p_self->insert_last(p_self, data);
         return;
     }
 
-    p_self->push_after(p_self, prev_pos, data);
+    p_self->insert_after(p_self, prev_pos, data);
     return;
 }
 
-void pop_front(struct singly_ll* p_self) {
+void delete_first(struct singly_ll* p_self) {
     if (!p_self->p_head) return;
 
     struct singly_node* p_tmp = p_self->p_head;
@@ -157,7 +157,7 @@ void pop_front(struct singly_ll* p_self) {
     return;
 }
 
-void pop_back(struct singly_ll* p_self) {
+void delete_last(struct singly_ll* p_self) {
     if (!p_self->p_head) return;
 
     if (!p_self->p_head->p_next) {
@@ -181,19 +181,19 @@ void pop_back(struct singly_ll* p_self) {
     return;
 }
 
-void pop_after(struct singly_ll* p_self, int pos) {
+void delete_after(struct singly_ll* p_self, int pos) {
     int len = p_self->length(p_self);
     int next_pos = pos + 1;
 
     if (pos < 0 || next_pos > len) return;
 
     if (pos == 0) {
-        p_self->pop_front(p_self);
+        p_self->delete_first(p_self);
         return;
     }
 
     if (next_pos == len) {
-        p_self->pop_back(p_self);
+        p_self->delete_last(p_self);
         return;
     }
 
@@ -209,41 +209,41 @@ void pop_after(struct singly_ll* p_self, int pos) {
     return;
 }
 
-void pop_before(struct singly_ll* p_self, int pos) {
+void delete_before(struct singly_ll* p_self, int pos) {
     int max_pos = p_self->length(p_self) + 1;
 
     if (pos < 2 || pos > max_pos) return;
 
     if (pos == 2) {
-        p_self->pop_front(p_self);
+        p_self->delete_first(p_self);
         return;
     }
 
     if (pos == max_pos) {
-        p_self->pop_back(p_self);
+        p_self->delete_last(p_self);
         return;
     }
 
-    p_self->pop_after(p_self, pos - 2);
+    p_self->delete_after(p_self, pos - 2);
     return;
 }
 
-void pop_at(struct singly_ll* p_self, int pos) {
+void delete_at(struct singly_ll* p_self, int pos) {
     int len = p_self->length(p_self);
 
     if (pos < 1 || pos > len) return;
 
     if (pos == 1) {
-        p_self->pop_front(p_self);
+        p_self->delete_first(p_self);
         return;
     }
 
     if (pos == len) {
-        p_self->pop_back(p_self);
+        p_self->delete_last(p_self);
         return;
     }
 
-    p_self->pop_after(p_self, pos - 1);
+    p_self->delete_after(p_self, pos - 1);
     return;
 }
 
@@ -308,17 +308,17 @@ struct singly_ll create_singly_ll() {
     self.get_node = &get_node;
     self.search = &search;
 
-    self.push_front = &push_front;
-    self.push_back = &push_back;
-    self.push_after = &push_after;
-    self.push_before = &push_before;
-    self.push_at = &push_before;
+    self.insert_first = &insert_first;
+    self.insert_last = &insert_last;
+    self.insert_after = &insert_after;
+    self.insert_before = &insert_before;
+    self.insert_at = &insert_before;
 
-    self.pop_front = &pop_front;
-    self.pop_back = &pop_back;
-    self.pop_after = &pop_after;
-    self.pop_before = &pop_before;
-    self.pop_at = &pop_at;
+    self.delete_first = &delete_first;
+    self.delete_last = &delete_last;
+    self.delete_after = &delete_after;
+    self.delete_before = &delete_before;
+    self.delete_at = &delete_at;
 
     self.reverse = &reverse;
     self.sort = &sort;

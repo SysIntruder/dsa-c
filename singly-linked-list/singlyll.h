@@ -18,17 +18,17 @@ struct singly_ll {
     struct singly_node* (*get_node)(struct singly_ll*, int);
     int (*search)(struct singly_ll*, int);
 
-    void (*push_front)(struct singly_ll*, int);
-    void (*push_back)(struct singly_ll*, int);
-    void (*push_after)(struct singly_ll*, int, int);
-    void (*push_before)(struct singly_ll*, int, int);
-    void (*push_at)(struct singly_ll*, int, int);
+    void (*insert_first)(struct singly_ll*, int);
+    void (*insert_last)(struct singly_ll*, int);
+    void (*insert_after)(struct singly_ll*, int, int);
+    void (*insert_before)(struct singly_ll*, int, int);
+    void (*insert_at)(struct singly_ll*, int, int);
 
-    void (*pop_front)(struct singly_ll*);
-    void (*pop_back)(struct singly_ll*);
-    void (*pop_after)(struct singly_ll*, int);
-    void (*pop_before)(struct singly_ll*, int);
-    void (*pop_at)(struct singly_ll*, int);
+    void (*delete_first)(struct singly_ll*);
+    void (*delete_last)(struct singly_ll*);
+    void (*delete_after)(struct singly_ll*, int);
+    void (*delete_before)(struct singly_ll*, int);
+    void (*delete_at)(struct singly_ll*, int);
 
     void (*reverse)(struct singly_ll*);
     void (*sort)(struct singly_ll*);

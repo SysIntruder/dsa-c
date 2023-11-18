@@ -85,7 +85,7 @@ void push_back(struct singly_ll* p_self, int data) {
         p_node = p_node->p_next;
     }
 
-    struct singly_node* p_new_node = malloc(sizeof * p_node);
+    struct singly_node* p_new_node = malloc(sizeof * p_new_node);
 
     if (!p_new_node) return;
 
@@ -115,7 +115,7 @@ void push_after(struct singly_ll* p_self, int pos, int data) {
 
     if (!p_node) return;
 
-    struct singly_node* p_new_node = malloc(sizeof * p_node);
+    struct singly_node* p_new_node = malloc(sizeof * p_new_node);
 
     if (!p_new_node) return;
 

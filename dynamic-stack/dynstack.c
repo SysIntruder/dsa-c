@@ -52,7 +52,7 @@ void demo()
     system("clear");
     printf("Dynamic Stack\n");
 
-    dyn_stack_t st = create_dyn_stack(2);
+    struct dyn_stack st = create_dyn_stack(2);
     st.traverse(&st);
     printf("Length: %d\n", st.length(&st));
     printf("\n");
@@ -121,7 +121,7 @@ void stack_arr()
     system("clear");
 
     int choice = 0, data = 0;
-    dyn_stack_t st = create_dyn_stack(size);
+    struct dyn_stack st = create_dyn_stack(size);
 
     printf("Interactive Dynamic Stack\n");
     printf("choose operation:\n\n");

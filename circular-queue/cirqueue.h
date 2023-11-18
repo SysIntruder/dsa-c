@@ -1,29 +1,27 @@
 #ifndef CIRQUEUE_H
 #define CIRQUEUE_H
 
-typedef struct cir_queue cir_queue_t;
-struct cir_queue
-{
+struct cir_queue {
     int _front;
     int _rear;
     int _size;
     int* p_data;
 
-    int (*is_full)(cir_queue_t*);
-    int (*is_empty)(cir_queue_t*);
-    int (*length)(cir_queue_t*);
+    int (*is_full)(struct cir_queue*);
+    int (*is_empty)(struct cir_queue*);
+    int (*length)(struct cir_queue*);
 
-    void (*traverse)(cir_queue_t*);
+    void (*traverse)(struct cir_queue*);
 
-    void (*enqueue)(cir_queue_t*, int);
-    int (*dequeue)(cir_queue_t*);
-    int (*peek)(cir_queue_t*);
+    void (*enqueue)(struct cir_queue*, int);
+    int (*dequeue)(struct cir_queue*);
+    int (*peek)(struct cir_queue*);
 
-    void (*reverse)(cir_queue_t*);
-    void (*sort)(cir_queue_t*);
+    void (*reverse)(struct cir_queue*);
+    void (*sort)(struct cir_queue*);
 };
 
-cir_queue_t create_queue(int);
-void destroy_queue(cir_queue_t*);
+struct cir_queue create_queue(int);
+void destroy_queue(struct cir_queue*);
 
 #endif

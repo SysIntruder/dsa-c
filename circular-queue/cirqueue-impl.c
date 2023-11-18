@@ -3,40 +3,34 @@
 #include "cirqueue.h"
 #include "../color.h"
 
-__attribute__((pure)) int is_full(cir_queue_t* p_qu)
-{
-    return (p_qu->_rear + 1) % p_qu->_size == p_qu->_front;
+__attribute__((pure)) int is_full(struct cir_queue* p_self) {
+    return (p_self->_rear + 1) % p_self->_size == p_self->_front;
 }
 
-__attribute__((pure)) int is_empty(cir_queue_t* p_qu)
-{
-    return p_qu->_front == -1 || p_qu->_rear == -1;
+__attribute__((pure)) int is_empty(struct cir_queue* p_self) {
+    return p_self->_front == -1 || p_self->_rear == -1;
 }
 
-__attribute__((pure)) int length(cir_queue_t* p_qu)
-{
-    if (p_qu->is_empty(p_qu)) return 0;
-    if (p_qu->is_full(p_qu)) return p_qu->_size;
+__attribute__((pure)) int length(struct cir_queue* p_self) {
+    if (p_self->is_empty(p_self)) return 0;
+    if (p_self->is_full(p_self)) return p_self->_size;
 
-    int next_size = (p_qu->_size + 1);
+    int next_size = (p_self->_size + 1);
 
-    return p_qu->_rear < p_qu->_front
-        ? (p_qu->_rear - p_qu->_front + next_size) % next_size
-        : p_qu->_rear - p_qu->_front + 1;
+    return p_self->_rear < p_self->_front
+        ? (p_self->_rear - p_self->_front + next_size) % next_size
+        : p_self->_rear - p_self->_front + 1;
 }
 
-void traverse(cir_queue_t* p_qu)
-{
+void traverse(struct cir_queue* p_self) {
+    int limit = p_self->_front + p_self->_size - 1;
+
     printf(BLU "<<" RESET);
 
-    for (int i = 0; i <= p_qu->_size - 1; i++)
-    {
-        if (i == p_qu->_front)
-            printf(YEL " %d " RESET, p_qu->p_data[i]);
-        else if (i == p_qu->_rear)
-            printf(GRN " %d " RESET, p_qu->p_data[i]);
-        else
-            printf(" %d " RESET, p_qu->p_data[i]);
+    for (int i = p_self->_front; i <= limit; i++) {
+        printf(" %d " RESET, p_self->p_data[i % p_self->_size]);
+
+        if (i < limit) printf(BLU "|" RESET);
     }
 
     printf(BLU "<<" RESET "\n");
@@ -44,84 +38,73 @@ void traverse(cir_queue_t* p_qu)
     return;
 }
 
-void enqueue(cir_queue_t* p_qu, int data)
-{
-    if (p_qu->is_full(p_qu)) return;
+void enqueue(struct cir_queue* p_self, int data) {
+    if (p_self->is_full(p_self)) return;
 
-    p_qu->_rear + 1 == p_qu->_size && p_qu->_front > 0
-        ? p_qu->_rear = ++p_qu->_rear % p_qu->_size
-        : p_qu->_rear++;
+    p_self->_rear + 1 == p_self->_size && p_self->_front > 0
+        ? p_self->_rear = ++p_self->_rear % p_self->_size
+        : p_self->_rear++;
 
-    p_qu->p_data[p_qu->_rear] = data;
+    p_self->p_data[p_self->_rear] = data;
 
-    if (p_qu->_front == -1) p_qu->_front++;
+    if (p_self->_front == -1) p_self->_front++;
 
     return;
 }
 
-int dequeue(cir_queue_t* p_qu)
-{
-    if (p_qu->is_empty(p_qu)) return -1;
+int dequeue(struct cir_queue* p_self) {
+    if (p_self->is_empty(p_self)) return -1;
 
-    int res = p_qu->p_data[p_qu->_front];
-    p_qu->p_data[p_qu->_front] = 0;
-    p_qu->_front++;
+    int res = p_self->p_data[p_self->_front];
+    p_self->p_data[p_self->_front] = 0;
+    p_self->_front++;
 
-    if (p_qu->_front == p_qu->_size)
-    {
-        p_qu->_front %= p_qu->_size;
+    if (p_self->_front == p_self->_size) {
+        p_self->_front %= p_self->_size;
 
         goto finish;
     }
 
-    if (p_qu->_front - p_qu->_rear == 1)
-    {
-        p_qu->_front = -1;
-        p_qu->_rear = -1;
+    if (p_self->_front - p_self->_rear == 1) {
+        p_self->_front = -1;
+        p_self->_rear = -1;
     }
 
 finish:
     return res;
 }
 
-__attribute__((pure)) int peek(cir_queue_t* p_qu)
-{
-    return p_qu->is_empty(p_qu) ? -1 : p_qu->p_data[p_qu->_front];
+__attribute__((pure)) int peek(struct cir_queue* p_self) {
+    return p_self->is_empty(p_self) ? -1 : p_self->p_data[p_self->_front];
 }
 
-void reverse(cir_queue_t* p_qu)
-{
-    if (p_qu->is_empty(p_qu) || p_qu->length(p_qu) == 1) return;
+void reverse(struct cir_queue* p_self) {
+    if (p_self->is_empty(p_self) || p_self->length(p_self) == 1) return;
 
-    int tmp = 0, limit = p_qu->length(p_qu) / 2;
+    int tmp = 0, limit = p_self->length(p_self) / 2;
 
-    for (int i = 0; i < limit; i++)
-    {
-        tmp = p_qu->p_data[p_qu->_rear - i];
-        p_qu->p_data[p_qu->_rear - i] = p_qu->p_data[p_qu->_front + i];
-        p_qu->p_data[p_qu->_front + i] = tmp;
+    for (int i = 0; i < limit; i++) {
+        tmp = p_self->p_data[p_self->_rear - i];
+        p_self->p_data[p_self->_rear - i] = p_self->p_data[p_self->_front + i];
+        p_self->p_data[p_self->_front + i] = tmp;
     }
 
     return;
 }
 
-void sort(cir_queue_t* p_qu)
-{
-    if (p_qu->is_empty(p_qu) || p_qu->length(p_qu) == 1) return;
+void sort(struct cir_queue* p_self) {
+    if (p_self->is_empty(p_self) || p_self->length(p_self) == 1) return;
 
-    int cur = p_qu->_front, next = 0, tmp = 0;
+    int cur = p_self->_front, next = 0, tmp = 0;
 
-    while (cur <= p_qu->_rear)
-    {
+    while (cur <= p_self->_rear) {
         next = cur + 1;
 
-        while (next <= p_qu->_rear)
-        {
-            if (p_qu->p_data[cur] > p_qu->p_data[next])
-            {
-                tmp = p_qu->p_data[cur];
-                p_qu->p_data[cur] = p_qu->p_data[next];
-                p_qu->p_data[next] = tmp;
+        while (next <= p_self->_rear) {
+            if (p_self->p_data[cur] > p_self->p_data[next]) {
+                tmp = p_self->p_data[cur];
+                p_self->p_data[cur] = p_self->p_data[next];
+                p_self->p_data[next] = tmp;
             }
 
             next++;
@@ -133,9 +116,8 @@ void sort(cir_queue_t* p_qu)
     return;
 }
 
-cir_queue_t create_queue(int size)
-{
-    cir_queue_t self;
+struct cir_queue create_queue(int size) {
+    struct cir_queue self;
 
     self._front = -1;
     self._rear = -1;
@@ -158,9 +140,8 @@ cir_queue_t create_queue(int size)
     return self;
 }
 
-void destroy_queue(cir_queue_t* p_qu)
-{
-    free(p_qu->p_data);
+void destroy_queue(struct cir_queue* p_self) {
+    free(p_self->p_data);
 
     return;
 }

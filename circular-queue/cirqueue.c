@@ -7,10 +7,8 @@ void help();
 void demo();
 void cir_queue();
 
-int main(int argc, char* argv[])
-{
-    if (argc < 2)
-    {
+int main(int argc, char* argv[]) {
+    if (argc < 2) {
         help();
 
         return 0;
@@ -18,8 +16,7 @@ int main(int argc, char* argv[])
 
     char* args = argv[1];
 
-    switch (*args)
-    {
+    switch (*args) {
     case 'd':
         demo();
         break;
@@ -37,8 +34,7 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-void help()
-{
+void help() {
     printf("Use one of following arguments:\n");
     printf("h\tShow this help\n");
     printf("d\tDemo\n");
@@ -47,12 +43,11 @@ void help()
     return;
 }
 
-void demo()
-{
+void demo() {
     system("clear");
     printf("Circular Queue\n");
 
-    cir_queue_t qu = create_queue(3);
+    struct cir_queue qu = create_queue(3);
     qu.traverse(&qu);
     printf("Length: %d\n", qu.length(&qu));
     printf("\n");
@@ -123,8 +118,7 @@ void demo()
     destroy_queue(&qu);
 }
 
-void cir_queue()
-{
+void cir_queue() {
     int size = 0;
     printf("input Circular Queue size --THIS CAN'T BE CHANGED LATER--\n");
     scanf("%d", &size);
@@ -132,7 +126,7 @@ void cir_queue()
     system("clear");
 
     int choice = 0, data = 0;
-    cir_queue_t qu = create_queue(size);
+    struct cir_queue qu = create_queue(size);
 
     printf("Interactive Queue Array\n");
     printf("choose operation:\n\n");
@@ -147,13 +141,11 @@ void cir_queue()
     printf("8)\tReset\n");
     printf("9)\tExit\n");
 
-    while (1)
-    {
+    while (1) {
         printf("\n> ");
         scanf("%d", &choice);
 
-        switch (choice)
-        {
+        switch (choice) {
         case 0:
             printf("0)\tShow Operation\n");
             printf("1)\tDisplay Status\n");

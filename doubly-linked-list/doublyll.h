@@ -1,45 +1,44 @@
 #ifndef DOUBLYLL_H
 #define DOUBLYLL_H
 
-typedef struct doubly_node doubly_node_t;
 struct doubly_node
 {
     int data;
-    doubly_node_t* p_prev;
-    doubly_node_t* p_next;
+    struct doubly_node* p_prev;
+    struct doubly_node* p_next;
 };
 
-typedef struct doubly_ll doubly_ll_t;
 struct doubly_ll
 {
-    doubly_node_t* p_head;
+    struct doubly_node* p_head;
 
-    int (*is_empty)(doubly_ll_t*);
+    int (*is_empty)(struct doubly_ll*);
 
-    void (*traverse)(doubly_ll_t*);
-    int (*count)(doubly_node_t*);
-    int (*length)(doubly_ll_t*);
+    void (*traverse)(struct doubly_ll*);
+    int (*count)(struct doubly_ll*, struct doubly_node*);
+    int (*length)(struct doubly_ll*);
 
-    doubly_node_t* (*get_node)(doubly_ll_t*, int);
-    int (*search)(doubly_ll_t*, int);
+    struct doubly_node* (*get_node)(struct doubly_ll*, int);
+    int (*search)(struct doubly_ll*, int);
 
-    void (*push_front)(doubly_ll_t*, int);
-    void (*push_back)(doubly_ll_t*, int);
-    void (*push_after)(doubly_ll_t*, int, int);
-    void (*push_before)(doubly_ll_t*, int, int);
-    void (*push_at)(doubly_ll_t*, int, int);
+    void (*_create_head)(struct doubly_ll*, int);
+    void (*insert_first)(struct doubly_ll*, int);
+    void (*insert_last)(struct doubly_ll*, int);
+    void (*insert_after)(struct doubly_ll*, int, int);
+    void (*insert_before)(struct doubly_ll*, int, int);
+    void (*insert_at)(struct doubly_ll*, int, int);
 
-    void (*pop_front)(doubly_ll_t*);
-    void (*pop_back)(doubly_ll_t*);
-    void (*pop_after)(doubly_ll_t*, int);
-    void (*pop_before)(doubly_ll_t*, int);
-    void (*pop_at)(doubly_ll_t*, int);
+    void (*delete_first)(struct doubly_ll*);
+    void (*delete_last)(struct doubly_ll*);
+    void (*delete_after)(struct doubly_ll*, int);
+    void (*delete_before)(struct doubly_ll*, int);
+    void (*delete_at)(struct doubly_ll*, int);
 
-    void (*reverse)(doubly_ll_t*);
-    void (*sort)(doubly_ll_t*);
+    void (*reverse)(struct doubly_ll*);
+    void (*sort)(struct doubly_ll*);
 };
 
-doubly_ll_t create_doubly_ll();
-void destroy_doubly_ll(doubly_ll_t*);
+struct doubly_ll create_doubly_ll();
+void destroy_doubly_ll(struct doubly_ll*);
 
 #endif

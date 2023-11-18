@@ -52,86 +52,86 @@ void demo()
     system("clear");
     printf("Doubly Linked List\n");
 
-    doubly_ll_t ll = create_doubly_ll();
+    struct doubly_ll ll = create_doubly_ll();
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("Check Empty: %d\n", ll.is_empty(&ll));
     printf("\n");
 
     printf("Push Front: 1\n");
-    ll.push_front(&ll, 1);
+    ll.insert_first(&ll, 1);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
     printf("Push Front: 2\n");
-    ll.push_front(&ll, 2);
+    ll.insert_first(&ll, 2);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
     printf("Push Back: 3\n");
-    ll.push_back(&ll, 3);
+    ll.insert_last(&ll, 3);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
     printf("Push Back: 4\n");
-    ll.push_back(&ll, 4);
+    ll.insert_last(&ll, 4);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
     int pos = 3;
     printf("Get Node at Position: %d\n", pos);
-    doubly_node_t* p_node = ll.get_node(&ll, pos);
+    struct doubly_node* p_node = ll.get_node(&ll, pos);
     printf("Node at Position %d: %d\n", pos, p_node->data);
     printf("\n");
 
     printf("Push After Position %d: 5\n", pos);
-    ll.push_after(&ll, pos, 5);
+    ll.insert_after(&ll, pos, 5);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
     printf("Push After Position %d: 6\n", p_node->data);
-    ll.push_after(&ll, pos, 6);
+    ll.insert_after(&ll, pos, 6);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
     printf("Push Before Position %d: 7\n", pos);
-    ll.push_before(&ll, pos, 7);
+    ll.insert_before(&ll, pos, 7);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
     printf("Push Before Position %d: 8\n", pos);
-    ll.push_before(&ll, pos, 8);
+    ll.insert_before(&ll, pos, 8);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
     printf("Push At Position %d: 9\n", pos);
-    ll.push_at(&ll, pos, 9);
+    ll.insert_at(&ll, pos, 9);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
     printf("Push At Position %d: 10\n", pos);
-    ll.push_at(&ll, pos, 10);
+    ll.insert_at(&ll, pos, 10);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
     printf("Pop Front\n");
-    ll.pop_front(&ll);
+    ll.delete_first(&ll);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
     printf("Pop Back\n");
-    ll.pop_back(&ll);
+    ll.delete_last(&ll);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
@@ -143,19 +143,19 @@ void demo()
     printf("\n");
 
     printf("Pop After Position %d\n", pos);
-    ll.pop_after(&ll, pos);
+    ll.delete_after(&ll, pos);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
     printf("Pop Before Position %d\n", pos);
-    ll.pop_before(&ll, pos);
+    ll.delete_before(&ll, pos);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
 
     printf("Pop At Position %d\n", pos);
-    ll.pop_at(&ll, pos);
+    ll.delete_at(&ll, pos);
     ll.traverse(&ll);
     printf("Length: %d\n", ll.length(&ll));
     printf("\n");
@@ -180,8 +180,8 @@ void doubly_ll()
     system("clear");
 
     int choice = 0, pos = 0, data = 0, search = 0;
-    doubly_ll_t ll = create_doubly_ll();
-    doubly_node_t* p_node = NULL;
+    struct doubly_ll ll = create_doubly_ll();
+    struct doubly_node* p_node = NULL;
 
     printf("Interactive Doubly Linked List\n");
     printf("choose operation:\n\n");
@@ -244,7 +244,7 @@ void doubly_ll()
             printf(GRN "== Push Front ==\n\n" RESET);
             printf("Input Data:\n");
             scanf("%d", &data);
-            ll.push_front(&ll, data);
+            ll.insert_first(&ll, data);
             printf("Data Pushed\n");
             ll.traverse(&ll);
 
@@ -253,7 +253,7 @@ void doubly_ll()
             printf(GRN "== Push Back ==\n\n" RESET);
             printf("Input Data:\n");
             scanf("%d", &data);
-            ll.push_back(&ll, data);
+            ll.insert_last(&ll, data);
             printf("Data Pushed\n");
             ll.traverse(&ll);
 
@@ -264,7 +264,7 @@ void doubly_ll()
             scanf("%d", &pos);
             printf("Input Data:\n");
             scanf("%d", &data);
-            ll.push_after(&ll, pos, data);
+            ll.insert_after(&ll, pos, data);
             printf("Data Pushed\n");
             ll.traverse(&ll);
 
@@ -275,7 +275,7 @@ void doubly_ll()
             scanf("%d", &pos);
             printf("Input Data:\n");
             scanf("%d", &data);
-            ll.push_before(&ll, pos, data);
+            ll.insert_before(&ll, pos, data);
             printf("Data Pushed\n");
             ll.traverse(&ll);
 
@@ -286,21 +286,21 @@ void doubly_ll()
             scanf("%d", &pos);
             printf("Input Data:\n");
             scanf("%d", &data);
-            ll.push_at(&ll, pos, data);
+            ll.insert_at(&ll, pos, data);
             printf("Data Pushed\n");
             ll.traverse(&ll);
 
             break;
         case 7:
             printf(GRN "== Pop Front ==\n\n" RESET);
-            ll.pop_front(&ll);
+            ll.delete_first(&ll);
             printf("Data Popped\n");
             ll.traverse(&ll);
 
             break;
         case 8:
             printf(GRN "== Pop Back ==\n\n" RESET);
-            ll.pop_back(&ll);
+            ll.delete_last(&ll);
             printf("Data Popped\n");
             ll.traverse(&ll);
 
@@ -309,7 +309,7 @@ void doubly_ll()
             printf(GRN "== Pop After ==\n\n" RESET);
             printf("Choose Node Position:\n");
             scanf("%d", &pos);
-            ll.pop_after(&ll, pos);
+            ll.delete_after(&ll, pos);
             printf("Data Popped\n");
             ll.traverse(&ll);
 
@@ -318,7 +318,7 @@ void doubly_ll()
             printf(GRN "== Pop Before ==\n\n" RESET);
             printf("Choose Node Position:\n");
             scanf("%d", &pos);
-            ll.pop_before(&ll, pos);
+            ll.delete_before(&ll, pos);
             printf("Data Popped\n");
             ll.traverse(&ll);
 
@@ -327,7 +327,7 @@ void doubly_ll()
             printf(GRN "== Pop At ==\n\n" RESET);
             printf("Choose Node Position:\n");
             scanf("%d", &pos);
-            ll.pop_at(&ll, pos);
+            ll.delete_at(&ll, pos);
             printf("Data Popped\n");
             ll.traverse(&ll);
 

@@ -1,29 +1,27 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-typedef struct queue queue_t;
-struct queue
-{
+struct queue {
     int _front;
     int _rear;
     int _size;
     int* p_data;
 
-    int (*is_full)(queue_t*);
-    int (*is_empty)(queue_t*);
-    int (*length)(queue_t*);
+    int (*is_full)(struct queue*);
+    int (*is_empty)(struct queue*);
+    int (*length)(struct queue*);
 
-    void (*traverse)(queue_t*);
+    void (*traverse)(struct queue*);
 
-    void (*enqueue)(queue_t*, int);
-    int (*dequeue)(queue_t*);
-    int (*peek)(queue_t*);
+    void (*enqueue)(struct queue*, int);
+    int (*dequeue)(struct queue*);
+    int (*peek)(struct queue*);
 
-    void (*reverse)(queue_t*);
-    void (*sort)(queue_t*);
+    void (*reverse)(struct queue*);
+    void (*sort)(struct queue*);
 };
 
-queue_t create_queue(int);
-void destroy_queue(queue_t*);
+struct queue create_queue(int);
+void destroy_queue(struct queue*);
 
 #endif

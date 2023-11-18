@@ -3,35 +3,27 @@
 #include "queue.h"
 #include "../color.h"
 
-__attribute__((pure)) int is_full(queue_t* p_qu)
-{
-    return p_qu->_rear == p_qu->_size - 1;
+__attribute__((pure)) int is_full(struct queue* p_self) {
+    return p_self->_rear == p_self->_size - 1;
 }
 
-__attribute__((pure)) int is_empty(queue_t* p_qu)
-{
-    return p_qu->_front == -1 || p_qu->_rear == -1;
+__attribute__((pure)) int is_empty(struct queue* p_self) {
+    return p_self->_front == -1 || p_self->_rear == -1;
 }
 
-__attribute__((pure)) int length(queue_t* p_qu)
-{
-    return p_qu->is_empty(p_qu) ? 0 : p_qu->_rear - p_qu->_front + 1;
+__attribute__((pure)) int length(struct queue* p_self) {
+    return p_self->is_empty(p_self) ? 0 : p_self->_rear - p_self->_front + 1;
 }
 
-void traverse(queue_t* p_qu)
-{
+void traverse(struct queue* p_self) {
     printf(BLU "<<" RESET);
 
-    if (p_qu->is_empty(p_qu)) goto finish;
+    if (p_self->is_empty(p_self)) goto finish;
 
-    for (int i = p_qu->_front; i <= p_qu->_rear; i++)
-    {
-        if (i == p_qu->_front)
-            printf(YEL " %d " RESET, p_qu->p_data[i]);
-        else if (i == p_qu->_rear)
-            printf(GRN " %d " RESET, p_qu->p_data[i]);
-        else
-            printf(" %d " RESET, p_qu->p_data[i]);
+    for (int i = p_self->_front; i <= p_self->_rear; i++) {
+        printf(" %d " RESET, p_self->p_data[i]);
+
+        if (i < p_self->_rear) printf(BLU "|" RESET);
     }
 
 finish:
@@ -40,72 +32,62 @@ finish:
     return;
 }
 
-void enqueue(queue_t* p_qu, int data)
-{
-    if (p_qu->is_full(p_qu)) return;
+void enqueue(struct queue* p_self, int data) {
+    if (p_self->is_full(p_self)) return;
 
-    p_qu->p_data[++p_qu->_rear] = data;
+    p_self->p_data[++p_self->_rear] = data;
 
-    if (p_qu->_front == -1) p_qu->_front++;
+    if (p_self->_front == -1) p_self->_front++;
 
     return;
 }
 
-int dequeue(queue_t* p_qu)
-{
-    if (p_qu->is_empty(p_qu)) return -1;
+int dequeue(struct queue* p_self) {
+    if (p_self->is_empty(p_self)) return -1;
 
-    int res = p_qu->p_data[p_qu->_front];
-    p_qu->p_data[p_qu->_front] = 0;
-    p_qu->_front++;
+    int res = p_self->p_data[p_self->_front];
+    p_self->p_data[p_self->_front] = 0;
+    p_self->_front++;
 
-    if (p_qu->_front > p_qu->_rear)
-    {
-        p_qu->_front = -1;
-        p_qu->_rear = -1;
+    if (p_self->_front > p_self->_rear) {
+        p_self->_front = -1;
+        p_self->_rear = -1;
     }
 
     return res;
 }
 
-__attribute__((pure)) int peek(queue_t* p_qu)
-{
-    return p_qu->is_empty(p_qu) ? -1 : p_qu->p_data[p_qu->_front];
+__attribute__((pure)) int peek(struct queue* p_self) {
+    return p_self->is_empty(p_self) ? -1 : p_self->p_data[p_self->_front];
 }
 
-void reverse(queue_t* p_qu)
-{
-    if (p_qu->is_empty(p_qu) || p_qu->length(p_qu) == 1) return;
+void reverse(struct queue* p_self) {
+    if (p_self->is_empty(p_self) || p_self->length(p_self) == 1) return;
 
-    int tmp = 0, limit = p_qu->length(p_qu) / 2;
+    int tmp = 0, limit = p_self->length(p_self) / 2;
 
-    for (int i = 0; i < limit; i++)
-    {
-        tmp = p_qu->p_data[p_qu->_rear - i];
-        p_qu->p_data[p_qu->_rear - i] = p_qu->p_data[p_qu->_front + i];
-        p_qu->p_data[p_qu->_front + i] = tmp;
+    for (int i = 0; i < limit; i++) {
+        tmp = p_self->p_data[p_self->_rear - i];
+        p_self->p_data[p_self->_rear - i] = p_self->p_data[p_self->_front + i];
+        p_self->p_data[p_self->_front + i] = tmp;
     }
 
     return;
 }
 
-void sort(queue_t* p_qu)
-{
-    if (p_qu->is_empty(p_qu) || p_qu->length(p_qu) == 1) return;
+void sort(struct queue* p_self) {
+    if (p_self->is_empty(p_self) || p_self->length(p_self) == 1) return;
 
-    int cur = p_qu->_front, next = 0, tmp = 0;
+    int cur = p_self->_front, next = 0, tmp = 0;
 
-    while (cur <= p_qu->_rear)
-    {
+    while (cur <= p_self->_rear) {
         next = cur + 1;
 
-        while (next <= p_qu->_rear)
-        {
-            if (p_qu->p_data[cur] > p_qu->p_data[next])
-            {
-                tmp = p_qu->p_data[cur];
-                p_qu->p_data[cur] = p_qu->p_data[next];
-                p_qu->p_data[next] = tmp;
+        while (next <= p_self->_rear) {
+            if (p_self->p_data[cur] > p_self->p_data[next]) {
+                tmp = p_self->p_data[cur];
+                p_self->p_data[cur] = p_self->p_data[next];
+                p_self->p_data[next] = tmp;
             }
 
             next++;
@@ -117,9 +99,8 @@ void sort(queue_t* p_qu)
     return;
 }
 
-queue_t create_queue(int size)
-{
-    queue_t self;
+struct queue create_queue(int size) {
+    struct queue self;
 
     self._front = -1;
     self._rear = -1;
@@ -142,9 +123,8 @@ queue_t create_queue(int size)
     return self;
 }
 
-void destroy_queue(queue_t* p_qu)
-{
-    free(p_qu->p_data);
+void destroy_queue(struct queue* p_self) {
+    free(p_self->p_data);
 
     return;
 }

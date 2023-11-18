@@ -11,17 +11,22 @@ void traverse(struct doubly_ll* p_self) {
     struct doubly_node* p_node = p_self->p_head;
     struct doubly_node* p_prev = NULL;
 
-    printf("NULL" BLU " <");
+    printf(RED "NULL" BLU " <");
 
     while (p_node) {
         if (p_prev == p_node->p_prev) printf("=");
 
-        printf("> " RESET "%d" BLU " <", p_node->data);
+        printf("> " RESET);
+
+        if (p_node == p_self->p_head) printf(GRN);
+        if (!p_node->p_next) printf(YEL);
+
+        printf("%d" BLU " <", p_node->data);
         p_prev = p_node;
         p_node = p_node->p_next;
     }
 
-    printf("=> " RESET "NULL\n");
+    printf("=> " RED "NULL\n" RESET);
 
     return;
 }
@@ -64,7 +69,7 @@ int search(struct doubly_ll* p_self, int data) {
 }
 
 void create_head(struct doubly_ll* p_self, int data) {
-    struct doubly_node* p_new_node = malloc(sizeof *p_new_node);
+    struct doubly_node* p_new_node = malloc(sizeof * p_new_node);
 
     if (!p_new_node) return;
 
@@ -82,7 +87,7 @@ void insert_first(struct doubly_ll* p_self, int data) {
         return;
     }
 
-    struct doubly_node* p_new_node = malloc(sizeof *p_new_node);
+    struct doubly_node* p_new_node = malloc(sizeof * p_new_node);
 
     if (!p_new_node) return;
 
@@ -107,7 +112,7 @@ void insert_last(struct doubly_ll* p_self, int data) {
         p_node = p_node->p_next;
     }
 
-    struct doubly_node* p_new_node = malloc(sizeof *p_new_node);
+    struct doubly_node* p_new_node = malloc(sizeof * p_new_node);
 
     if (!p_new_node) return;
 
@@ -138,7 +143,7 @@ void insert_after(struct doubly_ll* p_self, int pos, int data) {
 
     if (!p_node) return;
 
-    struct doubly_node* p_new_node = malloc(sizeof *p_new_node);
+    struct doubly_node* p_new_node = malloc(sizeof * p_new_node);
 
     if (!p_new_node) return;
 
@@ -171,7 +176,7 @@ void insert_before(struct doubly_ll* p_self, int pos, int data) {
 
     if (!p_node) return;
 
-    struct doubly_node* p_new_node = malloc(sizeof *p_new_node);
+    struct doubly_node* p_new_node = malloc(sizeof * p_new_node);
 
     if (!p_new_node) return;
 

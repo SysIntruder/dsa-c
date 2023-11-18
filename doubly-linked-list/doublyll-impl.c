@@ -11,22 +11,17 @@ void traverse(struct doubly_ll* p_self) {
     struct doubly_node* p_node = p_self->p_head;
     struct doubly_node* p_prev = NULL;
 
-    printf(RED "NULL" BLU " <");
+    printf("NULL" BLU " <");
 
     while (p_node) {
         if (p_prev == p_node->p_prev) printf("=");
 
-        printf("> " RESET);
-
-        if (p_node == p_self->p_head) printf(GRN);
-        if (!p_node->p_next) printf(YEL);
-
-        printf("%d" BLU " <", p_node->data);
+        printf("> " RESET "%d" BLU " <", p_node->data);
         p_prev = p_node;
         p_node = p_node->p_next;
     }
 
-    printf("=> " RED "NULL\n" RESET);
+    printf("=> " RESET "NULL\n");
 
     return;
 }

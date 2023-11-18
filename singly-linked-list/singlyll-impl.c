@@ -10,16 +10,12 @@ __attribute__((pure)) int is_empty(struct singly_ll* p_self) {
 void traverse(struct singly_ll* p_self) {
     struct singly_node* p_node = p_self->p_head;
 
-    printf(GRN);
-
     while (p_node) {
-        if (!p_node->p_next) printf(YEL);
-
         printf("%d" BLU " -> " RESET, p_node->data);
         p_node = p_node->p_next;
     }
 
-    printf(RED "NULL\n" RESET);
+    printf("NULL\n" RESET);
 
     return;
 }
